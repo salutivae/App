@@ -1,1078 +1,1460 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salutivae — Estrutura Digital Inteligente</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Salutivae (Saúde Vai) — Saúde em conexão</title>
+  <meta name="description" content="A Salutivae (Saúde Vai) transforma seu atendimento em uma estrutura digital inteligente. Você organiza, acompanha e fortalece a jornada — e o paciente enxerga o processo com clareza." />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Favicon (usa a logo) -->
-  <link rel="icon" href="IMG_9507.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
+    /* =========================
+       RESET
+    ========================== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    /* =========================
+       THEME — Salutivae
+    ========================== */
     :root{
-      --green:#2D6E63;
-      --green-2:#3D8C7E;
-      --green-soft:#EAF3F1;
-      --coral:#E07B5F;
-      --ink:#0F1A18;
-      --ink-2:#22322F;
-      --muted:#5C6F6B;
-      --muted-2:#7E918D;
-      --border:#DCE7E5;
-      --paper:#FFFFFF;
-      --off:#F7FAFA;
+      --bg: #0B1414;
+      --bg2:#0E1C1B;
+      --panel:#0F2221;
+      --panel2:#112827;
+      --line: rgba(255,255,255,.10);
+      --line2: rgba(255,255,255,.14);
 
-      --shadow: 0 24px 60px rgba(15,26,24,.10);
-      --shadow-soft: 0 18px 40px rgba(15,26,24,.08);
-      --radius: 20px;
-      --radius-2: 28px;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.66);
+      --muted2: rgba(255,255,255,.52);
+
+      --teal:#2D6E63;      /* verde/teal */
+      --teal2:#44A59A;
+      --coral:#E07B6F;     /* coral */
+      --cream:#F5F7F7;
+
+      --radius: 18px;
+      --radius2: 26px;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.28);
+
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      --ease: cubic-bezier(.2,.8,.2,1);
     }
 
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    html { scroll-behavior: smooth; background: var(--bg); }
     body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ink);
-      background: radial-gradient(1200px 800px at 20% 10%, rgba(45,110,99,.10), transparent 50%),
-                  radial-gradient(1000px 700px at 80% 0%, rgba(224,123,95,.10), transparent 55%),
-                  var(--paper);
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(900px 700px at 12% 10%, rgba(68,165,154,.18), transparent 60%),
+        radial-gradient(900px 700px at 92% 18%, rgba(224,123,111,.12), transparent 55%),
+        radial-gradient(900px 700px at 40% 95%, rgba(45,110,99,.16), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 35%, #081010 100%);
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    img{ max-width:100%; display:block; }
-
-    /* Container */
+    /* =========================
+       LAYOUT
+    ========================== */
     .container{
-      width:min(1120px, 100%);
-      margin:0 auto;
-      padding:0 24px;
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
     }
 
-    /* NAV */
-    .nav{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      background: rgba(255,255,255,.80);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(45,110,99,.10);
+    .section{
+      padding: 92px 0;
+      position: relative;
     }
-    .nav-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 0;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 200px;
-    }
-    .brand img{
-      width:40px; height:40px;
-      border-radius:14px;
-      box-shadow: 0 8px 20px rgba(15,26,24,.10);
-      background: #fff;
-      object-fit: cover;
-    }
-    .brand .name{
-      display:flex;
-      flex-direction:column;
-      line-height:1.1;
-    }
-    .brand .name strong{
-      font-size:15px;
-      font-weight:600;
-      letter-spacing:-.02em;
-      color:var(--green);
-    }
-    .brand .name span{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:400;
+    @media (max-width: 720px){
+      .container{ width: min(1120px, calc(100% - 32px)); }
+      .section{ padding: 72px 0; }
     }
 
-    .nav-links{
-      display:flex;
-      gap:26px;
-      align-items:center;
-      list-style:none;
-      margin:0;
-      padding:0;
+    /* =========================
+       TOP NAV
+    ========================== */
+    .topbar{
+      position: fixed;
+      inset: 16px 0 auto 0;
+      z-index: 100;
+      pointer-events: none;
     }
-    .nav-links a{
-      font-size:13px;
-      color:var(--muted);
-      font-weight:500;
-      letter-spacing:.01em;
-      position:relative;
-    }
-    .nav-links a::after{
-      content:"";
-      position:absolute;
-      left:0; bottom:-10px;
-      width:0;
-      height:2px;
-      border-radius:2px;
-      background: linear-gradient(90deg, var(--green), rgba(45,110,99,.2));
-      transition: width .22s ease;
-    }
-    .nav-links a:hover{ color:var(--ink); }
-    .nav-links a:hover::after{ width:100%; }
-
-    .nav-actions{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      min-width: 260px;
-      justify-content:flex-end;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
+    .topbar-inner{
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 12px 16px;
-      font-size:13px;
-      font-weight:600;
-      border:1px solid transparent;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
-      cursor:pointer;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .btn:active{ transform: translateY(0); }
-    .btn-primary{
-      background: linear-gradient(180deg, var(--green-2), var(--green));
-      color:white;
-      box-shadow: 0 14px 34px rgba(45,110,99,.25);
-    }
-    .btn-primary:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 18px 44px rgba(45,110,99,.30);
-    }
-    .btn-ghost{
-      background: rgba(255,255,255,.60);
-      color: var(--ink-2);
-      border-color: rgba(220,231,229,.9);
-    }
-    .btn-ghost:hover{
-      border-color: rgba(45,110,99,.35);
-      background: rgba(234,243,241,.65);
-      transform: translateY(-1px);
+      background: rgba(9,16,16,.62);
+      backdrop-filter: blur(16px) saturate(160%);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
 
-    .hamburger{
-      display:none;
-      width:42px;height:42px;
-      border-radius:14px;
-      border:1px solid rgba(220,231,229,.9);
-      background: rgba(255,255,255,.7);
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-    .hamburger span{
-      width:18px;height:2px;border-radius:2px;background:var(--ink-2);
-      position:relative; display:block;
-    }
-    .hamburger span::before,
-    .hamburger span::after{
-      content:"";
-      position:absolute; left:0;
-      width:18px;height:2px;border-radius:2px;background:var(--ink-2);
-    }
-    .hamburger span::before{ top:-6px; }
-    .hamburger span::after{ top:6px; }
-
-    /* HERO */
-    .hero{
-      position:relative;
-      padding: 72px 0 40px;
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 44px;
-      align-items:center;
-      padding: 44px 0 10px;
+    .brand{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding: 6px 8px;
+      border-radius: 999px;
     }
 
-    .badge{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      padding: 10px 14px;
-      border-radius:999px;
-      background: rgba(234,243,241,.8);
-      border:1px solid rgba(45,110,99,.16);
-      color: var(--green);
-      font-weight:600;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      width: fit-content;
-    }
-    .dot{
-      width:8px;height:8px;border-radius:50%;
-      background: var(--coral);
-      box-shadow: 0 0 0 6px rgba(224,123,95,.12);
+    .brand-mark{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background:
+        radial-gradient(12px 12px at 70% 30%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(135deg, rgba(68,165,154,.35), rgba(45,110,99,.10));
+      border: 1px solid rgba(255,255,255,.12);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
     }
 
-    h1{
-      font-family: Fraunces, serif;
-      font-weight: 500;
-      letter-spacing: -.03em;
-      line-height: 1.02;
-      margin: 18px 0 16px;
-      font-size: clamp(38px, 5.5vw, 64px);
-      color: var(--ink);
+    .brand-word{
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
     }
-    .hero-sub{
-      color: var(--muted);
+    .brand-name{
+      font-family: var(--serif);
+      font-weight: 600;
+      letter-spacing: -0.02em;
       font-size: 16px;
-      line-height: 1.7;
-      max-width: 560px;
-      margin: 0 0 22px;
-      font-weight: 400;
     }
-
-    .hero-questions{
-      margin-top: 18px;
-      border:1px solid rgba(220,231,229,.9);
-      border-radius: var(--radius-2);
-      background: rgba(255,255,255,.75);
-      box-shadow: var(--shadow-soft);
-      overflow:hidden;
-    }
-    .q-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:16px 18px;
-      border-bottom:1px solid rgba(220,231,229,.8);
-      background: linear-gradient(180deg, rgba(234,243,241,.7), rgba(255,255,255,.65));
-    }
-    .q-head strong{
-      font-size:13px;
-      color: var(--ink-2);
-      letter-spacing:.01em;
-    }
-    .q-head span{
-      font-size:12px;
-      color: var(--muted-2);
-    }
-    .q-list{
-      padding: 16px 18px 18px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
-    .q{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(220,231,229,.85);
-      background: rgba(255,255,255,.80);
-    }
-    .q .q-ic{
-      width:22px;height:22px;border-radius:8px;
-      display:grid;place-items:center;
-      background: rgba(45,110,99,.10);
-      color: var(--green);
-      flex:0 0 auto;
-      margin-top:2px;
-      font-weight:700;
-      font-size:12px;
-    }
-    .q p{
-      margin:0;
-      color: var(--ink-2);
-      line-height:1.55;
-      font-size: 13px;
-    }
-
-    .hero-ctas{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin-top: 18px;
-    }
-
-    /* Right Visual */
-    .visual{
-      position:relative;
-    }
-    .mock{
-      border-radius: 28px;
-      border: 1px solid rgba(220,231,229,.95);
-      background: rgba(255,255,255,.78);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .mock-top{
-      padding: 14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid rgba(220,231,229,.85);
-      background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(247,250,250,.72));
-    }
-    .mock-top .dots{ display:flex; gap:7px; }
-    .mock-top .dots i{
-      width:10px;height:10px;border-radius:50%;
-      display:inline-block;
-    }
-    .mock-top .dots i:nth-child(1){ background:#FF5F57; }
-    .mock-top .dots i:nth-child(2){ background:#FEBC2E; }
-    .mock-top .dots i:nth-child(3){ background:#28C840; }
-    .mock-top .tag{
-      font-size:12px;
-      color: var(--muted-2);
-      font-weight:600;
-    }
-
-    .mock-body{
-      padding: 18px;
-      display:grid;
-      gap: 12px;
-    }
-    .panel{
-      border-radius: 20px;
-      border: 1px solid rgba(220,231,229,.9);
-      background: rgba(247,250,250,.9);
-      padding: 14px;
-    }
-    .panel .row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-    }
-    .panel h3{
-      margin:0;
-      font-size:14px;
-      color: var(--ink-2);
-      letter-spacing:-.01em;
-    }
-    .pill{
-      font-size:11px;
-      font-weight:700;
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(224,123,95,.12);
-      color: var(--coral);
-      border:1px solid rgba(224,123,95,.22);
-      white-space:nowrap;
-    }
-
-    .kpis{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top: 12px;
-    }
-    .kpi{
-      border-radius: 18px;
-      background: rgba(255,255,255,.88);
-      border:1px solid rgba(220,231,229,.9);
-      padding: 12px;
-    }
-    .kpi small{
-      display:block;
-      color: var(--muted-2);
-      text-transform:uppercase;
-      letter-spacing:.10em;
-      font-weight:700;
-      font-size:10px;
-      margin-bottom: 6px;
-    }
-    .kpi strong{
-      font-family: Fraunces, serif;
-      font-weight: 500;
-      font-size: 28px;
-      letter-spacing:-.02em;
-      color: var(--ink);
-    }
-    .kpi em{
-      font-style:normal;
-      color: var(--muted);
-      font-size:12px;
-      display:block;
+    .brand-slogan{
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted2);
       margin-top: 2px;
     }
 
-    .strip{
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(45,110,99,.10), rgba(45,110,99,.05));
-      border:1px solid rgba(45,110,99,.16);
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .strip .bar{
-      height:8px;
-      border-radius:999px;
-      background: rgba(45,110,99,.18);
-      overflow:hidden;
-      margin-top: 10px;
+    .nav a{
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+      white-space: nowrap;
     }
-    .strip .bar span{
-      display:block;
-      height:100%;
-      width:72%;
-      border-radius:999px;
-      background: linear-gradient(90deg, var(--green), var(--green-2));
-      animation: grow 1.4s ease both;
-    }
-    @keyframes grow{
-      from{ width: 0; }
-      to{ width: 72%; }
+    .nav a:hover{
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+      transform: translateY(-1px);
     }
 
-    /* Sections */
-    section{
-      padding: 84px 0;
-    }
-    .section-head{
-      display:flex;
-      flex-direction:column;
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin-bottom: 26px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -.01em;
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
     }
-    .label{
-      font-size:12px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color: var(--coral);
-      font-weight:700;
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(224,123,111,.95), rgba(224,123,111,.75));
+      color: #0B1414;
+      box-shadow: 0 14px 40px rgba(224,123,111,.18);
     }
-    h2{
-      margin:0;
-      font-family: Fraunces, serif;
-      font-size: clamp(30px, 3.8vw, 46px);
-      letter-spacing:-.03em;
-      line-height:1.1;
-      font-weight: 500;
-      color: var(--ink);
+    .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 18px 60px rgba(224,123,111,.22); }
+    .btn-ghost{
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.12);
+      color: var(--text);
+    }
+    .btn-ghost:hover{ transform: translateY(-2px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+
+    .nav-compact{ display: none; }
+    @media (max-width: 920px){
+      .nav a.navlink{ display: none; }
+      .nav-compact{ display: inline-flex; }
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+    .hero{
+      padding-top: 110px;
+      padding-bottom: 76px;
+    }
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 34px;
+      align-items: center;
+    }
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; gap: 22px; }
+    }
+
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.78);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .dot{
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 6px rgba(224,123,111,.12);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); opacity: 1; }
+      50%{ transform: scale(1.25); opacity: .72; }
+    }
+
+    .h1{
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(36px, 4.8vw, 56px);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px 0;
+    }
+    .h1 em{
+      font-style: italic;
+      color: rgba(126, 231, 218, .92);
     }
     .lead{
-      margin:0;
+      margin: 0;
       color: var(--muted);
-      line-height:1.7;
       font-size: 16px;
-      max-width: 740px;
+      line-height: 1.7;
+      max-width: 52ch;
     }
 
-    /* ABOUT (o que é) */
-    .about-wrap{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      align-items:stretch;
+    .hero-ctas{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
       margin-top: 22px;
     }
-    .about-card{
-      border-radius: var(--radius-2);
-      border:1px solid rgba(220,231,229,.95);
-      background: rgba(255,255,255,.80);
-      box-shadow: var(--shadow-soft);
-      padding: 22px;
-    }
-    .about-card h3{
-      margin:0 0 8px;
-      font-size: 16px;
-      letter-spacing:-.01em;
-      color: var(--ink-2);
-    }
-    .about-card p{
-      margin:0;
-      color: var(--muted);
-      line-height:1.7;
-      font-size: 14px;
-    }
-    .quote{
-      margin-top: 16px;
-      padding: 14px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(45,110,99,.16);
-      background: rgba(234,243,241,.65);
-      color: var(--green);
-      font-weight:600;
-      line-height:1.6;
-      font-size: 13px;
+
+    .micro{
+      margin-top: 12px;
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.6;
     }
 
-    /* Features (biblioteca) */
-    .features{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      margin-top: 24px;
+    /* =========================
+       PREMIUM MOCK (no images)
+    ========================== */
+    .mock{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(800px 500px at 30% 20%, rgba(68,165,154,.18), transparent 55%),
+        radial-gradient(700px 450px at 80% 60%, rgba(224,123,111,.12), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
     }
-    .feature{
-      grid-column: span 6;
-      border-radius: var(--radius-2);
-      border:1px solid rgba(220,231,229,.95);
-      background: rgba(255,255,255,.82);
-      box-shadow: var(--shadow-soft);
-      padding: 20px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+
+    .mock-top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(9,16,16,.35);
     }
-    .feature:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 26px 70px rgba(15,26,24,.12);
-      border-color: rgba(45,110,99,.25);
+    .mock-dots{ display: flex; gap: 7px; }
+    .mock-dots span{ width: 10px; height: 10px; border-radius: 50%; opacity: .95; }
+    .mock-dots .r{ background:#ff5f57; }
+    .mock-dots .y{ background:#febc2e; }
+    .mock-dots .g{ background:#28c840; }
+    .mock-title{
+      font-weight: 700;
+      font-size: 12px;
+      color: rgba(255,255,255,.72);
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
-    .feature::before{
-      content:"";
-      position:absolute;
-      inset:-80px -120px auto auto;
-      width:220px; height:220px;
-      background: radial-gradient(circle, rgba(45,110,99,.16), transparent 62%);
-      transform: rotate(20deg);
-      pointer-events:none;
+
+    .mock-body{
+      padding: 16px;
+      display: grid;
+      gap: 12px;
     }
-    .feature .top{
+
+    .kpi-row{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .kpi{
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .kpi small{
+      display:block;
+      color: rgba(255,255,255,.62);
+      font-weight: 700;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+    .kpi strong{
+      display:flex;
+      align-items: baseline;
+      gap: 8px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 30px;
+      letter-spacing: -0.02em;
+    }
+    .kpi strong span{
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: 11px;
+      color: rgba(126,231,218,.9);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .bar{
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .bar-head{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 10px;
+      gap:10px;
+      color: rgba(255,255,255,.72);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .bar-track{
+      margin-top: 10px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      overflow: hidden;
+    }
+    .bar-fill{
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(68,165,154,.95), rgba(126,231,218,.85));
+      width: 72%;
+    }
+
+    .agenda{
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(224,123,111,.22);
+      background: rgba(224,123,111,.07);
+    }
+    .agenda small{
+      display:block;
+      color: rgba(224,123,111,.9);
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 11px;
       margin-bottom: 10px;
     }
-    .ic{
-      width:42px;height:42px;border-radius:16px;
-      display:grid;place-items:center;
-      background: rgba(45,110,99,.10);
-      border:1px solid rgba(45,110,99,.16);
-      color: var(--green);
-      font-weight:800;
+    .agenda-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.74);
+      font-size: 13px;
     }
-    .feature h3{
-      margin:0;
-      font-size:16px;
-      letter-spacing:-.01em;
-      color: var(--ink-2);
+    .agenda-item:first-of-type{ border-top: none; padding-top: 0; }
+    .pill{
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.78);
+      white-space: nowrap;
     }
-    .feature p{
+
+    /* =========================
+       HEADERS / KICKERS
+    ========================== */
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(224,123,111,.9);
+      margin-bottom: 12px;
+    }
+    .kicker .line{
+      width: 34px;
+      height: 1px;
+      background: rgba(224,123,111,.6);
+    }
+
+    .h2{
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin: 0 0 10px 0;
+    }
+
+    .sub{
       margin: 0;
       color: var(--muted);
-      line-height:1.7;
-      font-size: 14px;
-      max-width: 520px;
-    }
-    .mini{
-      margin-top: 12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .chip{
-      font-size: 12px;
-      color: var(--ink-2);
-      background: rgba(247,250,250,.95);
-      border: 1px solid rgba(220,231,229,.95);
-      border-radius:999px;
-      padding: 8px 10px;
-      font-weight:600;
+      font-size: 16px;
+      line-height: 1.75;
+      max-width: 70ch;
     }
 
-    /* Perception / authority block */
-    .authority{
-      background: linear-gradient(180deg, rgba(247,250,250,.9), rgba(255,255,255,.7));
-      border-top: 1px solid rgba(220,231,229,.8);
-      border-bottom: 1px solid rgba(220,231,229,.8);
-    }
-    .auth-grid{
+    /* =========================
+       QUESTIONS (more visual, less text)
+    ========================== */
+    .qgrid{
+      margin-top: 26px;
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 22px;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .qcard{
+      grid-column: span 4;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow:hidden;
+      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+    }
+    .qcard::before{
+      content:"";
+      position:absolute;
+      inset: -2px -2px auto -2px;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(68,165,154,.95), rgba(224,123,111,.85), transparent);
+      opacity: .0;
+      transition: opacity .25s var(--ease);
+    }
+    .qcard:hover{ transform: translateY(-3px); background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.18); }
+    .qcard:hover::before{ opacity: 1; }
+
+    .qtop{
+      display:flex;
       align-items:center;
-      margin-top: 24px;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 10px;
     }
-    .auth-card{
-      border-radius: var(--radius-2);
-      border:1px solid rgba(220,231,229,.95);
-      background: rgba(255,255,255,.82);
-      box-shadow: var(--shadow-soft);
-      padding: 22px;
+    .qnum{
+      font-family: var(--serif);
+      font-size: 16px;
+      color: rgba(224,123,111,.92);
+      letter-spacing: .02em;
     }
-    .auth-card ul{
-      margin: 12px 0 0;
-      padding: 0;
-      list-style:none;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
+    .qicon{
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: rgba(68,165,154,.14);
+      border: 1px solid rgba(68,165,154,.22);
+      display:grid;
+      place-items:center;
     }
-    .auth-card li{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      color: var(--muted);
-      line-height:1.6;
-      font-size:14px;
+    .qtext{
+      margin: 0;
+      color: rgba(255,255,255,.78);
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.5;
+      letter-spacing: -.01em;
     }
-    .check{
-      width:22px;height:22px;border-radius:8px;
-      display:grid;place-items:center;
-      background: rgba(45,110,99,.10);
-      color: var(--green);
-      border:1px solid rgba(45,110,99,.18);
-      flex:0 0 auto;
-      margin-top:2px;
-      font-weight:900;
-      font-size:12px;
+    @media (max-width: 980px){
+      .qcard{ grid-column: span 6; }
+    }
+    @media (max-width: 600px){
+      .qcard{ grid-column: span 12; }
     }
 
-    .signature{
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(45,110,99,.95), rgba(45,110,99,.88));
-      color: rgba(255,255,255,.92);
-      padding: 22px;
-      box-shadow: 0 30px 80px rgba(45,110,99,.22);
-      border: 1px solid rgba(255,255,255,.10);
+    .qclose{
+      margin-top: 18px;
+      padding: 18px 18px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(9,16,16,.35);
+      color: rgba(255,255,255,.78);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.55;
     }
-    .signature h3{
-      margin:0 0 8px;
-      font-family: Fraunces, serif;
-      font-weight:500;
-      letter-spacing:-.02em;
-      font-size: 24px;
-    }
-    .signature p{
-      margin:0;
-      color: rgba(255,255,255,.75);
-      line-height:1.7;
-      font-size:14px;
-    }
+    .qclose strong{ font-style: normal; color: rgba(255,255,255,.92); font-weight: 400; }
 
-    /* For who */
-    .for-grid{
-      margin-top: 24px;
+    /* =========================
+       PLATFORM (3 pillars)
+    ========================== */
+    .pgrid{
+      margin-top: 26px;
       display:grid;
       grid-template-columns: repeat(12, 1fr);
       gap: 14px;
     }
-    .for{
+    .pcard{
       grid-column: span 4;
-      border-radius: var(--radius-2);
-      border:1px solid rgba(220,231,229,.95);
-      background: rgba(255,255,255,.82);
-      box-shadow: var(--shadow-soft);
-      padding: 20px;
-    }
-    .for h3{
-      margin:0 0 8px;
-      font-size: 15px;
-      letter-spacing:-.01em;
-      color: var(--ink-2);
-    }
-    .for p{
-      margin:0;
-      color: var(--muted);
-      line-height:1.7;
-      font-size: 14px;
-    }
-
-    /* Waitlist */
-    .wait{
-      padding: 92px 0;
-      background: linear-gradient(180deg, rgba(45,110,99,.98), rgba(45,110,99,.90));
-      color: white;
-      position:relative;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(10,20,20,.08);
+      background: var(--cream);
+      color: #0B1414;
+      padding: 22px 20px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.10);
+      position: relative;
       overflow:hidden;
     }
-    .wait::before{
+    .pcard::after{
       content:"";
       position:absolute;
-      width:720px;height:720px;
-      border-radius:50%;
-      left:-260px; top:-340px;
-      background: radial-gradient(circle, rgba(255,255,255,.14), transparent 60%);
+      inset:auto 0 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(45,110,99,.95), rgba(224,123,111,.9), transparent);
+      opacity: .85;
     }
-    .wait::after{
-      content:"";
-      position:absolute;
-      width:620px;height:620px;
-      border-radius:50%;
-      right:-260px; bottom:-340px;
-      background: radial-gradient(circle, rgba(224,123,95,.18), transparent 62%);
-    }
-    .wait-grid{
-      position:relative;
-      z-index:1;
+    .pletter{
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 22px;
-      align-items:start;
+      place-items:center;
+      font-family: var(--serif);
+      font-size: 22px;
+      background: rgba(45,110,99,.10);
+      border: 1px solid rgba(45,110,99,.18);
+      color: rgba(45,110,99,.95);
+      margin-bottom: 12px;
     }
-    .wait h2{
-      color:white;
+    .pcard h3{
+      font-family: var(--serif);
+      font-weight: 400;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      font-size: 18px;
     }
-    .wait .lead{
-      color: rgba(255,255,255,.78);
-      max-width: 640px;
+    .pcard p{
+      margin: 0;
+      color: rgba(10,20,20,.78);
+      font-size: 14px;
+      line-height: 1.7;
     }
-    .offer{
-      margin-top: 16px;
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
+    @media (max-width: 980px){
+      .pcard{ grid-column: span 6; }
     }
-    .offer .chip{
-      color: rgba(255,255,255,.90);
-      background: rgba(255,255,255,.08);
-      border-color: rgba(255,255,255,.14);
+    @media (max-width: 600px){
+      .pcard{ grid-column: span 12; }
     }
 
-    .form{
-      border-radius: var(--radius-2);
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.10);
-      box-shadow: 0 26px 80px rgba(0,0,0,.18);
+    /* =========================
+       FEATURES (cards + chips)
+    ========================== */
+    .fgrid{
+      margin-top: 26px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .fcard{
+      grid-column: span 4;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 18px 18px 16px;
+      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+      position: relative;
+      overflow:hidden;
+    }
+    .fcard:hover{ transform: translateY(-3px); background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.18); }
+    .fic{
+      width: 44px; height: 44px;
+      border-radius: 18px;
+      display:grid;
+      place-items:center;
+      background: rgba(68,165,154,.14);
+      border: 1px solid rgba(68,165,154,.22);
+      margin-bottom: 12px;
+    }
+    .fcard h3{
+      margin: 0 0 8px 0;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -.01em;
+    }
+    .fcard p{
+      margin: 0 0 12px 0;
+      color: rgba(255,255,255,.70);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .chips{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.72);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .chip i{
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(126,231,218,.9);
+      display:inline-block;
+    }
+
+    .fcard.accent{
+      border-color: rgba(224,123,111,.22);
+      background: rgba(224,123,111,.06);
+    }
+    .fcard.accent .fic{
+      background: rgba(224,123,111,.14);
+      border-color: rgba(224,123,111,.22);
+    }
+    .fcard.accent .chip i{ background: rgba(224,123,111,.9); }
+
+    @media (max-width: 980px){
+      .fcard{ grid-column: span 6; }
+    }
+    @media (max-width: 600px){
+      .fcard{ grid-column: span 12; }
+    }
+
+    /* =========================
+       FOR WHO
+    ========================== */
+    .whogrid{
+      margin-top: 26px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .whocard{
+      grid-column: span 4;
+      border-radius: var(--radius2);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .whocard strong{
+      display:block;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -.01em;
+      margin-bottom: 6px;
+    }
+    .whocard p{
+      margin: 0;
+      color: rgba(255,255,255,.70);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .whocard.teal{ background: rgba(68,165,154,.10); border-color: rgba(68,165,154,.22); }
+    .whocard.coral{ background: rgba(224,123,111,.08); border-color: rgba(224,123,111,.22); }
+
+    @media (max-width: 980px){
+      .whocard{ grid-column: span 6; }
+    }
+    @media (max-width: 600px){
+      .whocard{ grid-column: span 12; }
+    }
+
+    /* =========================
+       WAITLIST
+    ========================== */
+    .waitwrap{
+      margin-top: 26px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .waitwrap{ grid-template-columns: 1fr; }
+    }
+
+    .perks{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(10,20,20,.10);
+      background: var(--cream);
+      color: #0B1414;
+      padding: 18px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.10);
+    }
+    .perks h3{
+      font-family: var(--serif);
+      font-weight: 400;
+      margin: 0 0 12px 0;
+      letter-spacing: -.02em;
+      font-size: 20px;
+    }
+    .perklist{
+      display:grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .perklist li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(10,20,20,.78);
+    }
+    .perklist b{ color: rgba(10,20,20,.92); }
+    .perkdot{
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 6px rgba(224,123,111,.12);
+      margin-top: 4px;
+      flex: 0 0 auto;
+    }
+
+    .formcard{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
       padding: 18px;
     }
     .field{
-      display:flex;
-      flex-direction:column;
+      display:grid;
       gap: 8px;
       margin-bottom: 12px;
     }
-    .field label{
+    label{
+      font-weight: 900;
       font-size: 12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:800;
-      color: rgba(255,255,255,.75);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: rgba(126,231,218,.85);
     }
-    .field input, .field select{
-      height: 46px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.10);
-      color:white;
-      padding: 0 14px;
-      outline:none;
-      font-size: 14px;
-      font-weight:500;
+    input, select{
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(9,16,16,.35);
+      color: var(--text);
+      padding: 14px 14px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
     }
-    .field input::placeholder{
-      color: rgba(255,255,255,.55);
+    input:focus, select:focus{
+      border-color: rgba(126,231,218,.55);
+      box-shadow: 0 0 0 4px rgba(68,165,154,.18);
+      background: rgba(9,16,16,.48);
     }
-    .field input:focus, .field select:focus{
-      border-color: rgba(255,255,255,.42);
-      box-shadow: 0 0 0 4px rgba(255,255,255,.10);
-    }
+    ::placeholder{ color: rgba(255,255,255,.42); }
 
-    .form .btn-primary{
-      width:100%;
-      padding: 14px 16px;
-      font-size: 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,250,250,.88));
-      color: var(--green);
-      box-shadow: 0 18px 44px rgba(0,0,0,.18);
-    }
-    .form .btn-primary:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 22px 54px rgba(0,0,0,.22);
-    }
-
-    .note{
-      margin-top: 10px;
-      color: rgba(255,255,255,.70);
+    .formnote{
+      margin: 10px 0 0 0;
+      color: rgba(255,255,255,.58);
       font-size: 12px;
-      line-height:1.6;
+      line-height: 1.55;
     }
-
     .success{
       display:none;
-      border-radius: var(--radius-2);
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.12);
-      padding: 18px;
       margin-top: 12px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(68,165,154,.22);
+      background: rgba(68,165,154,.10);
+      padding: 14px;
+      color: rgba(255,255,255,.82);
     }
-    .success strong{
-      display:block;
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-    .success span{
-      color: rgba(255,255,255,.75);
-      font-size: 13px;
-      line-height:1.6;
-    }
+    .success strong{ display:block; font-size: 14px; margin-bottom: 4px; }
+    .success small{ color: rgba(255,255,255,.66); }
 
-    /* Footer */
+    /* =========================
+       FOOTER
+    ========================== */
     footer{
-      padding: 40px 0;
-      border-top: 1px solid rgba(220,231,229,.9);
-      background: rgba(255,255,255,.75);
+      padding: 36px 0 60px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: rgba(9,16,16,.35);
     }
     .foot{
       display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 16px;
-      flex-wrap:wrap;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: space-between;
     }
-    .foot small{
-      color: var(--muted-2);
-      line-height:1.6;
+    .footcol{
+      min-width: 220px;
     }
-    .foot .links{
+    .footsmall{
+      margin: 8px 0 0 0;
+      color: rgba(255,255,255,.60);
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 46ch;
+    }
+    .footlinks{
       display:flex;
-      gap: 16px;
-      flex-wrap:wrap;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footlinks a{
+      text-decoration: none;
+      color: rgba(255,255,255,.72);
+      font-weight: 700;
+      font-size: 13px;
+      opacity: .9;
+    }
+    .footlinks a:hover{ opacity: 1; color: rgba(255,255,255,.92); }
+    .social{
+      display:inline-flex;
       align-items:center;
-    }
-    .foot .links a{
+      gap: 10px;
+      text-decoration:none;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.80);
+      font-weight: 800;
       font-size: 13px;
-      color: var(--muted);
-      font-weight:600;
+      width: fit-content;
     }
-    .foot .links a:hover{ color: var(--ink); }
-
-    /* Reveal */
-    .reveal{
-      opacity:0;
-      transform: translateY(20px);
-      transition: opacity .75s ease, transform .75s ease;
-    }
-    .reveal.visible{
-      opacity:1;
-      transform: translateY(0);
+    .social:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+    .copyright{
+      margin-top: 18px;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+      line-height: 1.5;
     }
 
-    /* Mobile */
-    @media (max-width: 980px){
-      .hero-grid, .about-wrap, .auth-grid, .wait-grid{ grid-template-columns: 1fr; }
-      .nav-links{ display:none; }
-      .hamburger{ display:flex; }
-      .nav-actions{ min-width:auto; }
-      .feature{ grid-column: span 12; }
-      .for{ grid-column: span 12; }
-      .hero{ padding-top: 40px; }
-      .hero-grid{ padding-top: 22px; }
-    }
+    /* =========================
+       REVEAL
+    ========================== */
+    .reveal{ opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.on{ opacity: 1; transform: translateY(0); }
 
-    @media (max-width: 520px){
-      .btn{ width:100%; }
-      .nav-actions{ gap:8px; }
-      .nav-actions .btn{ padding: 12px 12px; }
+    /* =========================
+       ACCESSIBILITY
+    ========================== */
+    .skip{
+      position:absolute;
+      left: -9999px;
+      top: 0;
+      background: #fff;
+      color: #000;
+      padding: 10px 12px;
+      border-radius: 10px;
+      z-index: 9999;
     }
-
-    /* Mobile menu panel */
-    .mobile-menu{
-      display:none;
-      border-top: 1px solid rgba(220,231,229,.9);
-      background: rgba(255,255,255,.92);
-      padding: 12px 0;
-    }
-    .mobile-menu a{
-      display:block;
-      padding: 12px 24px;
-      color: var(--ink-2);
-      font-weight:700;
-      font-size: 13px;
-    }
-    .mobile-menu a:hover{
-      background: rgba(234,243,241,.65);
-    }
+    .skip:focus{ left: 12px; top: 12px; }
   </style>
 </head>
 
 <body>
+  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
-  <!-- NAV -->
-  <div class="nav">
+  <!-- TOP NAV -->
+  <div class="topbar" aria-hidden="false">
     <div class="container">
-      <div class="nav-inner">
-        <a class="brand" href="#top" aria-label="Salutivae">
-          <img src="IMG_9507.png" alt="Logo Salutivae" />
-          <div class="name">
-            <strong>Salutivae</strong>
-            <span>Saúde em conexão</span>
+      <div class="topbar-inner">
+        <a class="brand" href="#inicio" aria-label="Ir para o início">
+          <div class="brand-mark" aria-hidden="true">
+            <!-- Ícone simples (substitui imagem; você pode trocar pelo seu logo depois) -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 21s-7-4.6-9.4-9A5.8 5.8 0 0 1 12 5.6a5.8 5.8 0 0 1 9.4 6.4C19 16.4 12 21 12 21Z"
+                    stroke="rgba(224,123,111,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8.2 12.1h2.2l1.2-2.4 1.4 4.8 1-2.4h2.2"
+                    stroke="rgba(126,231,218,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="brand-word">
+            <div class="brand-name">Salutivae</div>
+            <div class="brand-slogan">Saúde em conexão</div>
           </div>
         </a>
 
-        <ul class="nav-links">
-          <li><a href="#plataforma">A plataforma</a></li>
-          <li><a href="#recursos">Recursos</a></li>
-          <li><a href="#para-quem">Para quem é</a></li>
-          <li><a href="#lista">Lista de espera</a></li>
-        </ul>
-
-        <div class="nav-actions">
-          <a class="btn btn-ghost" href="#plataforma">Conhecer a plataforma</a>
-          <a class="btn btn-primary" href="#lista">Entrar na lista de espera</a>
-          <button class="hamburger" id="hamburger" aria-label="Abrir menu">
-            <span></span>
-          </button>
-        </div>
+        <nav class="nav" aria-label="Navegação principal">
+          <a class="navlink" href="#plataforma">Plataforma</a>
+          <a class="navlink" href="#recursos">Recursos</a>
+          <a class="navlink" href="#paraquem">Para quem</a>
+          <a class="nav-compact btn btn-ghost" href="#recursos">Ver recursos</a>
+          <a class="btn btn-primary" href="#lista">Entrar na lista</a>
+        </nav>
       </div>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#plataforma">A plataforma</a>
-      <a href="#recursos">Recursos</a>
-      <a href="#para-quem">Para quem é</a>
-      <a href="#lista">Lista de espera</a>
     </div>
   </div>
 
-  <!-- HERO -->
-  <div id="top" class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="reveal">
-          <div class="badge">
-            <span class="dot"></span>
-            PRÉ-LANÇAMENTO · VAGAS LIMITADAS
-          </div>
-
-          <h1>E se seu atendimento não terminasse quando a consulta acaba?</h1>
-
-          <p class="hero-sub">
-            A Salutivae transforma seu atendimento em uma estrutura digital inteligente.
-            Você organiza, acompanha e fortalece a jornada — e o paciente enxerga o processo com clareza.
-          </p>
-
-          <div class="hero-ctas">
-            <a class="btn btn-primary" href="#lista">Entrar na lista de espera</a>
-            <a class="btn btn-ghost" href="#plataforma">Conhecer a plataforma</a>
-          </div>
-
-          <div class="hero-questions reveal" style="margin-top:18px;">
-            <div class="q-head">
-              <strong>Imagine se…</strong>
-              <span>do jeito que o profissional entende</span>
+  <!-- CONTENT -->
+  <main id="conteudo">
+    <!-- HERO -->
+    <section id="inicio" class="section hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="reveal">
+            <div class="badge">
+              <span class="dot" aria-hidden="true"></span>
+              PRÉ-LANÇAMENTO • VAGAS LIMITADAS
             </div>
 
-            <div class="q-list">
-              <div class="q">
-                <div class="q-ic">?</div>
-                <p>…se seu paciente tivesse acesso ao seu consultório 24 horas dentro de um aplicativo?</p>
-              </div>
-              <div class="q">
-                <div class="q-ic">?</div>
-                <p>…se você acompanhasse evolução, protocolos e histórico em um só lugar — com clareza visual?</p>
-              </div>
-              <div class="q">
-                <div class="q-ic">?</div>
-                <p>…se você tivesse controle de quem está há muito tempo sem retorno, sem deixar ninguém “esfriar”?</p>
-              </div>
-              <div class="q">
-                <div class="q-ic">?</div>
-                <p>…se você pudesse conversar com o paciente dentro do contexto do atendimento — no chat do app?</p>
-              </div>
-              <div class="q">
-                <div class="q-ic">?</div>
-                <p>…se o paciente solicitasse horários dentro da disponibilidade que você definiu — com previsibilidade?</p>
-              </div>
-            </div>
-          </div>
-        </div>
+            <h1 class="h1">
+              E se seu atendimento não terminasse<br />
+              <em>quando a consulta acaba?</em>
+            </h1>
 
-        <!-- Visual mock -->
-        <div class="visual reveal">
-          <div class="mock">
+            <p class="lead">
+              A <strong>Salutivae (Saúde Vai)</strong> transforma seu atendimento em uma estrutura digital inteligente.
+              Você organiza, acompanha e fortalece a jornada — e o paciente enxerga o processo com clareza.
+            </p>
+
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="#lista">Entrar na lista de espera</a>
+              <a class="btn btn-ghost" href="#plataforma">Conhecer a plataforma</a>
+            </div>
+
+            <p class="micro">Sem compromisso — você decide se quer avançar quando chegar a hora.</p>
+          </div>
+
+          <div class="mock reveal" aria-label="Prévia visual do painel (simulação)">
             <div class="mock-top">
-              <div class="dots"><i></i><i></i><i></i></div>
-              <div class="tag">Visão do profissional</div>
+              <div class="mock-dots" aria-hidden="true">
+                <span class="r"></span><span class="y"></span><span class="g"></span>
+              </div>
+              <div class="mock-title">Painel do Profissional</div>
+              <span class="pill" aria-hidden="true">Experiência premium</span>
             </div>
 
             <div class="mock-body">
-              <div class="panel">
-                <div class="row">
-                  <h3>Paciente · acompanhamento ativo</h3>
-                  <span class="pill">Precisa de atenção</span>
+              <div class="kpi-row">
+                <div class="kpi">
+                  <small>Pacientes</small>
+                  <strong>48 <span>ativos</span></strong>
                 </div>
-                <div class="kpis">
-                  <div class="kpi">
-                    <small>Evolução</small>
-                    <strong>72%</strong>
-                    <em>Semanas concluídas</em>
-                  </div>
-                  <div class="kpi">
-                    <small>Retorno</small>
-                    <strong>3</strong>
-                    <em>Pendentes no mês</em>
-                  </div>
-                </div>
-
-                <div class="strip">
-                  <div style="display:flex;justify-content:space-between;gap:10px;">
-                    <div style="font-size:12px;font-weight:700;color:var(--green);">Jornada do paciente</div>
-                    <div style="font-size:12px;color:var(--muted);font-weight:600;">Semana 6 de 8</div>
-                  </div>
-                  <div class="bar"><span></span></div>
-                  <div style="display:flex;justify-content:space-between;margin-top:8px;">
-                    <span style="font-size:12px;color:var(--green);font-weight:700;">Em progresso</span>
-                    <span style="font-size:12px;color:var(--muted-2);font-weight:600;">com clareza visual</span>
-                  </div>
+                <div class="kpi">
+                  <small>Adesão</small>
+                  <strong>87 <span>%</span></strong>
                 </div>
               </div>
 
-              <div class="panel">
-                <div class="row">
-                  <h3>Comunicação dentro do contexto</h3>
-                  <span class="pill" style="background:rgba(45,110,99,.10);color:var(--green);border-color:rgba(45,110,99,.18);">Chat interno</span>
+              <div class="bar" aria-hidden="true">
+                <div class="bar-head">
+                  <span>Evolução — Semana</span>
+                  <span style="color: rgba(126,231,218,.92); font-weight: 900;">72%</span>
                 </div>
-                <div style="margin-top:12px;display:grid;gap:10px;">
-                  <div style="border:1px solid rgba(220,231,229,.9);background:rgba(255,255,255,.85);border-radius:16px;padding:12px;font-size:13px;color:var(--muted);line-height:1.6;">
-                    “Doutora, consegui seguir a orientação dessa semana.”
-                  </div>
-                  <div style="border:1px solid rgba(45,110,99,.16);background:rgba(234,243,241,.65);border-radius:16px;padding:12px;font-size:13px;color:var(--green);line-height:1.6;font-weight:600;">
-                    “Perfeito. Já atualizei sua evolução e você consegue ver seu progresso no app.”
-                  </div>
+                <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
+              </div>
+
+              <div class="bar" aria-hidden="true">
+                <div class="bar-head">
+                  <span>Retornos em dia</span>
+                  <span style="color: rgba(126,231,218,.92); font-weight: 900;">91%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:91%"></div></div>
+              </div>
+
+              <div class="agenda">
+                <small>Agenda — Hoje</small>
+                <div class="agenda-item">
+                  <span>09:00 • Ana Ferreira</span>
+                  <span class="pill">Retorno</span>
+                </div>
+                <div class="agenda-item">
+                  <span>10:30 • Carlos Melo</span>
+                  <span class="pill">1ª consulta</span>
+                </div>
+                <div class="agenda-item">
+                  <span>14:00 • Patrícia Lima</span>
+                  <span class="pill">Vídeo</span>
                 </div>
               </div>
 
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
+    <!-- PERGUNTAS -->
+    <section id="perguntas" class="section">
+      <div class="container">
+        <div class="reveal">
+          <div class="kicker"><span class="line" aria-hidden="true"></span> Reflexão</div>
+          <h2 class="h2">Perguntas que mudam<br/>o jeito de atender</h2>
+          <p class="sub">Menos esforço para “segurar” o paciente. Mais estrutura para manter continuidade com clareza.</p>
+        </div>
+
+        <div class="qgrid">
+          <article class="qcard reveal">
+            <div class="qtop">
+              <div class="qnum">01</div>
+              <div class="qicon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 8v4l3 2" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+                </svg>
+              </div>
+            </div>
+            <p class="qtext">E se seu atendimento <strong>não terminasse</strong> quando a consulta acaba?</p>
+          </article>
+
+          <article class="qcard reveal">
+            <div class="qtop">
+              <div class="qnum">02</div>
+              <div class="qicon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 19V5" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M8 17l3-3 3 2 6-7" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <p class="qtext">E se você acompanhasse a evolução com <strong>clareza visual</strong>?</p>
+          </article>
+
+          <article class="qcard reveal">
+            <div class="qtop">
+              <div class="qnum">03</div>
+              <div class="qicon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3v18" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M3 12h18" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <p class="qtext">E se você tivesse controle de quem está sem retorno — <strong>sem perder ninguém</strong>?</p>
+          </article>
+
+          <article class="qcard reveal">
+            <div class="qtop">
+              <div class="qnum">04</div>
+              <div class="qicon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 7h10" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M7 12h6" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M7 17h10" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <p class="qtext">E se seus pacientes <strong>não “esfriassem”</strong> entre uma consulta e outra?</p>
+          </article>
+
+          <article class="qcard reveal">
+            <div class="qtop">
+              <div class="qnum">05</div>
+              <div class="qicon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z"
+                        stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <p class="qtext">E se você tivesse um <strong>chat dentro do atendimento</strong>, com contexto?</p>
+          </article>
+
+          <article class="qcard reveal">
+            <div class="qtop">
+              <div class="qnum">06</div>
+              <div class="qicon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 3v4" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M17 3v4" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M4 7h16" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M6 11h6" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Z"
+                        stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <p class="qtext">E se sua agenda virasse uma <strong>experiência organizada</strong> e previsível?</p>
+          </article>
+        </div>
+
+        <div class="qclose reveal">
+          A Salutivae (Saúde Vai) nasce para transformar atendimento em estrutura:
+          <strong>clareza, continuidade e percepção premium.</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLATAFORMA -->
+    <section id="plataforma" class="section">
+      <div class="container">
+        <div class="reveal">
+          <div class="kicker" style="color: rgba(68,165,154,.95);"><span class="line" aria-hidden="true" style="background: rgba(68,165,154,.65);"></span> A plataforma</div>
+          <h2 class="h2">O que é a Salutivae (Saúde Vai)?</h2>
+          <p class="sub">
+            Um aplicativo digital inteligente que transforma o atendimento em uma estrutura contínua.
+            Ele amplia a autoridade do profissional e oferece ao paciente clareza sobre a própria evolução — em um ambiente organizado, estratégico e visual.
+          </p>
+        </div>
+
+        <div class="pgrid">
+          <article class="pcard reveal">
+            <div class="pletter">A</div>
+            <h3>“Quando o paciente enxerga a evolução, ele permanece.”</h3>
+            <p>Clareza gera confiança. Confiança gera permanência. Permanência sustenta resultados e valorização.</p>
+          </article>
+
+          <article class="pcard reveal">
+            <div class="pletter">B</div>
+            <h3>“Quando o profissional tem estrutura, ele cresce.”</h3>
+            <p>A forma como você organiza muda a percepção. Método e seriedade aumentam valorização.</p>
+          </article>
+
+          <article class="pcard reveal">
+            <div class="pletter">C</div>
+            <h3>“Plataforma com sua identidade.”</h3>
+            <p>Você conduz. Você organiza. Você acompanha. O paciente acessa apenas o que você disponibiliza, quando você disponibiliza.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECURSOS -->
+    <section id="recursos" class="section">
+      <div class="container">
+        <div class="reveal">
+          <div class="kicker"><span class="line" aria-hidden="true"></span> Recursos</div>
+          <h2 class="h2">Uma estrutura pensada para<br/>fortalecer o seu atendimento</h2>
+          <p class="sub">A Saúde Vai nasce para facilitar sua rotina, organizar processos e fortalecer a relação com pacientes de forma simples, clara e contínua.</p>
+        </div>
+
+        <div class="fgrid">
+          <article class="fcard reveal">
+            <div class="fic" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M7 3v4M17 3v4M4 7h16" stroke="rgba(255,255,255,.65)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 11h6" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5Z" stroke="rgba(255,255,255,.65)" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Agenda inteligente</h3>
+            <p>Organize disponibilidade e permita solicitações dentro do que você definiu. Visão clara de atendimentos e retornos.</p>
+            <div class="chips">
+              <span class="chip"><i></i> Previsibilidade</span>
+              <span class="chip"><i></i> Retornos</span>
+              <span class="chip"><i></i> Rotina organizada</span>
+            </div>
+          </article>
+
+          <article class="fcard reveal">
+            <div class="fic" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Chat interno</h3>
+            <p>Espaço direto com o paciente para conversas no contexto do atendimento.</p>
+            <div class="chips">
+              <span class="chip"><i></i> Contexto</span>
+              <span class="chip"><i></i> Acompanhamento</span>
+              <span class="chip"><i></i> Jornada contínua</span>
+            </div>
+          </article>
+
+          <article class="fcard reveal">
+            <div class="fic" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 19V5" stroke="rgba(255,255,255,.65)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 15l3-3 3 2 6-7" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Protocolos &amp; evolução</h3>
+            <p>Registre orientações, organize exames e permita acompanhamento com clareza — inclusive com gráficos quando disponível.</p>
+            <div class="chips">
+              <span class="chip"><i></i> Clareza visual</span>
+              <span class="chip"><i></i> Exames</span>
+              <span class="chip"><i></i> Evolução acompanhável</span>
+            </div>
+          </article>
+
+          <article class="fcard reveal">
+            <div class="fic" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M10 16l6-4-6-4v8Z" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7Z" stroke="rgba(255,255,255,.65)" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Vídeo integrado</h3>
+            <p>Consultas por vídeo com acesso ao histórico do paciente durante o atendimento.</p>
+            <div class="chips">
+              <span class="chip"><i></i> Atendimento</span>
+              <span class="chip"><i></i> Histórico</span>
+              <span class="chip"><i></i> Mais fluidez</span>
+            </div>
+          </article>
+
+          <article class="fcard reveal">
+            <div class="fic" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="rgba(255,255,255,.65)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" stroke="rgba(126,231,218,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Biblioteca profissional</h3>
+            <p>Protocolos educacionais, materiais complementares e orientações personalizadas em um só lugar.</p>
+            <div class="chips">
+              <span class="chip"><i></i> Conteúdo</span>
+              <span class="chip"><i></i> Continuidade</span>
+              <span class="chip"><i></i> Orientações organizadas</span>
+            </div>
+          </article>
+
+          <article class="fcard accent reveal">
+            <div class="fic" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 9v4" stroke="rgba(224,123,111,.95)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 17h.01" stroke="rgba(224,123,111,.95)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="rgba(255,255,255,.65)" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Estrutura também comunica valor</h3>
+            <p>Ambiente organizado transmite segurança. Quando o paciente entende o processo, ele entende o valor — e permanece.</p>
+            <div class="chips">
+              <span class="chip"><i></i> Mais confiança</span>
+              <span class="chip"><i></i> Mais valorização</span>
+              <span class="chip"><i></i> Mais permanência</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARA QUEM -->
+    <section id="paraquem" class="section">
+      <div class="container">
+        <div class="reveal">
+          <div class="kicker"><span class="line" aria-hidden="true"></span> Para quem é</div>
+          <h2 class="h2">Para profissionais da saúde que<br/>desejam mais do que atender</h2>
+          <p class="sub">Para quem quer estruturar, acompanhar e valorizar o atendimento — com clareza para o paciente e uma experiência que sustenta continuidade.</p>
+        </div>
+
+        <div class="whogrid">
+          <article class="whocard teal reveal">
+            <strong>Para quem quer continuidade</strong>
+            <p>Para quem não quer que o atendimento termine quando a consulta acaba — e deseja acompanhar de perto.</p>
+          </article>
+
+          <article class="whocard reveal">
+            <strong>Para quem quer mais controle</strong>
+            <p>Agenda, retornos, protocolos e visão do que precisa de atenção — tudo organizado.</p>
+          </article>
+
+          <article class="whocard coral reveal">
+            <strong>Para quem busca posicionamento</strong>
+            <p>Estrutura comunica valor. Mais seriedade, mais autoridade, mais percepção premium.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTA DE ESPERA -->
+    <section id="lista" class="section">
+      <div class="container">
+        <div class="reveal">
+          <div class="kicker"><span class="line" aria-hidden="true"></span> Pré-lançamento</div>
+          <h2 class="h2">Entre na lista de espera</h2>
+          <p class="sub">A Salutivae (Saúde Vai) ainda não foi lançada. Quem entra na lista recebe novidades em primeira mão e participa do início da plataforma.</p>
+        </div>
+
+        <div class="waitwrap">
+          <div class="perks reveal">
+            <h3>Benefícios para quem entrar agora</h3>
+            <ul class="perklist">
+              <li><span class="perkdot" aria-hidden="true"></span> <span><b>Teste gratuito de 15 dias</b> (quando o acesso for liberado).</span></li>
+              <li><span class="perkdot" aria-hidden="true"></span> <span><b>40% de desconto</b> nos 3 primeiros meses para os primeiros participantes.</span></li>
+              <li><span class="perkdot" aria-hidden="true"></span> <span><b>Conteúdos e presentes exclusivos</b> para quem estiver na lista.</span></li>
+              <li><span class="perkdot" aria-hidden="true"></span> <span><b>Vagas limitadas</b> no início do pré-lançamento.</span></li>
+            </ul>
+          </div>
+
+          <div class="formcard reveal">
+            <!-- IMPORTANTE:
+                 Em GitHub Pages, "mailto:" abre o app de e-mail do celular.
+                 Se você quiser captação automática, troque por um endpoint (Formspree / Google Forms / etc).
+                 Por enquanto, deixei como mailto para funcionar sem backend. -->
+            <form id="waitlistForm" action="mailto:SEU_EMAIL_AQUI" method="post" enctype="text/plain">
+              <div class="field">
+                <label for="nome">Nome</label>
+                <input id="nome" name="Nome" type="text" placeholder="Seu nome completo" autocomplete="name" required />
+              </div>
+
+              <div class="field">
+                <label for="email">E-mail</label>
+                <input id="email" name="Email" type="email" placeholder="seu@email.com" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label for="profissao">Profissão (opcional)</label>
+                <input id="profissao" name="Profissao" type="text" placeholder="Ex: Nutricionista, Psicólogo, Terapeuta…" />
+              </div>
+
+              <button class="btn btn-primary" type="submit" style="width:100%; padding: 14px 16px;">
+                Entrar na lista de espera
+              </button>
+
+              <p class="formnote">Sem compromisso — você decide se quer avançar quando chegar a hora.</p>
+
+              <div class="success" id="successBox" role="status" aria-live="polite">
+                <strong>Pedido enviado ✅</strong>
+                <small>Se o seu e-mail não abriu automaticamente, tente novamente ou use o botão do Instagram no rodapé.</small>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div class="footcol">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="brand-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s-7-4.6-9.4-9A5.8 5.8 0 0 1 12 5.6a5.8 5.8 0 0 1 9.4 6.4C19 16.4 12 21 12 21Z"
+                      stroke="rgba(224,123,111,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.2 12.1h2.2l1.2-2.4 1.4 4.8 1-2.4h2.2"
+                      stroke="rgba(126,231,218,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="brand-name" style="font-family: var(--serif); font-size: 18px;">Salutivae</div>
+              <div class="brand-slogan">Saúde em conexão</div>
+            </div>
+          </div>
+          <p class="footsmall">Estrutura digital inteligente para profissionais de saúde que desejam mais do que atender.</p>
+        </div>
+
+        <div class="footcol footlinks" aria-label="Links">
+          <a href="#plataforma">Plataforma</a>
+          <a href="#recursos">Recursos</a>
+          <a href="#paraquem">Para quem</a>
+          <a href="#lista">Lista de espera</a>
+        </div>
+
+        <div class="footcol">
+          <a class="social" href="https://instagram.com/salutivae" target="_blank" rel="noopener noreferrer" aria-label="Instagram @salutivae">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="rgba(255,255,255,.75)" stroke-width="2"/>
+              <path d="M16 11.37a4 4 0 1 1-2.62-2.62A4 4 0 0 1 16 11.37Z" stroke="rgba(126,231,218,.95)" stroke-width="2"/>
+              <path d="M17.5 6.5h.01" stroke="rgba(224,123,111,.95)" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            @salutivae
+          </a>
+          <div class="copyright">© 2026 Salutivae (Saúde Vai). Todos os direitos reservados.</div>
+        </div>
       </div>
     </div>
-  </div>
+  </footer>
 
-  <!-- O QUE É -->
-  <section id="plataforma">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="label">A plataforma</div>
-        <h2>O que é a Salutivae?</h2>
-        <p class="lead">
-          A Salutivae é um aplicativo digital inteligente que transforma o atendimento em uma estrutura contínua.
-          Ela amplia a autoridade do profissional e oferece ao paciente clareza sobre sua própria evolução —
-          tudo em um ambiente organizado, acessível, estratégico e visual.
-        </p>
-      </div>
+  <script>
+    // Reveal on scroll (leve e estável)
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('on');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
 
-      <div class="about-wrap">
-        <div class="about-card reveal">
-          <h3>Uma estrutura que organiza sua rotina</h3>
-          <p>
-            A forma como você organiza seu atendimento influencia diretamente a forma como você é percebido.
-            Um ambiente estruturado transmite cuidado, método e seriedade — e isso aumenta valorização.
-          </p>
-          <div class="quote">
+      els.forEach(el=>io.observe(el));
+
+      // Garantir que o hero apareça mesmo em navegadores chatos
+      setTimeout(()=> {
+        document.querySelectorAll('#inicio .reveal').forEach(el=>el.classList.add('on'));
+      }, 80);
+    })();
+
+    // Form feedback (mailto não confirma de verdade, mas melhora a UX)
+    (function(){
+      const form = document.getElementById('waitlistForm');
+      const box = document.getElementById('successBox');
+      if(!form) return;
+      form.addEventListener('submit', function(){
+        setTimeout(()=>{ if(box) box.style.display = 'block'; }, 250);
+      });
+    })();
+  </script>
+</body>
+</html>
