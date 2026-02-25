@@ -1,1399 +1,1018 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salutivae — Consultório Digital Inteligente</title>
+  <title>Salutivae — Saúde em conexão</title>
+  <meta name="description" content="Salutivae — Estrutura digital inteligente para organizar seu atendimento, acompanhar a evolução e fortalecer a relação com seus pacientes." />
 
-  <meta name="description" content="A Salutivae transforma seu atendimento em uma estrutura digital inteligente — organização, agenda, protocolos, evolução e biblioteca, com experiência premium para o paciente." />
-  <meta name="theme-color" content="#2D6E63" />
-
-  <!-- Favicon (usa sua logo atual) -->
-  <link rel="icon" type="image/png" href="IMG_9507.png" />
-
-  <!-- Fonts (premium + internacional) -->
+  <!-- Fonts (premium, leve e internacional) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500,600,700&family=DM+Sans:opsz,wght@9..40,400,500,600,700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #F7FAF9;
-      --card: rgba(255,255,255,0.85);
-      --card-solid:#FFFFFF;
-      --text: #0F1A18;
-      --muted:#5A6E6A;
-      --muted2:#7C8E8A;
-      --border: rgba(15,26,24,0.10);
+      --green-900:#0B2F2A;
+      --green-800:#0F3A34;
+      --green-700:#145047;
+      --green-600:#1D6A5E;
+      --teal-500:#2BAA93;
 
-      --green:#2D6E63;
-      --green2:#3D8C7E;
-      --green-soft:#EAF3F1;
+      --coral-500:#F06D63;
 
-      --coral:#E07B5F;
-      --coral-soft:#FDECEA;
+      --ink:#0E1614;
+      --muted:#5C6B66;
+      --paper:#FBFBFA;
+      --card:#FFFFFF;
 
-      --shadow: 0 22px 70px rgba(15,26,24,0.10);
-      --shadow2: 0 14px 40px rgba(15,26,24,0.08);
-      --radius: 22px;
-      --radius2: 16px;
+      --border:rgba(14,22,20,.10);
+      --shadow: 0 18px 50px rgba(11,47,42,.12);
+      --shadow-soft: 0 12px 30px rgba(11,47,42,.08);
 
-      --container: 1120px;
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+
+      --max: 1120px;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
+      color:var(--ink);
       background:
-        radial-gradient(1100px 700px at 15% 10%, rgba(45,110,99,0.12), transparent 55%),
-        radial-gradient(900px 700px at 85% 20%, rgba(224,123,95,0.10), transparent 55%),
-        linear-gradient(180deg, #FFFFFF 0%, var(--bg) 55%, #FFFFFF 100%);
-      overflow-x:hidden;
+        radial-gradient(1200px 700px at 20% -10%, rgba(43,170,147,.12), transparent 55%),
+        radial-gradient(900px 550px at 90% 5%, rgba(240,109,99,.10), transparent 60%),
+        linear-gradient(#FFFFFF, #FFFFFF);
+      font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
 
-    a{color:inherit}
-    .container{
-      max-width:var(--container);
-      margin:0 auto;
-      padding:0 24px;
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,.72);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar .row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:14px 0;
     }
 
-    /* Top notice (optional - ultra sutil) */
-    .topline{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:10px 14px;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:rgba(15,26,24,.55);
-    }
-    .top-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 12px;
-      border-radius:999px;
-      border:1px solid rgba(45,110,99,.22);
-      background:rgba(234,243,241,.65);
-      backdrop-filter: blur(10px);
-    }
-    .dot{
-      width:8px;height:8px;border-radius:999px;background:var(--coral);
-      box-shadow:0 0 0 6px rgba(224,123,95,.12);
-    }
-
-    /* Nav */
-    .nav{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(16px);
-      background:rgba(255,255,255,0.70);
-      border-bottom:1px solid rgba(15,26,24,0.06);
-    }
-    .nav-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:16px 0;
-    }
     .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      text-decoration:none;
-      min-width:220px;
+      display:flex; align-items:center; gap:12px; min-width:220px;
     }
     .brand img{
-      width:38px;height:38px;
+      width:38px; height:38px; object-fit:contain;
       border-radius:12px;
-      object-fit:cover;
-      box-shadow:0 10px 30px rgba(45,110,99,0.18);
-      background:#fff;
     }
     .brand .name{
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
+      display:flex; flex-direction:column; line-height:1.05;
     }
     .brand .name strong{
+      font-family:"Fraunces", serif;
+      font-weight:700; letter-spacing:.2px;
       font-size:16px;
-      letter-spacing:-0.02em;
-      color:var(--green);
-      font-weight:700;
     }
     .brand .name span{
-      font-size:12px;
-      color:rgba(15,26,24,0.55);
-      font-weight:500;
+      font-size:12px; color:var(--muted);
     }
 
-    .nav-links{
-      display:flex;
-      gap:22px;
-      align-items:center;
-      list-style:none;
-      padding:0;margin:0;
+    .nav{
+      display:flex; gap:18px; align-items:center;
     }
-    .nav-links a{
-      text-decoration:none;
-      font-size:13px;
-      color:rgba(15,26,24,.70);
-      font-weight:600;
-      letter-spacing:-0.01em;
-      padding:10px 10px;
-      border-radius:12px;
-      transition:.2s;
+    .nav a{
+      font-size:13px; color:rgba(14,22,20,.75);
+      padding:10px 10px; border-radius:12px;
+      transition: background .2s ease, color .2s ease;
     }
-    .nav-links a:hover{
-      background:rgba(45,110,99,0.08);
-      color:var(--green);
+    .nav a:hover{background:rgba(43,170,147,.08); color:rgba(14,22,20,.92)}
+
+    .actions{
+      display:flex; gap:10px; align-items:center;
     }
 
-    .nav-cta{
-      display:flex;gap:10px;align-items:center;
-    }
     .btn{
-      border:1px solid rgba(15,26,24,0.10);
-      background:rgba(255,255,255,0.85);
-      color:rgba(15,26,24,0.85);
-      padding:11px 14px;
-      border-radius:999px;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.85);
+      box-shadow: 0 8px 20px rgba(11,47,42,.05);
+      font-weight:600;
       font-size:13px;
-      font-weight:700;
-      text-decoration:none;
-      transition:.2s;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      box-shadow:0 10px 30px rgba(15,26,24,0.06);
+      transition: transform .12s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+      user-select:none;
     }
-    .btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 16px 50px rgba(15,26,24,0.10);
-      border-color:rgba(45,110,99,0.25);
-    }
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 14px 30px rgba(11,47,42,.10)}
+    .btn:active{transform: translateY(0px)}
+
     .btn.primary{
-      background:linear-gradient(135deg, var(--green), var(--green2));
+      background: linear-gradient(135deg, var(--green-700), var(--teal-500));
       color:#fff;
-      border:0;
-      box-shadow:0 18px 55px rgba(45,110,99,0.25);
+      border-color: rgba(255,255,255,.0);
+      box-shadow: 0 18px 40px rgba(29,106,94,.22);
     }
     .btn.primary:hover{
-      filter:saturate(1.05);
-      transform:translateY(-2px);
+      box-shadow: 0 22px 55px rgba(29,106,94,.28);
     }
 
-    .hamburger{
-      display:none;
-      width:42px;height:42px;
-      border-radius:14px;
-      border:1px solid rgba(15,26,24,0.10);
-      background:rgba(255,255,255,0.85);
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      transition:.2s;
-    }
-    .hamburger:hover{transform:translateY(-1px)}
-    .hamburger span{
-      width:18px;height:2px;background:rgba(15,26,24,0.70);
-      display:block;
-      position:relative;
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
       border-radius:999px;
+      border:1px solid rgba(43,170,147,.18);
+      background: rgba(43,170,147,.06);
+      color: rgba(14,22,20,.85);
+      font-size:12px;
+      font-weight:600;
+      letter-spacing:.2px;
     }
-    .hamburger span:before,.hamburger span:after{
-      content:"";
-      position:absolute;left:0;
-      width:18px;height:2px;background:rgba(15,26,24,0.70);
-      border-radius:999px;
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: var(--coral-500);
+      box-shadow: 0 0 0 4px rgba(240,109,99,.14);
     }
-    .hamburger span:before{top:-6px}
-    .hamburger span:after{top:6px}
 
     /* Hero */
     .hero{
-      padding:52px 0 28px;
+      padding:64px 0 26px;
     }
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap:32px;
-      align-items:center;
-      padding:34px;
-      border-radius:var(--radius);
-      background: rgba(255,255,255,0.65);
-      border: 1px solid rgba(15,26,24,0.08);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      position:relative;
+      grid-template-columns: 1.1fr .9fr;
+      gap:26px;
+      align-items:stretch;
+    }
+    .hero-card{
+      background: rgba(255,255,255,.78);
+      border:1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding:30px;
       overflow:hidden;
+      position:relative;
     }
-    .hero-grid:before{
+    .hero-card::before{
       content:"";
-      position:absolute;
-      inset:-2px;
+      position:absolute; inset:-2px;
       background:
-        radial-gradient(900px 420px at 20% 0%, rgba(45,110,99,0.12), transparent 60%),
-        radial-gradient(820px 420px at 95% 10%, rgba(224,123,95,0.10), transparent 55%);
-      pointer-events:none;
+        radial-gradient(600px 320px at 20% 0%, rgba(43,170,147,.14), transparent 60%),
+        radial-gradient(520px 300px at 90% 10%, rgba(240,109,99,.10), transparent 65%);
       z-index:0;
+      pointer-events:none;
     }
-    .hero-left,.hero-right{position:relative;z-index:1}
-
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(45,110,99,.22);
-      background: rgba(234,243,241,0.75);
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:rgba(15,26,24,.65);
-      margin-bottom:16px;
-    }
+    .hero-card > *{position:relative; z-index:1}
 
     h1{
-      font-family:"DM Serif Display", serif;
-      font-size: clamp(40px, 5.2vw, 74px);
-      letter-spacing:-0.03em;
+      margin:16px 0 12px;
+      font-family:"Fraunces", serif;
+      font-size:44px;
       line-height:1.02;
-      margin:0 0 14px;
-      color:rgba(15,26,24,.92);
+      letter-spacing:-.4px;
     }
-    .lead{
-      font-size: clamp(15px, 1.6vw, 18px);
-      line-height:1.65;
-      margin:0 0 22px;
-      color:rgba(15,26,24,.64);
-      max-width:56ch;
-      font-weight:500;
-    }
-    .hero-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin:18px 0 16px;
+    .sub{
+      margin:0 0 18px;
+      color: rgba(14,22,20,.75);
+      font-size:16px;
+      line-height:1.55;
+      max-width: 54ch;
     }
 
-    .trustline{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:14px;
-      color:rgba(15,26,24,.55);
-      font-size:12px;
-      font-weight:700;
+    .hero-cta{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .micro{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:18px;
     }
     .chip{
-      display:inline-flex;
-      align-items:center;
+      display:inline-flex; align-items:center; justify-content:center;
       gap:8px;
       padding:10px 12px;
       border-radius:999px;
-      background:rgba(255,255,255,0.70);
-      border:1px solid rgba(15,26,24,0.08);
-      box-shadow:0 10px 24px rgba(15,26,24,0.05);
-    }
-    .chip b{color:rgba(15,26,24,.75)}
-    .chip .mini-dot{
-      width:10px;height:10px;border-radius:999px;
-      background:rgba(45,110,99,.25);
-      border:1px solid rgba(45,110,99,.35);
+      border:1px solid rgba(14,22,20,.10);
+      background: rgba(255,255,255,.7);
+      color: rgba(14,22,20,.75);
+      font-size:12px;
+      font-weight:600;
+      white-space:nowrap;
     }
 
-    /* Right: premium "app preview" */
-    .preview{
-      border-radius:var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.70), rgba(255,255,255,0.55));
-      border:1px solid rgba(15,26,24,0.08);
-      box-shadow: var(--shadow2);
-      padding:18px;
+    /* Questions Panel */
+    .panel{
+      background: rgba(11,47,42,.92);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding:26px;
+      color:#fff;
       position:relative;
-    }
-    .preview-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
-    }
-    .window-dots{display:flex;gap:8px}
-    .wd{width:10px;height:10px;border-radius:999px}
-    .wd:nth-child(1){background:#FF5F57}
-    .wd:nth-child(2){background:#FEBC2E}
-    .wd:nth-child(3){background:#28C840}
-
-    .preview-badge{
-      font-size:12px;
-      font-weight:800;
-      color:rgba(15,26,24,.70);
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(234,243,241,0.70);
-      border:1px solid rgba(45,110,99,.20);
-      letter-spacing:-0.01em;
-      display:flex;align-items:center;gap:8px;
-    }
-    .preview-badge i{
-      width:10px;height:10px;border-radius:999px;
-      background:rgba(45,110,99,0.25);
-      display:inline-block;
-      box-shadow:0 0 0 6px rgba(45,110,99,0.08);
-    }
-
-    .ui{
-      background:rgba(255,255,255,0.86);
-      border:1px solid rgba(15,26,24,0.08);
-      border-radius:18px;
-      padding:16px;
-    }
-    .ui-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:12px;
-    }
-    .ui-title{
-      font-weight:800;
-      letter-spacing:-0.02em;
-      color:rgba(15,26,24,0.86);
-      font-size:14px;
-    }
-    .ui-sub{
-      margin-top:4px;
-      font-size:12px;
-      color:rgba(15,26,24,0.55);
-      font-weight:700;
-    }
-    .status{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:-0.01em;
-    }
-    .status.alert{
-      background:rgba(224,123,95,0.14);
-      color:rgba(224,123,95,0.95);
-      border:1px solid rgba(224,123,95,0.22);
-    }
-    .status.ok{
-      background:rgba(45,110,99,0.14);
-      color:rgba(45,110,99,0.95);
-      border:1px solid rgba(45,110,99,0.22);
-    }
-
-    .grid2{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-    .tile{
-      border-radius:16px;
-      background:rgba(247,250,249,0.80);
-      border:1px solid rgba(15,26,24,0.08);
-      padding:12px;
-    }
-    .tile small{
-      display:block;
-      font-size:11px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      font-weight:900;
-      color:rgba(15,26,24,0.45);
-      margin-bottom:6px;
-    }
-    .tile .val{
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:-0.02em;
-      color:rgba(15,26,24,0.90);
-    }
-    .tile .meta{
-      margin-top:6px;
-      font-size:12px;
-      font-weight:800;
-      color:rgba(15,26,24,0.55);
-    }
-    .tile .meta.alert{color:rgba(224,123,95,0.95)}
-    .progress{
-      margin-top:12px;
-      border-radius:16px;
-      background:rgba(234,243,241,0.75);
-      border:1px solid rgba(45,110,99,0.18);
-      padding:12px;
-    }
-    .progress .p-top{
-      display:flex;justify-content:space-between;gap:10px;
-      font-size:12px;
-      font-weight:900;
-      color:rgba(15,26,24,0.70);
-      margin-bottom:10px;
-    }
-    .bar{
-      height:10px;
-      border-radius:999px;
-      background:rgba(45,110,99,0.18);
       overflow:hidden;
     }
-    .bar > div{
-      height:100%;
-      width:72%;
-      border-radius:999px;
-      background:linear-gradient(135deg, var(--green), var(--green2));
-      animation: grow 1.2s ease forwards;
+    .panel::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(560px 340px at 20% 0%, rgba(43,170,147,.22), transparent 65%),
+        radial-gradient(560px 340px at 95% 15%, rgba(240,109,99,.16), transparent 68%);
+      pointer-events:none;
     }
-    @keyframes grow{from{width:0}to{width:72%}}
-    .p-foot{
-      display:flex;justify-content:space-between;
-      margin-top:10px;
-      font-size:12px;
+    .panel > *{position:relative; z-index:1}
+
+    .panel h3{
+      margin:0 0 10px;
+      font-family:"Fraunces", serif;
+      font-size:22px;
+      letter-spacing:-.2px;
+    }
+    .panel p{
+      margin:0 0 16px;
+      color: rgba(255,255,255,.78);
+      font-size:13px;
+      line-height:1.6;
+      max-width: 46ch;
+    }
+    .q-list{
+      display:grid; gap:10px;
+      margin-top:12px;
+    }
+    .q{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+    .q .mark{
+      width:26px; height:26px;
+      border-radius:10px;
+      background: rgba(255,255,255,.12);
+      display:flex; align-items:center; justify-content:center;
       font-weight:800;
-      color:rgba(15,26,24,0.55);
+      color: rgba(255,255,255,.92);
+      flex: 0 0 auto;
+    }
+    .q span{
+      color: rgba(255,255,255,.88);
+      font-size:13px;
+      line-height:1.45;
     }
 
-    /* Questions (premium list) */
-    .qbox{
-      margin-top:18px;
-      border-radius:18px;
-      background:rgba(255,255,255,0.65);
-      border:1px solid rgba(15,26,24,0.08);
-      padding:14px;
+    /* Section base */
+    section{padding:64px 0}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:18px; margin-bottom:26px;
     }
-    .qtitle{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-    .qtitle h3{
-      margin:0;
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:-0.01em;
-      color:rgba(15,26,24,0.78);
-      text-transform:uppercase;
-      letter-spacing:.12em;
-    }
-    .qtitle span{
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      color: rgba(14,22,20,.55);
       font-size:12px;
-      font-weight:800;
-      color:rgba(15,26,24,0.55);
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    h2{
+      margin:10px 0 0;
+      font-family:"Fraunces", serif;
+      font-size:34px;
+      letter-spacing:-.3px;
+      line-height:1.12;
+    }
+    .lead{
+      margin:0;
+      color: rgba(14,22,20,.72);
+      font-size:15px;
+      line-height:1.65;
+      max-width: 62ch;
+    }
+
+    /* Cards */
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .card{
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding:18px 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(360px 220px at 15% 0%, rgba(43,170,147,.10), transparent 60%);
+      opacity:.65;
+      pointer-events:none;
+    }
+    .card > *{position:relative; z-index:1}
+
+    .card h4{
+      margin:8px 0 8px;
+      font-size:16px;
+      letter-spacing:-.1px;
+    }
+    .card p{
+      margin:0;
+      color: rgba(14,22,20,.72);
+      font-size:13px;
+      line-height:1.6;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center; justify-content:center;
+      width:34px; height:34px;
+      border-radius:14px;
+      background: rgba(29,106,94,.12);
+      border:1px solid rgba(29,106,94,.18);
+      color: rgba(29,106,94,.95);
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+
+    .quote{
+      margin-top:16px;
+      border-radius: 18px;
+      border:1px solid rgba(240,109,99,.18);
+      background: rgba(240,109,99,.07);
+      padding:14px 16px;
+      color: rgba(14,22,20,.78);
+      font-size:13px;
+      line-height:1.55;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .quote b{color: rgba(14,22,20,.92)}
+    .quote .qdot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--coral-500);
+      box-shadow: 0 0 0 5px rgba(240,109,99,.14);
+      margin-top:5px;
+      flex:0 0 auto;
+    }
+
+    /* Feature list section */
+    .features{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+    .feature{
+      display:flex;
+      gap:14px;
+      padding:18px;
+      border-radius: var(--radius-lg);
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.82);
+      box-shadow: var(--shadow-soft);
+      align-items:flex-start;
+    }
+    .feature .icon{
+      width:42px; height:42px;
+      border-radius: 16px;
+      background: rgba(29,106,94,.12);
+      border:1px solid rgba(29,106,94,.18);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      color: rgba(29,106,94,.95);
+      flex:0 0 auto;
+    }
+    .feature h4{margin:0 0 6px; font-size:16px}
+    .feature p{margin:0; color: rgba(14,22,20,.72); font-size:13px; line-height:1.6}
+    .feature .tags{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px}
+    .tag{
       padding:8px 10px;
       border-radius:999px;
-      background:rgba(234,243,241,0.70);
-      border:1px solid rgba(45,110,99,0.18);
+      border:1px solid rgba(14,22,20,.10);
+      background: rgba(255,255,255,.72);
+      color: rgba(14,22,20,.72);
+      font-size:12px;
+      font-weight:700;
+      white-space:nowrap;
     }
-    .qlist{
+
+    /* Audience */
+    .audience{
       display:grid;
-      gap:10px;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .aud-card{
+      background: rgba(255,255,255,.82);
+      border:1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding:22px;
+    }
+    .list{
       margin:0;
       padding:0;
       list-style:none;
+      display:grid;
+      gap:12px;
+      margin-top:10px;
     }
-    .qlist li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:12px;
-      border-radius:16px;
-      background:rgba(247,250,249,0.85);
-      border:1px solid rgba(15,26,24,0.08);
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(14,22,20,.08);
+      background: rgba(255,255,255,.70);
     }
-    .qicon{
-      width:30px;height:30px;border-radius:12px;
-      display:flex;align-items:center;justify-content:center;
-      background:rgba(45,110,99,0.12);
-      border:1px solid rgba(45,110,99,0.18);
-      flex:0 0 auto;
+    .li .check{
+      width:26px; height:26px; border-radius:10px;
+      background: rgba(43,170,147,.12);
+      border:1px solid rgba(43,170,147,.18);
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(29,106,94,.95);
       font-weight:900;
-      color:rgba(45,110,99,0.95);
+      flex:0 0 auto;
+      margin-top:2px;
     }
-    .qtext{
+    .li span{
+      color: rgba(14,22,20,.78);
       font-size:13px;
       line-height:1.5;
-      font-weight:700;
-      color:rgba(15,26,24,0.70);
     }
 
-    /* Sections */
-    section{
-      padding:64px 0;
-    }
-    .section-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
-      margin-bottom:20px;
-    }
-    .label{
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(224,123,95,0.92);
-      margin-bottom:10px;
-    }
-    h2{
-      font-family:"DM Serif Display", serif;
-      font-size: clamp(30px, 3.8vw, 52px);
-      letter-spacing:-0.03em;
-      line-height:1.05;
-      margin:0;
-      color:rgba(15,26,24,0.92);
-    }
-    .sub{
-      max-width:62ch;
-      margin:12px 0 0;
-      font-size:16px;
-      line-height:1.7;
-      color:rgba(15,26,24,0.60);
-      font-weight:600;
-    }
-
-    /* Cards grid */
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-      margin-top:18px;
-    }
-    .card{
-      grid-column: span 6;
-      border-radius:var(--radius2);
-      background:rgba(255,255,255,0.72);
-      border:1px solid rgba(15,26,24,0.08);
-      box-shadow: 0 12px 36px rgba(15,26,24,0.06);
-      padding:18px;
-      backdrop-filter: blur(12px);
-      transition:.25s;
-      position:relative;
-      overflow:hidden;
-    }
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: radial-gradient(420px 180px at 10% 0%, rgba(45,110,99,0.12), transparent 60%);
-      opacity:.55;
-      pointer-events:none;
-    }
-    .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 22px 60px rgba(15,26,24,0.10);
-      border-color:rgba(45,110,99,0.22);
-    }
-    .card .top{
-      position:relative;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      margin-bottom:10px;
-    }
-    .ic{
-      width:44px;height:44px;border-radius:16px;
-      display:flex;align-items:center;justify-content:center;
-      font-weight:900;
-      color:#fff;
-      background:linear-gradient(135deg, var(--green), var(--green2));
-      box-shadow:0 14px 36px rgba(45,110,99,0.22);
-      flex:0 0 auto;
-    }
-    .card h4{
-      position:relative;
-      margin:0;
-      font-size:16px;
-      font-weight:900;
-      letter-spacing:-0.02em;
-      color:rgba(15,26,24,0.88);
-    }
-    .card p{
-      position:relative;
-      margin:8px 0 0;
-      font-size:14px;
-      line-height:1.65;
-      color:rgba(15,26,24,0.60);
-      font-weight:650;
-    }
-    .tags{
-      position:relative;
-      display:flex;gap:8px;flex-wrap:wrap;
-      margin-top:12px;
-    }
-    .tag{
-      font-size:12px;
-      font-weight:900;
-      color:rgba(15,26,24,0.60);
-      background:rgba(247,250,249,0.85);
-      border:1px solid rgba(15,26,24,0.08);
-      padding:8px 10px;
-      border-radius:999px;
-    }
-
-    /* Premium value highlight */
-    .highlight{
-      margin-top:18px;
-      border-radius:var(--radius2);
-      padding:18px;
-      background:rgba(234,243,241,0.80);
-      border:1px solid rgba(45,110,99,0.18);
-      color:rgba(15,26,24,0.70);
-      font-weight:850;
-      line-height:1.5;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-    .highlight b{
-      color:rgba(45,110,99,0.98);
-      font-weight:950;
-    }
-
-    /* For who */
-    .for-grid .card{grid-column: span 4;}
-
-    /* Waitlist section */
+    /* Waitlist */
     .wait{
-      padding:70px 0;
+      background: linear-gradient(135deg, rgba(11,47,42,.96), rgba(15,58,52,.96));
+      border-top:1px solid rgba(255,255,255,.08);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      color:#fff;
     }
     .wait-wrap{
-      border-radius: calc(var(--radius) + 6px);
-      background: linear-gradient(135deg, rgba(45,110,99,0.95), rgba(61,140,126,0.96));
-      box-shadow: 0 30px 90px rgba(45,110,99,0.28);
-      border:1px solid rgba(255,255,255,0.12);
-      padding:34px;
-      position:relative;
-      overflow:hidden;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:stretch;
     }
-    .wait-wrap:before{
+    .wait .box{
+      border-radius: var(--radius-xl);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      padding:22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .wait .box::before{
       content:"";
-      position:absolute;
-      inset:-2px;
+      position:absolute; inset:-2px;
       background:
-        radial-gradient(760px 320px at 20% 0%, rgba(255,255,255,0.16), transparent 60%),
-        radial-gradient(520px 260px at 90% 10%, rgba(224,123,95,0.16), transparent 55%);
+        radial-gradient(560px 360px at 20% 0%, rgba(43,170,147,.22), transparent 70%),
+        radial-gradient(520px 340px at 95% 20%, rgba(240,109,99,.18), transparent 72%);
       pointer-events:none;
     }
-    .wait-grid{
-      position:relative;
-      display:grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap:18px;
-      align-items:center;
+    .wait .box > *{position:relative; z-index:1}
+
+    .wait h2{
+      color:#fff;
+      font-size:34px;
+      margin:8px 0 10px;
     }
-    .wait h2, .wait p{color:#fff}
-    .wait .label{color:rgba(255,255,255,0.78)}
-    .wait .sub{color:rgba(255,255,255,0.78)}
-    .benefits{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
+    .wait p{
+      margin:0;
+      color: rgba(255,255,255,.80);
+      line-height:1.65;
+      font-size:14px;
+      max-width: 58ch;
     }
-    .benefit{
-      background:rgba(255,255,255,0.14);
-      border:1px solid rgba(255,255,255,0.18);
-      color:rgba(255,255,255,0.92);
-      font-weight:900;
-      font-size:12px;
-      border-radius:999px;
+    .perks{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:14px;
+    }
+    .perk{
+      display:inline-flex; align-items:center; gap:10px;
       padding:10px 12px;
-      backdrop-filter: blur(10px);
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.90);
+      font-size:12px;
+      font-weight:700;
     }
 
     form{
-      position:relative;
-      background:rgba(255,255,255,0.10);
-      border:1px solid rgba(255,255,255,0.16);
-      border-radius:22px;
-      padding:16px;
-      backdrop-filter: blur(10px);
-    }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      margin-bottom:12px;
+      display:grid; gap:12px;
+      margin-top:4px;
     }
     label{
-      color:rgba(255,255,255,0.80);
       font-size:12px;
-      font-weight:950;
-      letter-spacing:.10em;
+      font-weight:800;
+      letter-spacing:.14em;
       text-transform:uppercase;
+      color: rgba(255,255,255,.74);
     }
     input, select{
       width:100%;
       padding:14px 14px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,0.22);
-      background:rgba(255,255,255,0.14);
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
       color:#fff;
-      font-weight:750;
       outline:none;
+      font-size:14px;
+      font-weight:600;
     }
-    input::placeholder{color:rgba(255,255,255,0.55);font-weight:700}
-    select{
-      appearance:none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.80) 50%),
-        linear-gradient(135deg, rgba(255,255,255,0.80) 50%, transparent 50%);
-      background-position:
-        calc(100% - 18px) calc(50% - 4px),
-        calc(100% - 12px) calc(50% - 4px);
-      background-size:6px 6px, 6px 6px;
-      background-repeat:no-repeat;
+    input::placeholder{color: rgba(255,255,255,.55)}
+    select{appearance:none}
+    .form-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
     }
-    option{color:#111}
 
     .submit{
-      width:100%;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:14px 14px;
-      border-radius:999px;
-      border:0;
-      cursor:pointer;
-      background:#fff;
-      color:rgba(45,110,99,0.98);
-      font-weight:950;
-      letter-spacing:-0.01em;
-      transition:.2s;
-      box-shadow:0 16px 50px rgba(0,0,0,0.20);
+      margin-top:6px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
     }
-    .submit:hover{transform:translateY(-2px)}
-    .fine{
-      margin-top:10px;
-      color:rgba(255,255,255,0.72);
+    .note{
+      color: rgba(255,255,255,.70);
       font-size:12px;
-      font-weight:700;
       line-height:1.5;
-    }
-
-    .success{
-      display:none;
-      margin-top:10px;
-      border-radius:18px;
-      background:rgba(255,255,255,0.14);
-      border:1px solid rgba(255,255,255,0.18);
-      padding:14px;
-      color:rgba(255,255,255,0.92);
-      font-weight:850;
-      line-height:1.45;
+      max-width: 60ch;
     }
 
     /* Footer */
     footer{
-      padding:42px 0 56px;
-      border-top:1px solid rgba(15,26,24,0.06);
-      color:rgba(15,26,24,0.60);
+      padding:36px 0;
+      color: rgba(14,22,20,.70);
     }
-    .foot{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-    .foot-left{
-      display:flex;
-      align-items:center;
+    .footer-row{
+      display:flex; align-items:center; justify-content:space-between;
       gap:12px;
-      font-weight:900;
+      flex-wrap:wrap;
+      border-top:1px solid var(--border);
+      padding-top:18px;
     }
-    .foot-left img{
-      width:34px;height:34px;border-radius:12px;
-      object-fit:cover;
-      box-shadow:0 12px 30px rgba(45,110,99,0.16);
-      background:#fff;
+    .footer-links{
+      display:flex; gap:14px; flex-wrap:wrap;
+      font-size:13px;
     }
-    .foot-links{
-      display:flex;gap:16px;flex-wrap:wrap;
-      font-size:13px;font-weight:800;
-    }
-    .foot-links a{
-      color:rgba(15,26,24,0.58);
-      text-decoration:none;
-      padding:10px 12px;
+    .footer-links a{
+      color: rgba(14,22,20,.65);
+      padding:8px 10px;
       border-radius:12px;
-      transition:.2s;
     }
-    .foot-links a:hover{
-      background:rgba(45,110,99,0.08);
-      color:rgba(45,110,99,0.98);
+    .footer-links a:hover{background: rgba(43,170,147,.08); color: rgba(14,22,20,.90)}
+    .ig{
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight:800;
+      color: rgba(14,22,20,.75);
+    }
+    .ig .igdot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--teal-500);
+      box-shadow: 0 0 0 5px rgba(43,170,147,.14);
     }
 
-    /* Reveal */
-    .reveal{opacity:0; transform: translateY(16px); transition: .7s ease}
-    .reveal.visible{opacity:1; transform: translateY(0)}
+    /* Reveal animations */
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease}
+    .reveal.on{opacity:1; transform: translateY(0px)}
 
-    /* Mobile */
+    /* Responsive */
     @media (max-width: 980px){
-      .hero-grid{grid-template-columns:1fr; padding:22px}
-      .nav-links{display:none}
-      .hamburger{display:flex}
+      .hero-grid{grid-template-columns: 1fr; }
+      .audience{grid-template-columns: 1fr;}
+      .wait-wrap{grid-template-columns: 1fr;}
+      .grid-3{grid-template-columns: 1fr;}
+      h1{font-size:40px}
+    }
+    @media (max-width: 520px){
+      h1{font-size:36px}
+      .nav{display:none}
       .brand{min-width:auto}
-      .wait-grid{grid-template-columns:1fr}
-      .card{grid-column: span 12;}
-      .for-grid .card{grid-column: span 12;}
-      .preview{order:2}
+      .form-row{grid-template-columns: 1fr}
     }
-
-    /* Mobile menu panel */
-    .mobile-panel{
-      display:none;
-      padding:12px 0 16px;
-      border-top:1px solid rgba(15,26,24,0.06);
-    }
-    .mobile-panel a{
-      display:block;
-      padding:12px 10px;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:900;
-      color:rgba(15,26,24,0.70);
-    }
-    .mobile-panel a:hover{background:rgba(45,110,99,0.08); color:var(--green)}
   </style>
 </head>
 
 <body>
-  <div class="topline">
-    <div class="top-pill">
-      <span class="dot"></span>
-      <span>Pré-lançamento • vagas limitadas</span>
-    </div>
-  </div>
-
-  <!-- NAV -->
-  <header class="nav">
+  <!-- TOPBAR -->
+  <div class="topbar">
     <div class="container">
-      <div class="nav-inner">
+      <div class="row">
         <a class="brand" href="#topo" aria-label="Ir para o topo">
-          <img src="IMG_9507.png" alt="Logo Salutivae" />
+          <img
+            src="IMG_9507.png"
+            alt="Logo Salutivae"
+            onerror="this.onerror=null;this.src='IMG9507.png';"
+          />
           <div class="name">
             <strong>Salutivae</strong>
             <span>Saúde em conexão</span>
           </div>
         </a>
 
-        <ul class="nav-links" aria-label="Navegação">
-          <li><a href="#plataforma">Plataforma</a></li>
-          <li><a href="#recursos">Recursos</a></li>
-          <li><a href="#para-quem">Para quem</a></li>
-          <li><a href="#lista">Lista de espera</a></li>
-        </ul>
+        <nav class="nav" aria-label="Navegação">
+          <a href="#plataforma">Plataforma</a>
+          <a href="#recursos">Recursos</a>
+          <a href="#para-quem">Para quem é</a>
+          <a href="#lista-de-espera">Lista de espera</a>
+        </nav>
 
-        <div class="nav-cta">
+        <div class="actions">
           <a class="btn" href="#plataforma">Conhecer a plataforma</a>
-          <a class="btn primary" href="#lista">Entrar na lista de espera</a>
-          <button class="hamburger" aria-label="Abrir menu" onclick="toggleMobileMenu()">
-            <span></span>
-          </button>
+          <a class="btn primary" href="#lista-de-espera">Entrar na lista de espera</a>
         </div>
       </div>
-
-      <div class="mobile-panel" id="mobilePanel">
-        <a href="#plataforma" onclick="closeMobileMenu()">Plataforma</a>
-        <a href="#recursos" onclick="closeMobileMenu()">Recursos</a>
-        <a href="#para-quem" onclick="closeMobileMenu()">Para quem</a>
-        <a href="#lista" onclick="closeMobileMenu()">Lista de espera</a>
-      </div>
     </div>
-  </header>
+  </div>
 
   <!-- HERO -->
-  <main id="topo" class="container">
-    <section class="hero">
-      <div class="hero-grid reveal">
-        <div class="hero-left">
-          <div class="kicker"><span class="dot" style="box-shadow:none"></span> consultório digital inteligente</div>
+  <main id="topo" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-card reveal">
+          <div class="pill">
+            <span class="dot"></span>
+            Pré-lançamento • vagas limitadas
+          </div>
 
           <h1>E se seu atendimento não terminasse quando a consulta acaba?</h1>
 
-          <p class="lead">
-            A Salutivae transforma seu atendimento em uma estrutura digital estratégica.
-            Você organiza, acompanha e fortalece a jornada — e o paciente enxerga o processo com clareza.
+          <p class="sub">
+            A <b>Salutivae</b> transforma seu atendimento em uma <b>estrutura digital estratégica</b>.
+            Você organiza, acompanha a jornada — e o paciente enxerga o processo com clareza.
           </p>
 
-          <div class="hero-actions">
-            <a class="btn primary" href="#lista">Entrar na lista de espera</a>
+          <div class="hero-cta">
+            <a class="btn primary" href="#lista-de-espera">Entrar na lista de espera</a>
             <a class="btn" href="#plataforma">Conhecer a plataforma</a>
           </div>
 
-          <div class="trustline">
-            <div class="chip"><span class="mini-dot"></span><b>Clareza visual</b> para o paciente</div>
-            <div class="chip"><span class="mini-dot"></span><b>Estrutura premium</b> para o profissional</div>
-            <div class="chip"><span class="mini-dot"></span><b>Jornada contínua</b> entre consultas</div>
-          </div>
-
-          <div class="qbox">
-            <div class="qtitle">
-              <h3>Você passa a ter</h3>
-              <span>controle + continuidade</span>
-            </div>
-            <ul class="qlist">
-              <li>
-                <div class="qicon">✓</div>
-                <div class="qtext">Seu paciente com acesso organizado ao que foi definido em consulta.</div>
-              </li>
-              <li>
-                <div class="qicon">✓</div>
-                <div class="qtext">Visão clara de evolução, protocolos e histórico em um único lugar.</div>
-              </li>
-              <li>
-                <div class="qicon">✓</div>
-                <div class="qtext">Controle de retornos e pacientes inativos — sem deixar ninguém “esfriar”.</div>
-              </li>
-              <li>
-                <div class="qicon">✓</div>
-                <div class="qtext">Comunicação dentro do contexto do atendimento.</div>
-              </li>
-              <li>
-                <div class="qicon">✓</div>
-                <div class="qtext">Solicitação de horários com previsibilidade, dentro do que você disponibiliza.</div>
-              </li>
-            </ul>
+          <div class="micro" aria-label="Destaques rápidos">
+            <span class="chip">Controle</span>
+            <span class="chip">Evolução</span>
+            <span class="chip">Organização</span>
+            <span class="chip">Clareza visual</span>
+            <span class="chip">Continuidade</span>
           </div>
         </div>
 
-        <div class="hero-right">
-          <div class="preview">
-            <div class="preview-top">
-              <div class="window-dots" aria-hidden="true">
-                <div class="wd"></div><div class="wd"></div><div class="wd"></div>
-              </div>
-              <div class="preview-badge"><i></i> visão estratégica do profissional</div>
-            </div>
-
-            <div class="ui">
-              <div class="ui-header">
-                <div>
-                  <div class="ui-title">Ana Beatriz • 32 anos</div>
-                  <div class="ui-sub">Último exame • 3 dias atrás</div>
-                </div>
-                <span class="status alert">Acompanhamento prioritário</span>
-              </div>
-
-              <div class="grid2">
-                <div class="tile">
-                  <small>Vitamina D</small>
-                  <div class="val" style="color: rgba(224,123,95,0.95)">18 ng/mL</div>
-                  <div class="meta alert">Abaixo do ideal</div>
-                </div>
-                <div class="tile">
-                  <small>Glicemia</small>
-                  <div class="val">92 mg/dL</div>
-                  <div class="meta">Dentro do esperado</div>
-                </div>
-                <div class="tile">
-                  <small>Ferritina</small>
-                  <div class="val" style="color: rgba(224,123,95,0.95)">9 ng/mL</div>
-                  <div class="meta alert">Atenção ao suporte</div>
-                </div>
-                <div class="tile">
-                  <small>TSH</small>
-                  <div class="val">2.1 mUI/L</div>
-                  <div class="meta">Acompanhamento regular</div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <div class="p-top">
-                  <span>Adesão ao protocolo</span>
-                  <span>Semana 6 de 8</span>
-                </div>
-                <div class="bar"><div></div></div>
-                <div class="p-foot">
-                  <span>72% concluído</span>
-                  <span>2 semanas restantes</span>
-                </div>
-              </div>
-            </div>
-
-            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-              <span class="tag" style="background:rgba(234,243,241,0.85); border-color:rgba(45,110,99,0.18); font-weight:950; color:rgba(45,110,99,0.95)">Evolução visível</span>
-              <span class="tag" style="background:rgba(247,250,249,0.85);">Histórico organizado</span>
-              <span class="tag" style="background:rgba(247,250,249,0.85);">Retornos com previsibilidade</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- PLATAFORMA -->
-    <section id="plataforma">
-      <div class="section-head reveal">
-        <div>
-          <div class="label">A plataforma</div>
-          <h2>O que é a Salutivae?</h2>
-          <p class="sub">
-            A Salutivae é um aplicativo digital inteligente que transforma o atendimento em uma estrutura contínua.
-            Ela amplia a autoridade do profissional e oferece ao paciente clareza sobre sua própria evolução —
-            tudo em um ambiente organizado, acessível, estratégico e visual.
+        <aside class="panel reveal" aria-label="Perguntas que abrem a proposta">
+          <h3>Você já pensou em um aplicativo que fosse como um consultório para o seu paciente?</h3>
+          <p>
+            Um ambiente organizado onde você conduz o atendimento e o paciente acessa apenas o que você disponibiliza —
+            com clareza, continuidade e percepção premium do seu trabalho.
           </p>
-        </div>
+
+          <div class="q-list">
+            <div class="q"><div class="mark">?</div><span>Se você conseguisse acompanhar a evolução do seu paciente entre uma consulta e outra?</span></div>
+            <div class="q"><div class="mark">?</div><span>Se você tivesse controle de todos os pacientes — inclusive de quem está há muito tempo sem retorno?</span></div>
+            <div class="q"><div class="mark">?</div><span>Se seus pacientes não esfriassem, porque conseguem visualizar exatamente o que você orientou?</span></div>
+            <div class="q"><div class="mark">?</div><span>Se você conseguisse se comunicar com seu paciente por um chat dentro do aplicativo, no contexto do atendimento?</span></div>
+            <div class="q"><div class="mark">?</div><span>Se você tivesse agenda e disponibilidade organizadas, com solicitações dentro do horário que você definiu?</span></div>
+            <div class="q"><div class="mark">?</div><span>Se tudo isso estivesse em um aplicativo com sua identidade, suas informações e seu método de condução?</span></div>
+          </div>
+        </aside>
       </div>
-
-      <div class="highlight reveal">
-        <div>Quando o paciente visualiza o processo, ele entende o <b>valor</b>. Quando o profissional tem estrutura, ele <b>cresce</b>.</div>
-        <a class="btn primary" href="#lista">Entrar na lista de espera</a>
-      </div>
-
-      <div class="cards reveal" style="margin-top:18px;">
-        <div class="card">
-          <div class="top">
-            <div class="ic">★</div>
-            <div>
-              <h4>Estrutura que comunica profissionalismo</h4>
-              <p>A forma como você organiza seu atendimento influencia diretamente como você é percebido: método, cuidado e seriedade.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Ambiente premium</span>
-            <span class="tag">Mais confiança</span>
-            <span class="tag">Mais valorização</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic" style="background:linear-gradient(135deg, rgba(224,123,95,0.96), rgba(240,160,144,0.96)); box-shadow:0 14px 36px rgba(224,123,95,0.22)">◎</div>
-            <div>
-              <h4>Plataforma com sua identidade</h4>
-              <p>Você conduz. Você organiza. Você acompanha. O paciente só acessa quando você disponibiliza — dentro do seu fluxo de atendimento.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Seu método</span>
-            <span class="tag">Seu controle</span>
-            <span class="tag">Sua jornada</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- RECURSOS -->
-    <section id="recursos">
-      <div class="section-head reveal">
-        <div>
-          <div class="label">Recursos</div>
-          <h2>Uma estrutura pensada para fortalecer o seu atendimento</h2>
-          <p class="sub">
-            A Salutivae nasce para facilitar sua rotina, organizar seus processos e fortalecer a relação com seus pacientes
-            de forma simples, clara e contínua.
-          </p>
-        </div>
-      </div>
-
-      <div class="cards reveal">
-        <div class="card">
-          <div class="top">
-            <div class="ic">A</div>
-            <div>
-              <h4>Agenda inteligente</h4>
-              <p>Organize sua disponibilidade com clareza. Permita que o paciente solicite horários dentro do que você definiu e tenha visão dos retornos.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Previsibilidade</span>
-            <span class="tag">Rotina organizada</span>
-            <span class="tag">Controle de retornos</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic">C</div>
-            <div>
-              <h4>Chat dentro do aplicativo</h4>
-              <p>Espaço direto entre você e seu paciente para manter a conversa no contexto do atendimento — simples, clara e alinhada à jornada.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Acompanhamento contínuo</span>
-            <span class="tag">Contexto do atendimento</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic">P</div>
-            <div>
-              <h4>Protocolos e evolução</h4>
-              <p>Registre orientações, organize exames e permita que o paciente acompanhe sua própria evolução com clareza — inclusive por gráficos.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Clareza visual</span>
-            <span class="tag">Evolução acompanhável</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic">V</div>
-            <div>
-              <h4>Vídeo integrado</h4>
-              <p>Realize consultas por vídeo dentro da plataforma, com acesso ao histórico do paciente durante o atendimento.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Atendimento premium</span>
-            <span class="tag">Mais fluidez</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic">B</div>
-            <div>
-              <h4>Biblioteca profissional</h4>
-              <p>Seu conhecimento em um único lugar: protocolos educacionais, materiais complementares e orientações personalizadas. Compartilhe com um paciente ou com todos.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Conteúdo com intenção</span>
-            <span class="tag">Continuidade</span>
-            <span class="tag">Orientações organizadas</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic" style="background:linear-gradient(135deg, rgba(224,123,95,0.96), rgba(240,160,144,0.96)); box-shadow:0 14px 36px rgba(224,123,95,0.22)">✓</div>
-            <div>
-              <h4>Estrutura também comunica valor</h4>
-              <p>Quando o paciente percebe método e clareza, ele confia. Quando confia, ele permanece. E quando permanece, seu atendimento cresce.</p>
-            </div>
-          </div>
-          <div class="tags">
-            <span class="tag">Mais percepção</span>
-            <span class="tag">Mais autoridade</span>
-            <span class="tag">Mais permanência</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PARA QUEM -->
-    <section id="para-quem">
-      <div class="section-head reveal">
-        <div>
-          <div class="label">Para quem é</div>
-          <h2>Para profissionais que desejam mais do que atender</h2>
-          <p class="sub">
-            Para profissionais da saúde que desejam estruturar, acompanhar e valorizar seu atendimento —
-            com mais controle, mais clareza e uma experiência mais profissional para o paciente.
-          </p>
-        </div>
-      </div>
-
-      <div class="cards for-grid reveal">
-        <div class="card">
-          <div class="top">
-            <div class="ic">1</div>
-            <div>
-              <h4>Para quem quer continuidade</h4>
-              <p>Para quem não quer que o atendimento termine quando a consulta acaba — e deseja acompanhar o paciente de perto.</p>
-            </div>
-          </div>
-          <div class="tags"><span class="tag">Jornada contínua</span><span class="tag">Acompanhamento</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic">2</div>
-            <div>
-              <h4>Para quem quer mais controle</h4>
-              <p>Para quem sente que poderia ter mais controle de agenda, retornos, protocolos e evolução dos pacientes em um só lugar.</p>
-            </div>
-          </div>
-          <div class="tags"><span class="tag">Organização</span><span class="tag">Previsibilidade</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top">
-            <div class="ic">3</div>
-            <div>
-              <h4>Para quem busca posicionamento</h4>
-              <p>Para quem entende que estrutura também comunica valor: ambiente visual, método claro e percepção premium.</p>
-            </div>
-          </div>
-          <div class="tags"><span class="tag">Autoridade</span><span class="tag">Valorização</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- LISTA DE ESPERA -->
-    <section id="lista" class="wait">
-      <div class="wait-wrap reveal">
-        <div class="wait-grid">
-          <div>
-            <div class="label">Pré-lançamento</div>
-            <h2>Entre na lista de espera</h2>
-            <p class="sub">
-              A Salutivae ainda não foi lançada, mas estamos abrindo acesso exclusivo para quem entra na lista de espera.
-              Você recebe novidades em primeira mão e participa desde o início da plataforma.
-            </p>
-
-            <div class="benefits">
-              <span class="benefit">Teste gratuito de 15 dias</span>
-              <span class="benefit">40% de desconto nos 3 primeiros meses</span>
-              <span class="benefit">Vagas limitadas</span>
-            </div>
-
-            <p class="fine">Sem compromisso. Você decide se quer avançar quando chegar a hora.</p>
-          </div>
-
-          <div>
-            <form id="waitForm" onsubmit="return submitWaitlist(event)">
-              <div class="field">
-                <label for="nome">Nome</label>
-                <input id="nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required>
-              </div>
-
-              <div class="field">
-                <label for="email">E-mail</label>
-                <input id="email" name="email" type="email" placeholder="seu@email.com" autocomplete="email" required>
-              </div>
-
-              <div class="field">
-                <label for="prof">Profissão</label>
-                <select id="prof" name="prof" required>
-                  <option value="" selected disabled>Selecione</option>
-                  <option>Nutricionista</option>
-                  <option>Médico(a)</option>
-                  <option>Terapeuta</option>
-                  <option>Psicólogo(a)</option>
-                  <option>Fisioterapeuta</option>
-                  <option>Personal Trainer</option>
-                  <option>Outro</option>
-                </select>
-              </div>
-
-              <button class="submit" type="submit">
-                Entrar na lista de espera →
-              </button>
-
-              <div class="success" id="successBox">
-                ✅ Cadastro confirmado!<br>
-                Você está na lista de espera. Em breve enviaremos novidades e acesso antecipado.
-              </div>
-
-              <p class="fine" style="margin-top:12px;">
-                (Por enquanto, este formulário só confirma na tela. Depois a gente integra para enviar os dados para o seu e-mail.)
-              </p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section>
-      <div class="section-head reveal">
-        <div>
-          <div class="label">Fechamento</div>
-          <h2>Era exatamente isso que faltava no seu atendimento.</h2>
-          <p class="sub">
-            Uma plataforma que entende que você é o profissional — e ela, a estrutura.
-          </p>
-        </div>
-        <div class="reveal">
-          <a class="btn primary" href="#lista">Entrar na lista de espera</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      <div class="container">
-        <div class="foot">
-          <div class="foot-left">
-            <img src="IMG_9507.png" alt="Logo Salutivae" />
-            <div>
-              <div style="font-weight:950; color:rgba(15,26,24,0.80)">Salutivae</div>
-              <div style="font-size:12px; font-weight:800; color:rgba(15,26,24,0.50)">© 2026 Salutivae. Todos os direitos reservados.</div>
-            </div>
-          </div>
-
-          <div class="foot-links">
-            <a href="#topo">Topo</a>
-            <a href="#plataforma">Plataforma</a>
-            <a href="#lista">Lista de espera</a>
-            <a href="#" onclick="alert('Você pode adicionar uma página de privacidade depois.'); return false;">Privacidade</a>
-            <a href="#" onclick="alert('Você pode adicionar termos depois.'); return false;">Termos</a>
-            <a href="#" onclick="window.open('https://instagram.com/SalutVi','_blank'); return false;">Instagram: @SalutVi</a>
-          </div>
-        </div>
-      </div>
-    </footer>
+    </div>
   </main>
 
+  <!-- PLATAFORMA -->
+  <section id="plataforma">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">a plataforma</div>
+          <h2>O que é a Salutivae?</h2>
+        </div>
+        <p class="lead">
+          Um aplicativo digital inteligente que transforma o atendimento em uma estrutura contínua.
+          Ele amplia a autoridade do profissional e oferece ao paciente clareza sobre sua própria evolução —
+          tudo em um ambiente organizado, acessível, estratégico e visual.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card reveal">
+          <div class="badge">1</div>
+          <h4>Você conduz.</h4>
+          <p>
+            Você organiza a plataforma, define o fluxo e disponibiliza o acesso para cada paciente —
+            com suas informações e seu jeito de conduzir o atendimento.
+          </p>
+        </div>
+
+        <div class="card reveal">
+          <div class="badge">2</div>
+          <h4>O paciente enxerga.</h4>
+          <p>
+            Protocolos, orientações, histórico e evolução ficam claros.
+            Quando o paciente visualiza o processo, ele entende o processo.
+          </p>
+        </div>
+
+        <div class="card reveal">
+          <div class="badge">3</div>
+          <h4>Estrutura que comunica valor.</h4>
+          <p>
+            A forma como você organiza seu atendimento influencia diretamente a forma como você é percebido:
+            mais método, mais seriedade, mais valorização.
+          </p>
+        </div>
+      </div>
+
+      <div class="quote reveal">
+        <div class="qdot"></div>
+        <div>
+          <b>Quando o paciente enxerga a sua evolução, ele permanece.</b><br/>
+          Quando o profissional tem estrutura, ele cresce.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section id="recursos">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">recursos</div>
+          <h2>Uma estrutura pensada para fortalecer o seu atendimento</h2>
+        </div>
+        <p class="lead">
+          A Salutivae nasce para facilitar sua rotina, organizar seus processos e fortalecer a relação com seus pacientes
+          de forma simples, clara e contínua.
+        </p>
+      </div>
+
+      <div class="features">
+        <div class="feature reveal">
+          <div class="icon">A</div>
+          <div>
+            <h4>Agenda inteligente</h4>
+            <p>
+              Organize sua disponibilidade com clareza. Permita que o paciente solicite o horário dentro da agenda que você definiu
+              e tenha uma visão organizada dos seus atendimentos e retornos.
+            </p>
+            <div class="tags">
+              <span class="tag">Previsibilidade</span>
+              <span class="tag">Controle de retornos</span>
+              <span class="tag">Rotina organizada</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="icon">C</div>
+          <div>
+            <h4>Chat dentro do aplicativo</h4>
+            <p>
+              Espaço direto entre você e seu paciente para manter uma conversa no contexto do atendimento.
+              Comunicação simples, clara e alinhada à jornada.
+            </p>
+            <div class="tags">
+              <span class="tag">Contexto do atendimento</span>
+              <span class="tag">Acompanhamento contínuo</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="icon">P</div>
+          <div>
+            <h4>Protocolos & evolução</h4>
+            <p>
+              Registre tudo o que for orientado, organize exames e permita que o paciente acompanhe sua própria evolução —
+              inclusive com clareza por meio de gráficos.
+            </p>
+            <div class="tags">
+              <span class="tag">Clareza visual</span>
+              <span class="tag">Evolução acompanhável</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="icon">V</div>
+          <div>
+            <h4>Atendimento por vídeo</h4>
+            <p>
+              Realize consultas por vídeo dentro da plataforma, com acesso ao prontuário, exames e histórico do paciente durante o atendimento.
+            </p>
+            <div class="tags">
+              <span class="tag">Atendimento integrado</span>
+              <span class="tag">Mais fluidez</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="icon">B</div>
+          <div>
+            <h4>Biblioteca profissional</h4>
+            <p>
+              Seu conhecimento reunido em um único lugar: protocolos educacionais, materiais complementares e orientações personalizadas.
+              Compartilhe conteúdo com pacientes específicos ou com todos de uma só vez.
+              A biblioteca mantém um cuidado ativo fora das consultas.
+            </p>
+            <div class="tags">
+              <span class="tag">Conteúdo com intenção</span>
+              <span class="tag">Continuidade</span>
+              <span class="tag">Orientações organizadas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature reveal">
+          <div class="icon">✓</div>
+          <div>
+            <h4>Estrutura também comunica valor</h4>
+            <p>
+              Um ambiente organizado transmite segurança. O paciente percebe cuidado, método e seriedade.
+              Clareza gera confiança. Confiança gera permanência.
+            </p>
+            <div class="tags">
+              <span class="tag">Mais valorização</span>
+              <span class="tag">Mais confiança</span>
+              <span class="tag">Mais permanência</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote reveal" style="margin-top:18px;">
+        <div class="qdot"></div>
+        <div>
+          <b>Quando o paciente entende o processo, ele entende o valor.</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM É -->
+  <section id="para-quem">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">para quem é</div>
+          <h2>Para profissionais que desejam mais do que atender</h2>
+        </div>
+        <p class="lead">
+          Para profissionais da área da saúde que desejam estruturar, acompanhar e valorizar o seu atendimento —
+          com mais clareza, mais controle e uma experiência mais profissional.
+        </p>
+      </div>
+
+      <div class="audience">
+        <div class="aud-card reveal">
+          <h4 style="margin:0 0 6px; font-size:18px;">Para quem quer continuidade</h4>
+          <p style="margin:0; color:rgba(14,22,20,.72); line-height:1.65; font-size:13px;">
+            Para quem não quer que o atendimento termine quando a consulta acaba e deseja acompanhar de perto para gerar resultados reais.
+          </p>
+
+          <ul class="list">
+            <li class="li"><div class="check">✓</div><span>Para quem sente que poderia ter mais controle sobre agenda, protocolos e evolução.</span></li>
+            <li class="li"><div class="check">✓</div><span>Para quem quer um lugar onde o paciente visualiza tudo o que foi orientado na consulta.</span></li>
+            <li class="li"><div class="check">✓</div><span>Para quem valoriza a clareza — e acredita que o paciente precisa enxergar o processo para confiar.</span></li>
+          </ul>
+        </div>
+
+        <div class="aud-card reveal">
+          <h4 style="margin:0 0 6px; font-size:18px;">Para quem busca posicionamento</h4>
+          <p style="margin:0; color:rgba(14,22,20,.72); line-height:1.65; font-size:13px;">
+            Para profissionais que entendem que <b>estrutura também comunica valor</b>.
+            Um atendimento bem organizado é percebido como mais profissional — e mais valorizado.
+          </p>
+
+          <ul class="list">
+            <li class="li"><div class="check">✓</div><span>Para quem quer ser percebido com mais seriedade, método e clareza.</span></li>
+            <li class="li"><div class="check">✓</div><span>Para quem quer um ambiente com sua identidade, seu nome, suas informações e sua forma de conduzir.</span></li>
+            <li class="li"><div class="check">✓</div><span>Para quem quer que o paciente acesse apenas quando você disponibiliza — com você no controle.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTA DE ESPERA -->
+  <section id="lista-de-espera" class="wait">
+    <div class="container">
+      <div class="wait-wrap">
+        <div class="box reveal">
+          <div class="kicker" style="color:rgba(255,255,255,.70)">pré-lançamento</div>
+          <h2>Entre na lista de espera</h2>
+          <p>
+            A Salutivae ainda não foi lançada, mas estamos liberando acesso exclusivo para quem entra na lista de espera.
+            Você recebe novidades em primeira mão e participa do início da plataforma.
+          </p>
+
+          <div class="perks" aria-label="Benefícios de entrada">
+            <div class="perk">Teste gratuito de 15 dias</div>
+            <div class="perk">40% de desconto nos 3 primeiros meses</div>
+            <div class="perk">Vagas limitadas</div>
+          </div>
+
+          <p style="margin-top:14px; color:rgba(255,255,255,.74); font-size:12px;">
+            Sem compromisso. Você decide se quer avançar quando chegar a hora.
+          </p>
+        </div>
+
+        <div class="box reveal">
+          <form id="waitlistForm" action="#" method="post" autocomplete="on">
+            <div class="form-row">
+              <div>
+                <label for="nome">Nome</label>
+                <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
+              </div>
+              <div>
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="seu@email.com" required />
+              </div>
+            </div>
+
+            <div>
+              <label for="profissao">Profissão (opcional)</label>
+              <select id="profissao" name="profissao">
+                <option value="" selected>Selecione</option>
+                <option>Profissional da saúde</option>
+                <option>Terapeuta</option>
+                <option>Nutricionista</option>
+                <option>Psicólogo(a)</option>
+                <option>Personal Trainer</option>
+                <option>Outro</option>
+              </select>
+            </div>
+
+            <div class="submit">
+              <button class="btn primary" type="submit" style="padding:14px 16px; border-radius:16px;">
+                Entrar na lista de espera
+              </button>
+              <div class="note">
+                (Por enquanto, este formulário só confirma na tela. Depois a gente integra para enviar os dados para o seu e-mail.)
+              </div>
+            </div>
+          </form>
+
+          <div id="successMsg" style="display:none; margin-top:14px; border-radius:18px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.08); padding:14px; color: rgba(255,255,255,.86); font-size:13px; line-height:1.55;">
+            <b>Pronto!</b> Você entrou na lista de espera. Em breve você receberá novidades em primeira mão.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <span class="ig"><span class="igdot"></span> Instagram: @SalutVi</span>
+          <span style="color:rgba(14,22,20,.55); font-size:13px;">© 2026 Salutivae. Todos os direitos reservados.</span>
+        </div>
+
+        <div class="footer-links">
+          <a href="#topo">Topo</a>
+          <a href="#plataforma">Plataforma</a>
+          <a href="#lista-de-espera">Lista de espera</a>
+          <a href="javascript:void(0)">Privacidade</a>
+          <a href="javascript:void(0)">Termos</a>
+          <a href="javascript:void(0)">Contato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    // reveal on scroll
+    // Reveal on scroll
+    const els = Array.from(document.querySelectorAll('.reveal'));
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
-        if(e.isIntersecting) e.target.classList.add("visible");
+        if(e.isIntersecting) e.target.classList.add('on');
       });
-    }, {threshold: 0.12});
-    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
 
-    // mobile menu
-    function toggleMobileMenu(){
-      const panel = document.getElementById("mobilePanel");
-      panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    }
-    function closeMobileMenu(){
-      const panel = document.getElementById("mobilePanel");
-      panel.style.display = "none";
-    }
-
-    // waitlist (front only)
-    function submitWaitlist(event){
-      event.preventDefault();
-      const name = document.getElementById("nome").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const prof = document.getElementById("prof").value;
-
-      if(!name || !email || !prof){
-        alert("Preencha nome, e-mail e profissão.");
-        return false;
-      }
-
-      // show success
-      document.getElementById("successBox").style.display = "block";
-
-      // optional: clear
-      // document.getElementById("waitForm").reset();
-
-      return false;
-    }
+    // Waitlist "fake submit" (por enquanto)
+    const form = document.getElementById('waitlistForm');
+    const msg  = document.getElementById('successMsg');
+    form.addEventListener('submit', (ev)=>{
+      ev.preventDefault();
+      msg.style.display = 'block';
+      form.style.display = 'none';
+    });
   </script>
 </body>
 </html>
