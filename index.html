@@ -32,16 +32,16 @@
       --cinza: #D1CDCD;
       --claro: #E9E9E8;
       --escuro: #3A382F;
-
       --branco: #FFFFFF;
-      --coral-suave: #E8D7D1;
+
+      --coral-suave: #E9DCD7;
       --azul-nevoa: #DCE9EA;
       --azul-profundo: #6F979A;
 
       --texto: #3A382F;
       --texto-suave: rgba(58, 56, 47, 0.68);
-      --linha: rgba(58, 56, 47, 0.18);
-      --linha-clara: rgba(255, 255, 255, 0.20);
+      --linha: rgba(58, 56, 47, 0.17);
+      --linha-clara: rgba(255, 255, 255, 0.17);
 
       --serif: "Gilda Display", Georgia, serif;
       --sans: "DM Sans", Arial, sans-serif;
@@ -79,8 +79,7 @@
 
     button,
     input,
-    textarea,
-    select {
+    textarea {
       font: inherit;
     }
 
@@ -88,7 +87,6 @@
       cursor: pointer;
     }
 
-    img,
     svg {
       display: block;
       max-width: 100%;
@@ -100,7 +98,7 @@
     }
 
     .container {
-      width: min(1100px, calc(100% - 40px));
+      width: min(1080px, calc(100% - 40px));
       margin-inline: auto;
     }
 
@@ -118,8 +116,8 @@
       background:
         radial-gradient(
           circle at 78% 18%,
-          rgba(146, 179, 182, 0.22),
-          transparent 30%
+          rgba(146, 179, 182, 0.20),
+          transparent 31%
         ),
         var(--claro);
     }
@@ -127,14 +125,14 @@
     .section-blue {
       background:
         radial-gradient(
-          circle at 20% 18%,
-          rgba(255, 255, 255, 0.70),
+          circle at 17% 14%,
+          rgba(255, 255, 255, 0.73),
           transparent 28%
         ),
         linear-gradient(
           145deg,
-          #E8F0F0,
-          #D9E7E8
+          #E7EFEF,
+          #D9E6E7
         );
     }
 
@@ -149,9 +147,9 @@
       gap: 12px;
       margin-bottom: 20px;
       color: var(--azul-profundo);
-      font-size: 0.67rem;
+      font-size: 0.66rem;
       font-weight: 600;
-      letter-spacing: 0.19em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
@@ -163,16 +161,16 @@
     }
 
     .eyebrow.light {
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(255, 255, 255, 0.62);
     }
 
     .title {
       max-width: 900px;
       font-family: var(--serif);
-      font-size: clamp(2.7rem, 5vw, 5.15rem);
+      font-size: clamp(2.6rem, 5vw, 5.1rem);
       font-weight: 400;
       letter-spacing: -0.035em;
-      line-height: 1.03;
+      line-height: 1.04;
     }
 
     .copy {
@@ -184,24 +182,23 @@
     }
 
     .copy.light {
-      color: rgba(255, 255, 255, 0.64);
+      color: rgba(255, 255, 255, 0.63);
     }
 
     .button {
-      min-height: 48px;
+      min-height: 44px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 23px;
+      padding: 10px 22px;
       border: 1px solid transparent;
       border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 500;
       transition:
         transform 0.28s var(--ease),
-        background 0.28s ease,
-        border-color 0.28s ease;
+        background 0.28s ease;
     }
 
     .button:hover {
@@ -224,12 +221,6 @@
 
     .button-light {
       background: var(--branco);
-      color: var(--escuro);
-    }
-
-    .button-outline {
-      border-color: var(--linha);
-      background: transparent;
       color: var(--escuro);
     }
 
@@ -258,39 +249,31 @@
        SÍMBOLO SALUTIVAE
     ========================================================= */
 
+    .salutivae-symbol {
+      overflow: visible;
+    }
+
     .salutivae-symbol path {
       fill: currentColor;
     }
 
     /* =========================================================
-       CABEÇALHO
+       CABEÇALHO — APENAS UM
     ========================================================= */
 
     .site-header {
-      position: fixed;
-      inset: 0 0 auto;
-      z-index: 1000;
-      height: 76px;
-      display: flex;
-      align-items: center;
-      background: rgba(233, 233, 232, 0.91);
-      border-bottom: 1px solid rgba(58, 56, 47, 0.11);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      transition: 0.3s ease;
-    }
-
-    .site-header.scrolled {
-      height: 66px;
-      background: rgba(233, 233, 232, 0.97);
-      box-shadow: 0 12px 34px rgba(58, 56, 47, 0.05);
+      position: relative;
+      z-index: 20;
+      background: transparent;
     }
 
     .header-inner {
+      min-height: 84px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
+      border-bottom: 1px solid rgba(58, 56, 47, 0.22);
     }
 
     .brand {
@@ -300,14 +283,14 @@
     }
 
     .brand-symbol {
-      width: 25px;
-      height: 38px;
+      width: 22px;
+      height: 34px;
       color: var(--escuro);
     }
 
     .brand-name {
       font-family: var(--serif);
-      font-size: 1.65rem;
+      font-size: 1.55rem;
       line-height: 1;
     }
 
@@ -320,24 +303,23 @@
     .desktop-nav > a:not(.button) {
       padding: 8px 10px;
       border-radius: 999px;
-      color: rgba(58, 56, 47, 0.70);
-      font-size: 0.74rem;
+      color: rgba(58, 56, 47, 0.68);
+      font-size: 0.72rem;
       transition: 0.25s ease;
     }
 
     .desktop-nav > a:not(.button):hover {
-      background: rgba(146, 179, 182, 0.15);
+      background: rgba(146, 179, 182, 0.14);
       color: var(--escuro);
     }
 
     .menu-button {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       display: none;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--linha);
-      border-radius: 50%;
+      border: 0;
       background: transparent;
       color: var(--escuro);
     }
@@ -354,7 +336,7 @@
       background:
         radial-gradient(
           circle at 80% 18%,
-          rgba(146, 179, 182, 0.32),
+          rgba(146, 179, 182, 0.31),
           transparent 34%
         ),
         var(--claro);
@@ -377,21 +359,38 @@
       font-size: 1.9rem;
     }
 
+    .mobile-menu-close {
+      position: absolute;
+      top: 25px;
+      right: 24px;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--linha);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--escuro);
+    }
+
     /* =========================================================
-       ABERTURA — REPRODUÇÃO DA ARTE
+       ABERTURA — MESMA COMPOSIÇÃO DA ARTE
     ========================================================= */
 
     .hero {
+      position: relative;
       min-height: 100svh;
-      padding: 104px 0 86px;
+      padding: 0 0 90px;
       background:
         radial-gradient(
-          circle at 50% 45%,
-          rgba(146, 179, 182, 0.35),
-          rgba(220, 233, 234, 0.42) 25%,
-          rgba(255, 255, 255, 0.82) 58%,
-          var(--claro) 82%
+          circle at 50% 47%,
+          rgba(146, 179, 182, 0.32),
+          rgba(220, 233, 234, 0.37) 27%,
+          rgba(255, 255, 255, 0.87) 59%,
+          var(--claro) 84%
         );
+      overflow: hidden;
     }
 
     .hero-inner {
@@ -399,51 +398,9 @@
       margin-inline: auto;
     }
 
-    .hero-top {
-      min-height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .hero-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-    }
-
-    .hero-brand-symbol {
-      width: 24px;
-      height: 36px;
-      color: var(--escuro);
-    }
-
-    .hero-brand-name {
-      font-family: var(--serif);
-      font-size: 1.65rem;
-      line-height: 1;
-    }
-
-    .hero-menu {
-      width: 43px;
-      height: 43px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      background: transparent;
-      color: var(--escuro);
-    }
-
-    .hero-divider {
-      width: 100%;
-      height: 1px;
-      background: rgba(58, 56, 47, 0.24);
-    }
-
     .connection-stage {
       position: relative;
-      min-height: 605px;
+      min-height: 570px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -451,9 +408,9 @@
 
     .hero-column {
       position: absolute;
-      width: min(400px, 76vw);
+      width: min(350px, 72vw);
       height: auto;
-      color: rgba(232, 215, 209, 0.70);
+      color: rgba(233, 220, 215, 0.62);
       z-index: 1;
     }
 
@@ -461,117 +418,102 @@
       position: absolute;
       z-index: 3;
       font-family: var(--serif);
-      font-size: clamp(1.25rem, 2.7vw, 1.78rem);
+      font-size: clamp(1.15rem, 2.6vw, 1.65rem);
       color: var(--escuro);
       opacity: 0;
-      filter: blur(5px);
-      transform: translateY(13px) scale(0.98);
-      animation:
-        connectionWord 7.2s var(--ease) infinite;
-    }
-
-    .connection-word::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 0;
-      height: 1px;
-      background: rgba(58, 56, 47, 0.30);
-      transition: width 0.6s ease;
+      transform: translateY(12px);
+      animation: connectionWord 8s var(--ease) infinite;
     }
 
     .word-1 {
-      top: 21%;
-      left: 37%;
+      top: 20%;
+      left: 36%;
       animation-delay: 0s;
     }
 
     .word-2 {
-      top: 38%;
-      right: 8%;
-      animation-delay: 0.75s;
+      top: 37%;
+      right: 7%;
+      animation-delay: 0.8s;
     }
 
     .word-3 {
-      top: 55%;
-      left: 8%;
-      animation-delay: 1.5s;
+      top: 54%;
+      left: 7%;
+      animation-delay: 1.6s;
     }
 
     .word-4 {
-      top: 71%;
-      left: 34%;
-      animation-delay: 2.25s;
+      top: 70%;
+      left: 33%;
+      animation-delay: 2.4s;
     }
 
     @keyframes connectionWord {
       0%,
-      8% {
+      9% {
         opacity: 0;
-        filter: blur(5px);
-        transform: translateY(13px) scale(0.98);
+        transform: translateY(12px);
       }
 
-      17%,
-      70% {
+      19%,
+      72% {
         opacity: 1;
-        filter: blur(0);
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
 
-      82%,
+      84%,
       100% {
         opacity: 0;
-        filter: blur(4px);
-        transform: translateY(-8px) scale(0.99);
+        transform: translateY(-7px);
       }
     }
 
     .hero-main-content {
       position: relative;
       z-index: 5;
-      margin-top: -36px;
+      margin-top: -38px;
       text-align: center;
     }
 
     .hero-audience {
-      margin-top: 27px;
+      margin-top: 26px;
       font-family: var(--serif);
-      font-size: 1.22rem;
+      font-size: 1.18rem;
     }
 
     .hero-audience::after {
       content: "";
       display: block;
-      width: 67px;
+      width: 66px;
       height: 1px;
       margin: 11px auto 0;
-      background: rgba(58, 56, 47, 0.34);
+      background: rgba(58, 56, 47, 0.33);
     }
 
     .hero-tags {
-      max-width: 650px;
+      max-width: 630px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px;
-      margin: 24px auto 0;
+      margin: 23px auto 0;
     }
 
     .hero-tag {
       padding: 7px 13px;
-      border: 1px solid rgba(58, 56, 47, 0.09);
+      border: 1px solid rgba(58, 56, 47, 0.08);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.82);
-      color: rgba(58, 56, 47, 0.72);
-      font-size: 0.65rem;
-      box-shadow: 0 6px 18px rgba(58, 56, 47, 0.035);
+      background: rgba(255, 255, 255, 0.84);
+      color: rgba(58, 56, 47, 0.70);
+      font-size: 0.63rem;
+      box-shadow: 0 6px 18px rgba(58, 56, 47, 0.025);
     }
 
     .hero-how {
-      margin-top: 56px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(58, 56, 47, 0.12);
+      margin-top: 54px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(58, 56, 47, 0.11);
       text-align: center;
     }
 
@@ -579,34 +521,34 @@
       display: inline-flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.67rem;
+      font-size: 0.65rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     .hero-how-label::after {
       content: "";
-      width: 72px;
+      width: 70px;
       height: 1px;
       margin-top: 10px;
-      background: rgba(58, 56, 47, 0.44);
+      background: rgba(58, 56, 47, 0.42);
     }
 
     .hero-how h1 {
       max-width: 620px;
-      margin: 19px auto 0;
+      margin: 18px auto 0;
       font-family: var(--serif);
-      font-size: clamp(2.65rem, 6vw, 4.75rem);
+      font-size: clamp(2.55rem, 6vw, 4.65rem);
       font-weight: 400;
       letter-spacing: -0.035em;
       line-height: 1.02;
     }
 
     .hero-how p {
-      max-width: 690px;
+      max-width: 680px;
       margin: 17px auto 0;
       color: var(--texto-suave);
-      font-size: 0.93rem;
+      font-size: 0.91rem;
       line-height: 1.72;
     }
 
@@ -614,45 +556,38 @@
        CONTINUAÇÃO EDITORIAL
     ========================================================= */
 
-    .editorial-divider {
-      width: 100%;
-      height: 1px;
-      margin: 64px 0;
-      background: var(--linha);
-    }
-
     .large-statement {
-      max-width: 860px;
+      max-width: 880px;
       font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      line-height: 1.04;
+      font-size: clamp(2.45rem, 5vw, 4.9rem);
+      line-height: 1.05;
       letter-spacing: -0.035em;
     }
 
     .continuity-line {
       display: grid;
-      grid-template-columns: 1fr 80px 1fr;
-      gap: 25px;
+      grid-template-columns: 1fr 70px 1fr;
+      gap: 28px;
       align-items: stretch;
       margin-top: 70px;
     }
 
     .continuity-side {
-      padding: 12px 0 30px;
+      padding: 13px 0 30px;
       border-top: 1px solid var(--linha);
     }
 
     .continuity-number {
       color: var(--azul-profundo);
       font-family: var(--serif);
-      font-size: 1.35rem;
+      font-size: 1.25rem;
     }
 
     .continuity-side h3 {
       max-width: 430px;
-      margin-top: 34px;
+      margin-top: 32px;
       font-family: var(--serif);
-      font-size: clamp(1.9rem, 3vw, 3.1rem);
+      font-size: clamp(1.85rem, 3vw, 3rem);
       font-weight: 400;
       line-height: 1.1;
     }
@@ -660,7 +595,7 @@
     .continuity-side p {
       margin-top: 16px;
       color: var(--texto-suave);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       line-height: 1.75;
     }
 
@@ -668,7 +603,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
-      margin-top: 24px;
+      margin-top: 23px;
     }
 
     .continuity-items span {
@@ -676,7 +611,7 @@
       border: 1px solid var(--linha);
       border-radius: 999px;
       color: var(--texto-suave);
-      font-size: 0.61rem;
+      font-size: 0.59rem;
     }
 
     .continuity-axis {
@@ -701,8 +636,8 @@
       content: "";
       position: absolute;
       top: 50%;
-      width: 13px;
-      height: 13px;
+      width: 12px;
+      height: 12px;
       border: 4px solid var(--branco);
       border-radius: 50%;
       background: var(--azul);
@@ -715,14 +650,14 @@
 
     .application-layout {
       display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(350px, 1.08fr);
+      grid-template-columns: minmax(0, 0.94fr) minmax(350px, 1.06fr);
       gap: 76px;
       align-items: center;
     }
 
     .application-visual {
       position: relative;
-      min-height: 610px;
+      min-height: 570px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -730,14 +665,14 @@
 
     .application-glow {
       position: absolute;
-      width: 470px;
-      height: 470px;
+      width: 430px;
+      height: 430px;
       border-radius: 50%;
       background:
         radial-gradient(
           circle,
-          rgba(146, 179, 182, 0.38),
-          rgba(146, 179, 182, 0.08) 54%,
+          rgba(146, 179, 182, 0.34),
+          rgba(146, 179, 182, 0.07) 54%,
           transparent 72%
         );
     }
@@ -745,7 +680,7 @@
     .application-column {
       position: relative;
       z-index: 2;
-      width: 215px;
+      width: 205px;
       color: var(--azul);
     }
 
@@ -757,7 +692,7 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.86);
       color: var(--texto-suave);
-      font-size: 0.64rem;
+      font-size: 0.62rem;
     }
 
     .app-word-1 {
@@ -772,62 +707,62 @@
 
     .app-word-3 {
       top: 44%;
-      left: -1%;
+      left: 0;
     }
 
     .app-word-4 {
       top: 49%;
-      right: -2%;
+      right: 0;
     }
 
     .app-word-5 {
       bottom: 20%;
-      left: 7%;
+      left: 8%;
     }
 
     .app-word-6 {
       bottom: 14%;
-      right: 7%;
+      right: 8%;
     }
 
-    .app-list {
+    .editorial-list {
       margin-top: 34px;
       border-top: 1px solid var(--linha);
     }
 
-    .app-list-row {
+    .editorial-row {
       display: grid;
       grid-template-columns: 34px 1fr;
       gap: 18px;
-      padding: 18px 0;
+      padding: 19px 0;
       border-bottom: 1px solid var(--linha);
     }
 
-    .app-list-row span {
+    .editorial-row > span {
       color: var(--azul-profundo);
       font-family: var(--serif);
     }
 
-    .app-list-row strong {
+    .editorial-row strong {
       display: block;
       font-family: var(--serif);
-      font-size: 1.25rem;
+      font-size: 1.24rem;
       font-weight: 400;
     }
 
-    .app-list-row p {
+    .editorial-row p {
       margin-top: 4px;
       color: var(--texto-suave);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
     }
 
     /* =========================================================
-       INTELIGÊNCIA E RETENÇÃO — SEM CARDS GENÉRICOS
+       INTELIGÊNCIA E RETENÇÃO — SEM CARDS DE IA
     ========================================================= */
 
     .intelligence-layout {
       display: grid;
-      grid-template-columns: minmax(0, 0.88fr) minmax(350px, 1.12fr);
+      grid-template-columns: minmax(0, 0.9fr) minmax(350px, 1.1fr);
       gap: 80px;
       align-items: start;
     }
@@ -838,7 +773,7 @@
 
     .signal-row {
       display: grid;
-      grid-template-columns: 42px 1fr auto;
+      grid-template-columns: 36px 1fr auto;
       gap: 18px;
       align-items: center;
       padding: 21px 0;
@@ -846,8 +781,8 @@
     }
 
     .signal-dot {
-      width: 11px;
-      height: 11px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background: var(--azul);
       box-shadow: 0 0 0 7px rgba(146, 179, 182, 0.14);
@@ -855,14 +790,14 @@
 
     .signal-row h3 {
       font-family: var(--serif);
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       font-weight: 400;
     }
 
     .signal-row p {
       margin-top: 4px;
       color: var(--texto-suave);
-      font-size: 0.73rem;
+      font-size: 0.71rem;
     }
 
     .signal-status {
@@ -870,11 +805,11 @@
       border: 1px solid var(--linha);
       border-radius: 999px;
       color: var(--texto-suave);
-      font-size: 0.56rem;
+      font-size: 0.54rem;
     }
 
     /* =========================================================
-       PROFISSIONAIS
+       PARA QUEM É
     ========================================================= */
 
     .profession-layout {
@@ -902,14 +837,14 @@
 
     .profession-item strong {
       font-family: var(--serif);
-      font-size: 1.2rem;
+      font-size: 1.18rem;
       font-weight: 400;
     }
 
     .profession-item p {
       margin-top: 5px;
-      color: rgba(255, 255, 255, 0.54);
-      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.52);
+      font-size: 0.68rem;
     }
 
     /* =========================================================
@@ -928,12 +863,12 @@
       padding: 20px 0 20px 20px;
       border-left: 1px solid var(--azul);
       color: var(--texto-suave);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       line-height: 1.72;
     }
 
     .form-panel {
-      padding: 32px;
+      padding: 31px;
       border: 1px solid var(--linha);
       background: rgba(255, 255, 255, 0.52);
     }
@@ -945,24 +880,24 @@
 
     .form-panel h3 {
       font-family: var(--serif);
-      font-size: 2rem;
+      font-size: 1.95rem;
       font-weight: 400;
     }
 
     .form-panel-description {
       margin-top: 8px;
       color: var(--texto-suave);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
     }
 
     .form-panel.dark .form-panel-description {
-      color: rgba(255, 255, 255, 0.52);
+      color: rgba(255, 255, 255, 0.51);
     }
 
     form {
       display: grid;
       gap: 13px;
-      margin-top: 25px;
+      margin-top: 24px;
     }
 
     .two-fields {
@@ -978,24 +913,24 @@
 
     .field label {
       color: var(--azul-profundo);
-      font-size: 0.59rem;
+      font-size: 0.58rem;
       font-weight: 600;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
     .form-panel.dark .field label {
-      color: rgba(255, 255, 255, 0.60);
+      color: rgba(255, 255, 255, 0.59);
     }
 
     .field input,
     .field textarea {
       width: 100%;
-      min-height: 50px;
+      min-height: 49px;
       padding: 13px 14px;
       border: 1px solid var(--linha);
       border-radius: 0;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.83);
       color: var(--escuro);
       outline: none;
       transition:
@@ -1032,13 +967,13 @@
     }
 
     .form-note {
-      color: rgba(58, 56, 47, 0.48);
-      font-size: 0.60rem;
+      color: rgba(58, 56, 47, 0.46);
+      font-size: 0.59rem;
       text-align: center;
     }
 
     .form-panel.dark .form-note {
-      color: rgba(255, 255, 255, 0.35);
+      color: rgba(255, 255, 255, 0.34);
     }
 
     .form-success {
@@ -1054,7 +989,7 @@
 
     .form-success strong {
       font-family: var(--serif);
-      font-size: 1.45rem;
+      font-size: 1.42rem;
       font-weight: 400;
     }
 
@@ -1062,11 +997,11 @@
       display: block;
       margin-top: 6px;
       color: var(--texto-suave);
-      font-size: 0.7rem;
+      font-size: 0.69rem;
     }
 
     .form-panel.dark .form-success span {
-      color: rgba(255, 255, 255, 0.52);
+      color: rgba(255, 255, 255, 0.51);
     }
 
     /* =========================================================
@@ -1082,7 +1017,7 @@
 
     .waitlist-number strong {
       font-family: var(--serif);
-      font-size: 3.8rem;
+      font-size: 3.7rem;
       font-weight: 400;
       line-height: 1;
     }
@@ -1090,8 +1025,8 @@
     .waitlist-number span {
       display: block;
       margin-top: 7px;
-      color: rgba(255, 255, 255, 0.46);
-      font-size: 0.66rem;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.65rem;
     }
 
     .waitlist-benefits {
@@ -1105,8 +1040,8 @@
       gap: 13px;
       padding: 13px 0;
       border-bottom: 1px solid var(--linha-clara);
-      color: rgba(255, 255, 255, 0.67);
-      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.72rem;
     }
 
     .waitlist-benefit span:first-child {
@@ -1121,14 +1056,14 @@
 
     .payment-message strong {
       font-family: var(--serif);
-      font-size: 1.25rem;
+      font-size: 1.22rem;
       font-weight: 400;
     }
 
     .payment-message p {
       margin-top: 5px;
-      color: rgba(255, 255, 255, 0.53);
-      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.51);
+      font-size: 0.71rem;
       line-height: 1.68;
     }
 
@@ -1147,8 +1082,8 @@
       position: absolute;
       top: 48%;
       left: 50%;
-      width: min(520px, 70vw);
-      color: rgba(146, 179, 182, 0.09);
+      width: min(500px, 68vw);
+      color: rgba(146, 179, 182, 0.08);
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
@@ -1166,7 +1101,7 @@
 
     .footer-statement h2 {
       font-family: var(--serif);
-      font-size: clamp(2.7rem, 5.5vw, 5.5rem);
+      font-size: clamp(2.65rem, 5.5vw, 5.35rem);
       font-weight: 400;
       letter-spacing: -0.035em;
       line-height: 1.02;
@@ -1189,21 +1124,21 @@
     }
 
     .footer-brand-symbol {
-      width: 26px;
-      height: 39px;
+      width: 23px;
+      height: 35px;
       color: var(--escuro);
     }
 
     .footer-brand-name {
       font-family: var(--serif);
-      font-size: 1.65rem;
+      font-size: 1.55rem;
     }
 
     .footer-description {
       max-width: 420px;
       margin-top: 13px;
       color: var(--texto-suave);
-      font-size: 0.73rem;
+      font-size: 0.72rem;
       line-height: 1.68;
     }
 
@@ -1215,15 +1150,15 @@
 
     .footer-links h4 {
       margin-bottom: 6px;
-      color: rgba(58, 56, 47, 0.43);
-      font-size: 0.57rem;
+      color: rgba(58, 56, 47, 0.41);
+      font-size: 0.56rem;
       letter-spacing: 0.13em;
       text-transform: uppercase;
     }
 
     .footer-links a {
-      color: rgba(58, 56, 47, 0.68);
-      font-size: 0.73rem;
+      color: rgba(58, 56, 47, 0.66);
+      font-size: 0.71rem;
     }
 
     .footer-bottom {
@@ -1231,12 +1166,12 @@
       justify-content: space-between;
       gap: 20px;
       padding-top: 20px;
-      color: rgba(58, 56, 47, 0.43);
-      font-size: 0.61rem;
+      color: rgba(58, 56, 47, 0.41);
+      font-size: 0.6rem;
     }
 
     /* =========================================================
-       RESPONSIVIDADE
+       RESPONSIVO
     ========================================================= */
 
     @media (max-width: 960px) {
@@ -1286,122 +1221,97 @@
 
     @media (max-width: 680px) {
       .container {
-        width: min(100% - 28px, 1100px);
+        width: min(100% - 28px, 1080px);
       }
 
       .section {
-        padding: 86px 0;
+        padding: 84px 0;
       }
 
-      .site-header {
-        height: 66px;
+      .header-inner {
+        min-height: 76px;
       }
 
       .brand-symbol {
-        width: 22px;
-        height: 33px;
+        width: 19px;
+        height: 30px;
       }
 
       .brand-name {
-        font-size: 1.42rem;
-      }
-
-      .hero {
-        padding-top: 86px;
-      }
-
-      .hero-brand-symbol {
-        width: 21px;
-        height: 32px;
-      }
-
-      .hero-brand-name {
-        font-size: 1.45rem;
+        font-size: 1.4rem;
       }
 
       .connection-stage {
-        min-height: 530px;
+        min-height: 485px;
       }
 
       .hero-column {
-        width: min(330px, 86vw);
+        width: min(295px, 79vw);
       }
 
       .connection-word {
-        font-size: 1.18rem;
+        font-size: 1.06rem;
       }
 
       .word-1 {
-        top: 22%;
-        left: 29%;
+        top: 21%;
+        left: 31%;
       }
 
       .word-2 {
-        top: 39%;
-        right: 0;
+        top: 38%;
+        right: 1%;
       }
 
       .word-3 {
-        top: 56%;
-        left: 0;
+        top: 55%;
+        left: 1%;
       }
 
       .word-4 {
-        top: 72%;
-        left: 28%;
+        top: 71%;
+        left: 27%;
       }
 
       .hero-main-content {
-        margin-top: -20px;
+        margin-top: -17px;
       }
 
       .hero-tags {
-        max-width: 380px;
+        max-width: 370px;
       }
 
       .application-visual {
-        min-height: 480px;
+        min-height: 455px;
       }
 
       .application-glow {
-        width: 330px;
-        height: 330px;
+        width: 320px;
+        height: 320px;
       }
 
       .application-column {
-        width: 165px;
+        width: 155px;
       }
 
       .application-word {
-        font-size: 0.58rem;
+        font-size: 0.56rem;
       }
 
-      .app-word-1 {
-        left: 0;
-      }
-
-      .app-word-2 {
-        right: 0;
-      }
-
-      .app-word-3 {
-        left: -4px;
-      }
-
-      .app-word-4 {
-        right: -4px;
-      }
-
+      .app-word-1,
+      .app-word-3,
       .app-word-5 {
         left: 0;
       }
 
+      .app-word-2,
+      .app-word-4,
       .app-word-6 {
         right: 0;
       }
 
       .signal-row {
-        grid-template-columns: 32px 1fr;
+        grid-template-columns: 30px 1fr;
       }
 
       .signal-status {
@@ -1420,7 +1330,7 @@
       }
 
       .form-panel {
-        padding: 25px 19px;
+        padding: 24px 18px;
       }
 
       .footer-top {
@@ -1453,7 +1363,6 @@
       .reveal,
       .connection-word {
         opacity: 1;
-        filter: none;
         transform: none;
       }
     }
@@ -1462,9 +1371,10 @@
 
 <body>
 
-  <!-- =======================================================
-       SÍMBOLO OFICIAL INCORPORADO
-  ======================================================== -->
+  <!--
+    Símbolo reconstruído a partir do formato real enviado.
+    Ele fica incorporado no HTML e não depende de arquivo externo.
+  -->
 
   <svg
     width="0"
@@ -1474,144 +1384,23 @@
   >
     <symbol
       id="salutivae-symbol"
-      viewBox="0 0 260 430"
+      viewBox="0 0 1320 1618"
     >
-      <path d="
-        M130 8
-        C115 8 107 22 115 34
-        C121 43 121 48 121 59
-
-        C101 46 87 42 70 48
-        C55 53 44 63 38 76
-        C49 86 62 90 77 86
-        C94 82 107 84 121 98
-
-        C102 104 86 103 65 96
-        C42 89 22 99 9 117
-        C26 135 49 142 75 133
-        C95 126 111 131 121 152
-
-        C100 155 83 153 60 146
-        C34 138 15 152 3 173
-        C23 191 47 198 75 189
-        C98 181 111 188 121 208
-
-        C100 211 83 209 60 202
-        C34 194 15 208 3 229
-        C23 247 47 254 75 245
-        C98 237 111 244 121 264
-
-        C102 270 86 269 65 262
-        C42 255 22 265 9 283
-        C26 301 49 308 75 299
-        C95 292 111 297 121 318
-
-        C107 332 94 334 77 330
-        C62 326 49 331 38 340
-        C44 353 55 363 70 368
-        C87 374 101 370 121 357
-
-        C121 368 121 373 115 382
-        C107 394 115 408 130 408
-
-        C145 408 153 394 145 382
-        C139 373 139 368 139 357
-
-        C159 370 173 374 190 368
-        C205 363 216 353 222 340
-        C211 331 198 326 183 330
-        C166 334 153 332 139 318
-
-        C149 297 165 292 185 299
-        C211 308 234 301 251 283
-        C238 265 218 255 195 262
-        C174 269 158 270 139 264
-
-        C149 244 162 237 185 245
-        C213 254 237 247 257 229
-        C245 208 226 194 200 202
-        C177 209 160 211 139 208
-
-        C149 188 162 181 185 189
-        C213 198 237 191 257 173
-        C245 152 226 138 200 146
-        C177 153 160 155 139 152
-
-        C149 131 165 126 185 133
-        C211 142 234 135 251 117
-        C238 99 218 89 195 96
-        C174 103 158 104 139 98
-
-        C153 84 166 82 183 86
-        C198 90 211 86 222 76
-        C216 63 205 53 190 48
-        C173 42 159 46 139 59
-
-        C139 48 139 43 145 34
-        C153 22 145 8 130 8
-      "></path>
+      <path d="M649 0 L626 12 L616 28 L615 48 L622 73 L566 65 L506 43 L489 41 L461 54 L448 82 L450 98 L458 113 L470 124 L488 130 L506 128 L576 104 L622 97 L635 99 L645 149 L646 202 L636 260 L617 311 L478 301 L313 269 L283 282 L269 298 L261 321 L264 346 L278 369 L296 381 L319 386 L469 355 L619 345 L622 368 L643 415 L648 456 L643 502 L624 547 L471 543 L341 534 L198 516 L87 494 L65 494 L28 511 L12 529 L0 552 L0 586 L13 612 L34 633 L66 645 L87 645 L197 623 L324 607 L473 596 L619 592 L622 609 L642 652 L648 697 L641 750 L623 789 L469 785 L330 775 L204 759 L87 736 L66 736 L35 748 L12 771 L0 794 L0 828 L25 868 L47 882 L65 887 L88 887 L191 866 L335 848 L475 838 L619 834 L622 850 L642 893 L648 937 L642 987 L624 1030 L469 1027 L330 1017 L204 1001 L87 978 L66 978 L38 988 L15 1009 L0 1036 L0 1070 L25 1110 L47 1124 L65 1129 L88 1129 L191 1108 L335 1090 L474 1080 L619 1076 L641 1130 L648 1178 L642 1228 L622 1278 L545 1275 L459 1265 L395 1253 L330 1234 L308 1233 L284 1242 L268 1256 L256 1278 L254 1305 L269 1337 L285 1350 L307 1358 L331 1357 L396 1338 L467 1325 L615 1313 L635 1363 L645 1413 L646 1466 L636 1524 L570 1518 L491 1493 L474 1497 L459 1508 L449 1527 L449 1546 L455 1561 L467 1574 L487 1582 L506 1580 L572 1557 L624 1550 L618 1575 L624 1600 L638 1613 L663 1617 L682 1607 L692 1591 L693 1573 L687 1549 L739 1556 L808 1578 L822 1578 L846 1565 L857 1542 L848 1512 L822 1497 L805 1498 L731 1521 L675 1524 L666 1472 L667 1413 L676 1363 L697 1313 L833 1322 L999 1354 L1031 1339 L1043 1324 L1050 1305 L1049 1282 L1040 1262 L1026 1248 L1002 1238 L982 1238 L923 1254 L843 1268 L689 1278 L667 1218 L664 1167 L671 1128 L692 1076 L844 1081 L979 1092 L1088 1106 L1223 1134 L1247 1135 L1269 1129 L1291 1116 L1305 1101 L1319 1075 L1319 1035 L1303 1004 L1275 980 L1245 972 L1075 1003 L974 1016 L848 1026 L689 1031 L668 982 L664 926 L671 887 L690 848 L692 834 L844 839 L979 850 L1088 864 L1223 892 L1247 893 L1269 887 L1291 874 L1305 859 L1319 833 L1319 793 L1303 762 L1282 742 L1244 730 L1075 761 L974 774 L829 785 L688 789 L668 741 L664 686 L670 650 L690 607 L691 593 L827 596 L980 608 L1107 625 L1223 650 L1246 651 L1281 639 L1305 617 L1319 591 L1319 551 L1307 526 L1289 505 L1268 493 L1246 488 L983 531 L847 542 L688 547 L667 496 L664 445 L670 409 L689 369 L692 345 L766 348 L852 358 L916 370 L981 389 L1003 390 L1024 383 L1045 365 L1056 343 L1058 323 L1044 288 L1023 271 L1004 265 L981 266 L916 285 L845 298 L694 310 L675 260 L666 207 L667 148 L676 99 L724 101 L805 125 L821 126 L836 121 L850 108 L857 90 L856 77 L841 53 L823 45 L805 46 L741 67 L689 73 L697 43 L691 19 L671 2 Z"></path>
     </symbol>
   </svg>
 
-  <!-- =======================================================
-       CABEÇALHO FIXO
-  ======================================================== -->
-
-  <header class="site-header" id="siteHeader">
-    <div class="container header-inner">
-
-      <a class="brand" href="#inicio" aria-label="Salutivae — início">
-
-        <svg
-          class="salutivae-symbol brand-symbol"
-          viewBox="0 0 260 430"
-          aria-hidden="true"
-        >
-          <use href="#salutivae-symbol"></use>
-        </svg>
-
-        <span class="brand-name">
-          Salutivae
-        </span>
-      </a>
-
-      <nav class="desktop-nav" aria-label="Navegação principal">
-        <a href="#como-funciona">Como funciona</a>
-        <a href="#aplicativo">O aplicativo</a>
-        <a href="#para-quem">Para quem é</a>
-        <a href="#parcerias">Parcerias</a>
-
-        <a class="button button-dark" href="#lista-espera">
-          Lista de espera
-        </a>
-      </nav>
-
-      <button
-        class="menu-button"
-        id="menuButton"
-        type="button"
-        aria-label="Abrir menu"
-        aria-expanded="false"
-      >
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-        >
-          <path d="M4 7h16"></path>
-          <path d="M4 12h16"></path>
-          <path d="M4 17h16"></path>
-        </svg>
-      </button>
-
-    </div>
-  </header>
-
   <nav class="mobile-menu" id="mobileMenu">
+
+    <button
+      class="mobile-menu-close"
+      id="menuClose"
+      type="button"
+      aria-label="Fechar menu"
+    >
+      ×
+    </button>
+
     <a href="#como-funciona">Como funciona</a>
     <a href="#aplicativo">O aplicativo</a>
     <a href="#para-quem">Para quem é</a>
@@ -1621,43 +1410,53 @@
 
   <main>
 
-    <!-- =====================================================
-         ABERTURA
-    ====================================================== -->
+    <!-- ABERTURA -->
 
     <section class="hero" id="inicio">
-      <div class="container hero-inner">
 
-        <div class="hero-top">
+      <header class="site-header">
+        <div class="container header-inner">
 
-          <a class="hero-brand" href="#inicio">
+          <a class="brand" href="#inicio" aria-label="Salutivae — início">
 
             <svg
-              class="salutivae-symbol hero-brand-symbol"
-              viewBox="0 0 260 430"
+              class="salutivae-symbol brand-symbol"
+              viewBox="0 0 1320 1618"
               aria-hidden="true"
             >
               <use href="#salutivae-symbol"></use>
             </svg>
 
-            <span class="hero-brand-name">
+            <span class="brand-name">
               Salutivae
             </span>
           </a>
 
+          <nav class="desktop-nav" aria-label="Navegação principal">
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#aplicativo">O aplicativo</a>
+            <a href="#para-quem">Para quem é</a>
+            <a href="#parcerias">Parcerias</a>
+
+            <a class="button button-dark" href="#lista-espera">
+              Lista de espera
+            </a>
+          </nav>
+
           <button
-            class="hero-menu"
+            class="menu-button"
+            id="menuButton"
             type="button"
-            id="heroMenuButton"
-            aria-label="Abrir navegação"
+            aria-label="Abrir menu"
+            aria-expanded="false"
           >
             <svg
-              width="25"
-              height="25"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.25"
+              stroke-width="1.35"
               stroke-linecap="round"
             >
               <path d="M4 7h16"></path>
@@ -1667,8 +1466,9 @@
           </button>
 
         </div>
+      </header>
 
-        <div class="hero-divider"></div>
+      <div class="container hero-inner">
 
         <div
           class="connection-stage"
@@ -1677,7 +1477,7 @@
 
           <svg
             class="salutivae-symbol hero-column"
-            viewBox="0 0 260 430"
+            viewBox="0 0 1320 1618"
             aria-hidden="true"
           >
             <use href="#salutivae-symbol"></use>
@@ -1742,9 +1542,7 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         PROFISSIONAL E PACIENTE
-    ====================================================== -->
+    <!-- PROFISSIONAL E PACIENTE -->
 
     <section class="section section-white">
       <div class="container">
@@ -1829,9 +1627,7 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         O APLICATIVO
-    ====================================================== -->
+    <!-- O APLICATIVO -->
 
     <section class="section section-soft" id="aplicativo">
       <div class="container application-layout">
@@ -1860,9 +1656,9 @@
             a jornada do cuidado.
           </p>
 
-          <div class="app-list">
+          <div class="editorial-list">
 
-            <div class="app-list-row">
+            <div class="editorial-row">
               <span>01</span>
 
               <div>
@@ -1875,7 +1671,7 @@
               </div>
             </div>
 
-            <div class="app-list-row">
+            <div class="editorial-row">
               <span>02</span>
 
               <div>
@@ -1888,7 +1684,7 @@
               </div>
             </div>
 
-            <div class="app-list-row">
+            <div class="editorial-row">
               <span>03</span>
 
               <div>
@@ -1911,7 +1707,7 @@
 
           <svg
             class="salutivae-symbol application-column"
-            viewBox="0 0 260 430"
+            viewBox="0 0 1320 1618"
             aria-hidden="true"
           >
             <use href="#salutivae-symbol"></use>
@@ -1946,9 +1742,7 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         VISÃO DO PACIENTE
-    ====================================================== -->
+    <!-- VISÃO DO PACIENTE -->
 
     <section class="section section-white">
       <div class="container">
@@ -1966,11 +1760,9 @@
           e orientação passa a fazer parte do mesmo histórico.
         </p>
 
-        <div class="editorial-divider"></div>
+        <div class="editorial-list">
 
-        <div class="app-list">
-
-          <div class="app-list-row reveal">
+          <div class="editorial-row reveal">
             <span>01</span>
 
             <div>
@@ -1983,7 +1775,7 @@
             </div>
           </div>
 
-          <div class="app-list-row reveal">
+          <div class="editorial-row reveal">
             <span>02</span>
 
             <div>
@@ -1996,7 +1788,7 @@
             </div>
           </div>
 
-          <div class="app-list-row reveal">
+          <div class="editorial-row reveal">
             <span>03</span>
 
             <div>
@@ -2009,7 +1801,7 @@
             </div>
           </div>
 
-          <div class="app-list-row reveal">
+          <div class="editorial-row reveal">
             <span>04</span>
 
             <div>
@@ -2022,7 +1814,7 @@
             </div>
           </div>
 
-          <div class="app-list-row reveal">
+          <div class="editorial-row reveal">
             <span>05</span>
 
             <div>
@@ -2040,9 +1832,7 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         INTELIGÊNCIA E RETENÇÃO
-    ====================================================== -->
+    <!-- INTELIGÊNCIA E RETENÇÃO -->
 
     <section class="section section-blue">
       <div class="container intelligence-layout">
@@ -2155,9 +1945,7 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         PARA QUEM É
-    ====================================================== -->
+    <!-- PARA QUEM É -->
 
     <section class="section section-dark" id="para-quem">
       <div class="container profession-layout">
@@ -2234,9 +2022,7 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         PARCERIAS
-    ====================================================== -->
+    <!-- PARCERIAS -->
 
     <section class="section section-soft" id="parcerias">
       <div class="container form-layout">
@@ -2403,9 +2189,7 @@
       </div>
     </section>
 
-    <!-- =====================================================
-         LISTA DE ESPERA
-    ====================================================== -->
+    <!-- LISTA DE ESPERA -->
 
     <section class="section section-dark" id="lista-espera">
       <div class="container form-layout">
@@ -2595,15 +2379,11 @@
 
   </main>
 
-  <!-- =======================================================
-       RODAPÉ
-  ======================================================== -->
-
   <footer class="footer">
 
     <svg
       class="salutivae-symbol footer-symbol"
-      viewBox="0 0 260 430"
+      viewBox="0 0 1320 1618"
       aria-hidden="true"
     >
       <use href="#salutivae-symbol"></use>
@@ -2628,7 +2408,7 @@
 
             <svg
               class="salutivae-symbol footer-brand-symbol"
-              viewBox="0 0 260 430"
+              viewBox="0 0 1320 1618"
               aria-hidden="true"
             >
               <use href="#salutivae-symbol"></use>
@@ -2695,14 +2475,11 @@
   </footer>
 
   <script>
-    const siteHeader =
-      document.getElementById("siteHeader");
-
     const menuButton =
       document.getElementById("menuButton");
 
-    const heroMenuButton =
-      document.getElementById("heroMenuButton");
+    const menuClose =
+      document.getElementById("menuClose");
 
     const mobileMenu =
       document.getElementById("mobileMenu");
@@ -2721,36 +2498,18 @@
       );
     }
 
-    function toggleMenu() {
-      const open =
-        !mobileMenu.classList.contains("open");
-
-      setMenu(open);
-    }
-
-    function updateHeader() {
-      siteHeader.classList.toggle(
-        "scrolled",
-        window.scrollY > 24
-      );
-    }
-
-    updateHeader();
-
-    window.addEventListener(
-      "scroll",
-      updateHeader,
-      { passive: true }
-    );
-
     menuButton.addEventListener(
       "click",
-      toggleMenu
+      function () {
+        setMenu(true);
+      }
     );
 
-    heroMenuButton.addEventListener(
+    menuClose.addEventListener(
       "click",
-      toggleMenu
+      function () {
+        setMenu(false);
+      }
     );
 
     mobileMenu
@@ -2789,7 +2548,7 @@
             const top =
               target.getBoundingClientRect().top +
               window.scrollY -
-              68;
+              18;
 
             window.scrollTo({
               top: top,
