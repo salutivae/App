@@ -2,1231 +2,3014 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salutivae — Consultório Digital Inteligente</title>
-  <meta name="description" content="A Salutivae transforma seu atendimento em uma estrutura digital inteligente. Organize, acompanhe e fortaleça a jornada do paciente com clareza e continuidade." />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>Salutivae — A jornada do paciente conectada</title>
+
+  <meta
+    name="description"
+    content="A Salutivae é um aplicativo digital inteligente para profissionais da saúde organizarem, acompanharem e fortalecerem a jornada de seus pacientes."
+  />
+
+  <meta name="theme-color" content="#3A382F" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
-    /* ─── RESET & BASE ─────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* =========================================================
+       RESET
+    ========================================================= */
 
-    :root{
-      --green: #2D6E63;
-      --green2:#378e80;
-      --dark:  #1C3B3A;
-      --darker:#122827;
-      --coral: #E07B6F;
-      --coral2:#d06a5e;
-      --white:#FFFFFF;
-      --off:#F8FAFA;
-
-      --muted:#BFD0CC;
-      --muted2:rgba(191,208,204,.55);
-
-      --border: rgba(255,255,255,0.10);
-      --border2: rgba(45,110,99,0.18);
-
-      --r-sm:12px;
-      --r:20px;
-      --r-lg:28px;
-
-      --ff-serif:'Fraunces', Georgia, serif;
-      --ff-sans:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-
-      --shadow-card: 0 4px 32px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.08);
-      --shadow-float:0 10px 56px rgba(0,0,0,0.28);
-      --ease: 0.32s cubic-bezier(.4,0,.2,1);
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html{ scroll-behavior:smooth; -webkit-tap-highlight-color:transparent; }
-    body{
-      font-family: var(--ff-sans);
-      background: var(--darker);
-      color: var(--white);
+    :root {
+      --azul-saude: #92B3B6;
+      --azul-profundo: #698D91;
+      --grafite: #3A382F;
+      --grafite-profundo: #292821;
+      --cinza: #D1CDCD;
+      --gelo: #E9E9E8;
+      --branco: #FFFFFF;
+
+      --texto-escuro: #38372F;
+      --texto-medio: #68675F;
+      --texto-claro: rgba(255, 255, 255, 0.76);
+
+      --borda-clara: rgba(58, 56, 47, 0.16);
+      --borda-escura: rgba(255, 255, 255, 0.16);
+
+      --fonte-editorial: "Goudy Bookletter 1911", Georgia, serif;
+      --fonte-texto: "Inter", Arial, sans-serif;
+
+      --raio-pequeno: 14px;
+      --raio-medio: 24px;
+      --raio-grande: 40px;
+
+      --sombra-clara:
+        0 18px 60px rgba(58, 56, 47, 0.10);
+
+      --sombra-escura:
+        0 30px 100px rgba(0, 0, 0, 0.24);
+
+      --transicao:
+        420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--gelo);
+      color: var(--texto-escuro);
+      font-family: var(--fonte-texto);
       line-height: 1.6;
-      overflow-x:hidden;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar{ width:5px; }
-    ::-webkit-scrollbar-track{ background: var(--darker); }
-    ::-webkit-scrollbar-thumb{ background: var(--green); border-radius:99px; }
-
-    /* Utility */
-    .kicker{
-      display:inline-block;
-      font-size:.68rem;
-      font-weight:700;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color: var(--coral);
-      margin-bottom: 14px;
+    body.menu-aberto {
+      overflow: hidden;
     }
 
-    .section-title{
-      font-family: var(--ff-serif);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.18;
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
     }
 
-    .section{
-      padding: 96px 24px;
-    }
-    .section-inner{
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-    @media (min-width:768px){
-      .section{ padding: 120px 48px; }
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
     }
 
-    /* Reveal */
-    .reveal{
-      opacity:0;
-      transform: translateY(28px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .reveal.visible{ opacity:1; transform: translateY(0); }
-    .reveal-delay-1{ transition-delay:.10s; }
-    .reveal-delay-2{ transition-delay:.20s; }
-    .reveal-delay-3{ transition-delay:.30s; }
-    .reveal-delay-4{ transition-delay:.40s; }
-
-    /* Header */
-    header{
-      position: fixed;
-      top:0; left:0; right:0;
-      z-index: 100;
-      height: 70px;
-      padding: 0 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      background: rgba(18,40,39,.72);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-      transition: background var(--ease), box-shadow var(--ease);
-    }
-    @media (min-width:768px){
-      header{ padding: 0 26px; }
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .logo-wrap{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      text-decoration:none;
-      color: var(--white);
-      flex-shrink:0;
-    }
-    .logo-img{
-      height: 40px;
-      width: auto;
-      object-fit:contain;
-      display:block;
-    }
-    .logo-img.hidden{ display:none; }
-    .logo-fallback{
-      display:none;
-      flex-direction:column;
-      gap:2px;
-      line-height:1;
-    }
-    .logo-fallback.visible{ display:flex; }
-    .logo-name{
-      font-family: var(--ff-serif);
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing:-0.01em;
-    }
-    .logo-slogan{
-      font-size:.58rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color: var(--muted);
-      margin-top: 2px;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    nav{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
-    .nav-link{
-      display:none;
-      font-size:.82rem;
-      font-weight:600;
-      color: rgba(191,208,204,.85);
-      text-decoration:none;
-      padding: 7px 12px;
-      border-radius: 999px;
-      transition: color var(--ease), background var(--ease);
-      white-space:nowrap;
-    }
-    .nav-link:hover{ color: var(--white); background: rgba(255,255,255,.07); }
-    @media (min-width:820px){
-      .nav-link{ display:block; }
-    }
-    .btn-header{
-      font-size:.82rem;
-      font-weight:700;
-      color: var(--white);
-      background: linear-gradient(135deg, var(--green), var(--green2));
-      border:none;
-      border-radius: 999px;
-      padding: 10px 16px;
-      cursor:pointer;
-      text-decoration:none;
-      transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
-      white-space:nowrap;
-    }
-    .btn-header:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 4px rgba(45,110,99,.22);
-      filter: brightness(1.02);
+    ::selection {
+      background: var(--azul-saude);
+      color: var(--grafite-profundo);
     }
 
-    /* Buttons */
-    .btn-primary{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      background: linear-gradient(135deg, var(--coral), var(--coral2));
-      color: var(--white);
-      font-size: .98rem;
-      font-weight: 800;
-      border:none;
-      border-radius: 999px;
-      padding: 16px 30px;
-      cursor:pointer;
-      text-decoration:none;
-      transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
-      letter-spacing:-0.01em;
-    }
-    .btn-primary:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 12px 34px rgba(224,123,111,.28);
-      filter: brightness(1.02);
-    }
-    .btn-secondary{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      background: transparent;
-      color: var(--white);
-      font-size: .98rem;
-      font-weight: 700;
-      border: 1.5px solid rgba(255,255,255,.26);
-      border-radius: 999px;
-      padding: 15px 26px;
-      cursor:pointer;
-      text-decoration:none;
-      transition: transform var(--ease), background var(--ease), border-color var(--ease);
-    }
-    .btn-secondary:hover{
-      transform: translateY(-2px);
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.40);
-    }
-
-    /* Hero */
-    #hero{
-      min-height: 100svh;
-      padding-top: 110px;
-      padding-bottom: 84px;
-      padding-left: 24px;
-      padding-right: 24px;
-      position:relative;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-    }
-
-    #hero::before{
-      content:'';
-      position:absolute;
-      top:-25%;
-      right:-12%;
-      width: 60vw;
-      height: 60vw;
-      max-width: 680px;
-      max-height: 680px;
-      background: radial-gradient(circle at center, rgba(45,110,99,.22) 0%, transparent 70%);
-      pointer-events:none;
-    }
-    #hero::after{
-      content:'';
-      position:absolute;
-      bottom:-18%;
-      left:-10%;
-      width: 44vw;
-      height: 44vw;
-      max-width: 520px;
-      max-height: 520px;
-      background: radial-gradient(circle at center, rgba(224,123,111,.12) 0%, transparent 70%);
-      pointer-events:none;
-    }
-
-    .hero-inner{
-      max-width:1080px;
-      margin:0 auto;
-      width:100%;
-      position:relative;
-      z-index:1;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 34px;
-      align-items:center;
-      text-align:left;
-    }
-
-    .hero-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      background: rgba(45,110,99,.16);
-      border: 1px solid rgba(45,110,99,.34);
-      border-radius:999px;
-      padding: 7px 14px;
-      color: #7ecfc3;
-      font-size:.72rem;
-      font-weight:800;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      width: fit-content;
-      margin-bottom: 18px;
-    }
-    .hero-dot{
+    ::-webkit-scrollbar {
       width: 7px;
-      height: 7px;
-      border-radius:50%;
-      background: var(--coral);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse{
-      0%,100%{ transform:scale(1); opacity:1; }
-      50%{ transform:scale(1.5); opacity:.6; }
     }
 
-    .hero-h1{
-      font-family: var(--ff-serif);
+    ::-webkit-scrollbar-track {
+      background: var(--gelo);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--azul-profundo);
+      border-radius: 99px;
+    }
+
+    /* =========================================================
+       UTILITÁRIOS
+    ========================================================= */
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .secao {
+      position: relative;
+      padding: 120px 0;
+    }
+
+    .editorial {
+      font-family: var(--fonte-editorial);
       font-weight: 400;
-      font-size: clamp(2.1rem, 5vw, 3.6rem);
-      line-height: 1.10;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-    .hero-h1 em{ color: #7ecfc3; font-style: italic; }
-
-    .hero-desc{
-      font-size: 1.06rem;
-      color: rgba(191,208,204,.92);
-      line-height: 1.75;
-      max-width: 740px;
-      margin-bottom: 26px;
+      letter-spacing: -0.025em;
     }
 
-    .hero-ctas{
-      display:flex;
-      flex-wrap:wrap;
+    .rotulo {
+      display: inline-flex;
+      align-items: center;
       gap: 12px;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
+      color: var(--azul-profundo);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
-    .hero-disclaimer{
-      font-size: .78rem;
-      color: var(--muted2);
+    .rotulo::before {
+      content: "";
+      width: 38px;
+      height: 1px;
+      background: currentColor;
     }
 
-    /* Section: Perguntas */
-    #perguntas{ background: var(--dark); }
-    .perguntas-header{
-      text-align:center;
-      margin-bottom: 52px;
-    }
-    .perguntas-header .section-title{
-      font-size: clamp(1.9rem, 4vw, 2.9rem);
+    .rotulo-claro {
+      color: rgba(255, 255, 255, 0.72);
     }
 
-    .questions-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-bottom: 42px;
-    }
-    @media (min-width:640px){
-      .questions-grid{ grid-template-columns: 1fr 1fr; }
-    }
-    @media (min-width:980px){
-      .questions-grid{ grid-template-columns: 1fr 1fr 1fr; }
+    .titulo-secao {
+      max-width: 850px;
+      font-size: clamp(2.25rem, 5vw, 4.7rem);
+      line-height: 1.04;
     }
 
-    .q-card{
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 22px 20px;
-      position:relative;
-      overflow:hidden;
-      transition: transform var(--ease), border-color var(--ease), background var(--ease);
-    }
-    .q-card::before{
-      content:'';
-      position:absolute;
-      top:0; left:0; right:0;
-      height:2px;
-      background: linear-gradient(90deg, var(--coral), transparent);
-      opacity:.0;
-      transition: opacity var(--ease);
-    }
-    .q-card:hover{
-      transform: translateY(-3px);
-      background: rgba(224,123,111,.07);
-      border-color: rgba(224,123,111,.25);
-    }
-    .q-card:hover::before{ opacity: 1; }
-    .q-num{
-      font-family: var(--ff-serif);
-      font-size: .78rem;
-      color: rgba(224,123,111,.95);
-      margin-bottom: 10px;
-      opacity:.9;
-    }
-    .q-card p{
-      color: rgba(191,208,204,.95);
-      font-size: .96rem;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-    .q-card p strong{ color: var(--white); }
-
-    .perguntas-close{
-      text-align:center;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-    .perguntas-close p{
-      font-family: var(--ff-serif);
-      font-size: 1.25rem;
-      font-style: italic;
-      color: rgba(191,208,204,.9);
-      line-height: 1.6;
-    }
-    .perguntas-close p strong{
-      color: var(--white);
-      font-style: normal;
-      font-weight: 500;
+    .texto-secao {
+      max-width: 720px;
+      margin-top: 24px;
+      color: var(--texto-medio);
+      font-size: clamp(1rem, 1.8vw, 1.14rem);
+      line-height: 1.82;
     }
 
-    /* Plataforma */
-    #plataforma{ background: var(--off); }
-    #plataforma .kicker{ color: var(--green); }
-    #plataforma .section-title{ color: var(--dark); font-size: clamp(1.9rem, 4vw, 2.9rem); }
-    .plataforma-desc{
-      font-size: 1.06rem;
-      color: #4a6b67;
-      line-height: 1.75;
-      max-width: 780px;
-      margin-top: 14px;
-      margin-bottom: 44px;
-    }
-    .plataforma-cards{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    @media (min-width:900px){
-      .plataforma-cards{ grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
-    }
-    .plat-card{
-      background: var(--white);
-      border: 1px solid rgba(45,110,99,.18);
-      border-radius: var(--r);
-      padding: 30px 26px;
-      box-shadow: 0 2px 16px rgba(28,59,58,0.07);
-      transition: transform var(--ease), box-shadow var(--ease);
-      position:relative;
-      overflow:hidden;
-    }
-    .plat-card:hover{
-      transform: translateY(-4px);
-      box-shadow: 0 12px 34px rgba(28,59,58,0.12);
-    }
-    .plat-card-num{
-      font-family: var(--ff-serif);
-      font-size: 2.4rem;
-      font-weight: 300;
-      color: rgba(224,123,111,.18);
-      line-height:1;
-      margin-bottom: 14px;
-    }
-    .plat-card h3{
-      font-family: var(--ff-serif);
-      font-size: 1.14rem;
-      font-weight: 450;
-      color: var(--dark);
-      line-height: 1.3;
-      margin-bottom: 10px;
-    }
-    .plat-card p{
-      font-size: .92rem;
-      color: #5a7a76;
-      line-height: 1.7;
-    }
-    .plat-accent{
-      position:absolute;
-      bottom:0; left:0; right:0;
-      height:3px;
-      background: linear-gradient(90deg, var(--coral), transparent);
-      opacity: .0;
-      transition: opacity var(--ease);
-    }
-    .plat-card:hover .plat-accent{ opacity: 1; }
-
-    /* Recursos */
-    #recursos{ background: var(--darker); }
-    #recursos .section-title{ font-size: clamp(1.9rem, 4vw, 2.9rem); }
-    .recursos-sub{
-      font-size: 1.02rem;
-      color: rgba(191,208,204,.92);
-      line-height: 1.7;
-      max-width: 760px;
-      margin-top: 12px;
-      margin-bottom: 44px;
-    }
-    .recursos-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    @media (min-width:700px){
-      .recursos-grid{ grid-template-columns: 1fr 1fr; }
-    }
-    @media (min-width:1000px){
-      .recursos-grid{ grid-template-columns: 1fr 1fr 1fr; }
+    .texto-claro {
+      color: var(--texto-claro);
     }
 
-    .rec-card{
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 26px 22px;
-      transition: transform var(--ease), border-color var(--ease), background var(--ease);
-      position:relative;
-      overflow:hidden;
-    }
-    .rec-card:hover{
-      transform: translateY(-3px);
-      background: rgba(45,110,99,.09);
-      border-color: rgba(45,110,99,.32);
+    .revelar {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 800ms ease,
+        transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .rec-icon{
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-bottom: 16px;
-      background: rgba(45,110,99,.18);
-      border: 1px solid rgba(45,110,99,.28);
-    }
-    .rec-icon svg{ width: 20px; height: 20px; }
-
-    .rec-card h3{
-      font-family: var(--ff-serif);
-      font-size: 1.06rem;
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-    .rec-card p{
-      color: rgba(191,208,204,.92);
-      font-size: .90rem;
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-    .chips{ display:flex; flex-wrap:wrap; gap: 6px; }
-    .chip{
-      font-size: .62rem;
-      font-weight: 800;
-      letter-spacing: .06em;
-      text-transform:uppercase;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(45,110,99,.18);
-      color: #a6e8e0;
-      border: 1px solid rgba(45,110,99,.28);
-      transition: background var(--ease), border-color var(--ease);
-    }
-    .rec-card:hover .chip{
-      background: rgba(45,110,99,.28);
-      border-color: rgba(45,110,99,.40);
+    .revelar.visivel {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Para quem */
-    #para-quem{ background: var(--dark); }
-    #para-quem .section-title{ font-size: clamp(1.9rem, 4vw, 2.9rem); }
-    .para-quem-desc{
-      font-size: 1.02rem;
-      color: rgba(191,208,204,.92);
-      max-width: 760px;
-      margin-top: 12px;
-      margin-bottom: 42px;
-      line-height: 1.7;
-    }
-    .pq-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    @media (min-width:900px){
-      .pq-grid{ grid-template-columns: 1fr 1fr 1fr; }
-    }
-    .pq-card{
-      border-radius: var(--r);
-      padding: 30px 24px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.04);
-      transition: transform var(--ease), border-color var(--ease), background var(--ease);
-    }
-    .pq-card:hover{
-      transform: translateY(-4px);
-      border-color: rgba(224,123,111,.26);
-      background: rgba(224,123,111,.06);
-    }
-    .pq-card h3{
-      font-family: var(--ff-serif);
-      font-size: 1.14rem;
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
-    .pq-card p{
-      color: rgba(191,208,204,.92);
-      font-size: .92rem;
-      line-height: 1.7;
+    .atraso-1 {
+      transition-delay: 90ms;
     }
 
-    /* Lista de Espera */
-    #lista-espera{ background: var(--off); }
-    #lista-espera .kicker{ color: var(--coral); }
-    #lista-espera .section-title{ color: var(--dark); font-size: clamp(1.9rem, 4vw, 2.9rem); }
-    .espera-desc{
-      color:#4a6b67;
-      font-size: 1.02rem;
-      line-height: 1.7;
-      max-width: 760px;
-      margin-top: 12px;
-      margin-bottom: 24px;
+    .atraso-2 {
+      transition-delay: 180ms;
     }
 
-    .espera-chips{
-      display:flex;
-      flex-wrap:wrap;
+    .atraso-3 {
+      transition-delay: 270ms;
+    }
+
+    .botao {
+      display: inline-flex;
+      min-height: 54px;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin: 22px 0 36px;
-    }
-    .espera-chip{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      background: var(--white);
-      border: 1px solid rgba(45,110,99,.18);
+      padding: 14px 24px;
+      border: 1px solid transparent;
       border-radius: 999px;
-      padding: 10px 14px;
-      box-shadow: 0 2px 10px rgba(28,59,58,.06);
-      color: var(--dark);
-      font-size: .84rem;
-      font-weight: 650;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition:
+        transform var(--transicao),
+        background var(--transicao),
+        border-color var(--transicao),
+        color var(--transicao),
+        box-shadow var(--transicao);
     }
-    .espera-dot{
+
+    .botao:hover {
+      transform: translateY(-2px);
+    }
+
+    .botao-principal {
+      background: var(--azul-saude);
+      color: var(--grafite-profundo);
+      box-shadow: 0 14px 40px rgba(105, 141, 145, 0.24);
+    }
+
+    .botao-principal:hover {
+      background: #A7C5C7;
+      box-shadow: 0 18px 50px rgba(105, 141, 145, 0.34);
+    }
+
+    .botao-contorno {
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--branco);
+    }
+
+    .botao-contorno:hover {
+      border-color: rgba(255, 255, 255, 0.54);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .botao-claro {
+      border-color: var(--borda-clara);
+      background: transparent;
+      color: var(--grafite);
+    }
+
+    .botao-claro:hover {
+      border-color: var(--azul-profundo);
+      background: rgba(146, 179, 182, 0.10);
+    }
+
+    /* =========================================================
+       CABEÇALHO
+    ========================================================= */
+
+    .cabecalho {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(41, 40, 33, 0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      transition:
+        height var(--transicao),
+        background var(--transicao),
+        box-shadow var(--transicao);
+    }
+
+    .cabecalho.rolado {
+      height: 66px;
+      background: rgba(41, 40, 33, 0.92);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+    }
+
+    .cabecalho-interno {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .marca {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--branco);
+    }
+
+    .marca-imagem {
+      width: auto;
+      height: 43px;
+      object-fit: contain;
+    }
+
+    .marca-reserva {
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .marca-reserva.ativa {
+      display: flex;
+    }
+
+    .marca-simbolo-reserva {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 12px;
+      background:
+        radial-gradient(
+          circle at 45% 35%,
+          rgba(255, 255, 255, 0.18),
+          transparent 55%
+        ),
+        var(--azul-profundo);
+    }
+
+    .marca-nome {
+      font-family: var(--fonte-editorial);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .menu-link {
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition:
+        color var(--transicao),
+        background var(--transicao);
+    }
+
+    .menu-link:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--branco);
+    }
+
+    .botao-menu-mobile {
+      display: none;
+      width: 46px;
+      height: 46px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--branco);
+      cursor: pointer;
+    }
+
+    .menu-mobile {
+      position: fixed;
+      z-index: 999;
+      inset: 0;
+      display: flex;
+      visibility: hidden;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      padding: 100px 28px 40px;
+      background: rgba(41, 40, 33, 0.98);
+      opacity: 0;
+      transform: translateY(-14px);
+      transition:
+        opacity var(--transicao),
+        transform var(--transicao),
+        visibility var(--transicao);
+    }
+
+    .menu-mobile.ativo {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .menu-mobile a {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      color: var(--branco);
+      font-family: var(--fonte-editorial);
+      font-size: 2rem;
+    }
+
+    /* =========================================================
+       HERO EDITORIAL
+    ========================================================= */
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      padding: 130px 0 56px;
+      background: var(--grafite-profundo);
+      color: var(--branco);
+    }
+
+    .hero-fundo {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-fundo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(0.82) contrast(1.03);
+    }
+
+    .hero-fundo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(28, 28, 23, 0.88) 0%,
+          rgba(28, 28, 23, 0.62) 42%,
+          rgba(28, 28, 23, 0.22) 76%,
+          rgba(28, 28, 23, 0.34) 100%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.16),
+          rgba(0, 0, 0, 0.58)
+        );
+    }
+
+    .hero-fundo-reserva {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(
+          circle at 72% 30%,
+          rgba(146, 179, 182, 0.30),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at 18% 76%,
+          rgba(209, 205, 205, 0.13),
+          transparent 32%
+        ),
+        var(--grafite-profundo);
+    }
+
+    .hero-conteudo {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-moldura {
+      position: relative;
+      max-width: 930px;
+      padding: 62px 58px 54px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 30px;
+      background: rgba(25, 25, 21, 0.12);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    .hero-indicador {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-indicador span {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: var(--coral);
-      flex-shrink:0;
+      background: var(--azul-saude);
+      box-shadow: 0 0 0 6px rgba(146, 179, 182, 0.13);
     }
 
-    .espera-form-wrap{
-      max-width: 560px;
+    .hero-titulo {
+      max-width: 790px;
+      font-size: clamp(3.5rem, 9vw, 7.9rem);
+      line-height: 0.84;
     }
-    form.espera-form{
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
+
+    .hero-subtitulo {
+      max-width: 680px;
+      margin-top: 36px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.78;
     }
-    .form-row{
-      display:grid;
-      grid-template-columns: 1fr;
+
+    .hero-subtitulo strong {
+      color: var(--branco);
+      font-weight: 500;
+    }
+
+    .hero-acoes {
+      display: flex;
+      flex-wrap: wrap;
       gap: 12px;
-    }
-    @media (min-width:720px){
-      .form-row{ grid-template-columns: 1fr 1fr; }
+      margin-top: 34px;
     }
 
-    .form-group{ display:flex; flex-direction:column; gap: 7px; }
-    .form-label{
-      font-size: .78rem;
-      font-weight: 800;
-      color: var(--green);
-      letter-spacing: .04em;
-    }
-    .form-input{
-      background: var(--white);
-      border: 1.5px solid rgba(45,110,99,.18);
-      border-radius: var(--r-sm);
-      padding: 14px 16px;
-      font-family: var(--ff-sans);
-      font-size: .98rem;
-      color: var(--dark);
-      outline:none;
-      transition: border-color var(--ease), box-shadow var(--ease);
-    }
-    .form-input::placeholder{ color: #a0b8b4; }
-    .form-input:focus{
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(45,110,99,.12);
+    .hero-pontos {
+      position: absolute;
+      right: 48px;
+      bottom: 36px;
+      display: flex;
+      gap: 9px;
     }
 
-    .form-submit{
-      margin-top: 8px;
-      background: linear-gradient(135deg, var(--coral), var(--coral2));
-      color: var(--white);
-      font-family: var(--ff-sans);
-      font-size: 1rem;
-      font-weight: 900;
-      border:none;
-      border-radius: 999px;
-      padding: 18px 22px;
-      cursor:pointer;
+    .hero-pontos span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    .hero-pontos span:first-child {
+      background: var(--branco);
+    }
+
+    /* =========================================================
+       O QUE É
+    ========================================================= */
+
+    .secao-aplicativo {
+      overflow: hidden;
+      background: var(--gelo);
+    }
+
+    .aplicativo-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      align-items: center;
+      gap: 80px;
+    }
+
+    .aplicativo-imagem {
+      position: relative;
+      min-height: 650px;
+      overflow: hidden;
+      border-radius: 42px;
+      background:
+        radial-gradient(
+          circle at 50% 28%,
+          rgba(255, 255, 255, 0.82),
+          transparent 46%
+        ),
+        var(--azul-saude);
+      box-shadow: var(--sombra-clara);
+    }
+
+    .aplicativo-imagem img {
       width: 100%;
-      transition: transform var(--ease), box-shadow var(--ease), filter var(--ease);
-      letter-spacing: -0.01em;
-    }
-    .form-submit:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 12px 34px rgba(224,123,111,.22);
-      filter: brightness(1.02);
-    }
-    .form-note{
-      margin-top: 10px;
-      font-size: .80rem;
-      color: #8aaba6;
-      text-align:center;
+      height: 100%;
+      min-height: 650px;
+      object-fit: cover;
     }
 
-    .form-success{
-      display:none;
-      margin-top: 14px;
-      text-align:center;
-      padding: 26px 18px;
-      background: rgba(45,110,99,.08);
-      border: 1px solid rgba(45,110,99,.22);
-      border-radius: var(--r);
-    }
-    .form-success.visible{ display:block; }
-    .form-success h4{
-      font-family: var(--ff-serif);
-      font-size: 1.35rem;
-      color: var(--dark);
-      margin-bottom: 6px;
-    }
-    .form-success p{
-      color: #4a6b67;
-      font-size: .92rem;
-      line-height: 1.6;
+    .aplicativo-imagem::after {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      border-radius: 30px;
+      pointer-events: none;
     }
 
-    /* Footer */
-    footer{
-      background: var(--darker);
-      border-top: 1px solid var(--border);
-      padding: 56px 24px 40px;
-    }
-    .footer-inner{
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-    .footer-top{
-      display:flex;
-      flex-direction:column;
-      gap: 28px;
-      padding-bottom: 30px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 22px;
-    }
-    @media (min-width:820px){
-      .footer-top{ flex-direction:row; justify-content:space-between; align-items:flex-start; }
-    }
-    .footer-brand .logo-name{
-      font-family: var(--ff-serif);
-      font-size: 1.18rem;
-      font-weight: 600;
-    }
-    .footer-brand .logo-slogan{
-      font-size:.62rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-    .footer-tagline{
-      margin-top: 10px;
-      max-width: 340px;
-      color: rgba(191,208,204,.90);
-      font-size: .88rem;
-      line-height: 1.6;
-    }
-    .footer-links{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    .footer-links a{
-      color: rgba(191,208,204,.85);
-      text-decoration:none;
-      font-weight: 700;
-      font-size: .86rem;
-      transition: color var(--ease);
-    }
-    .footer-links a:hover{ color: var(--white); }
-
-    .footer-insta{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      margin-top: 14px;
-      color: rgba(191,208,204,.90);
-      text-decoration:none;
-      font-weight: 800;
-      font-size: .86rem;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      transition: background var(--ease), border-color var(--ease), color var(--ease), transform var(--ease);
-      width: fit-content;
-    }
-    .footer-insta:hover{
-      background: rgba(255,255,255,.05);
-      border-color: rgba(255,255,255,.22);
-      color: var(--white);
-      transform: translateY(-1px);
+    .aplicativo-numero {
+      position: absolute;
+      z-index: 2;
+      top: 40px;
+      left: 40px;
+      color: rgba(255, 255, 255, 0.72);
+      font-family: var(--fonte-editorial);
+      font-size: 4.4rem;
+      line-height: 1;
     }
 
-    .footer-bottom{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      align-items:flex-start;
+    .aplicativo-conteudo {
+      max-width: 650px;
     }
-    @media (min-width:820px){
-      .footer-bottom{ flex-direction:row; justify-content:space-between; align-items:center; }
+
+    .aplicativo-destaque {
+      margin-top: 38px;
+      padding: 26px 0 0 30px;
+      border-top: 1px solid var(--borda-clara);
+      border-left: 1px solid var(--borda-clara);
     }
-    .footer-copy{
-      font-size: .76rem;
-      color: rgba(191,208,204,.45);
+
+    .aplicativo-destaque p {
+      max-width: 570px;
+      font-family: var(--fonte-editorial);
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      line-height: 1.26;
     }
-    .footer-legal{
-      display:flex;
+
+    .aplicativo-destaque small {
+      display: block;
+      margin-top: 18px;
+      color: var(--texto-medio);
+      font-size: 0.84rem;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       COLUNA NARRATIVA
+    ========================================================= */
+
+    .secao-coluna {
+      overflow: clip;
+      background: var(--grafite);
+      color: var(--branco);
+    }
+
+    .coluna-introducao {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 76px;
+    }
+
+    .coluna-introducao-texto {
+      color: rgba(255, 255, 255, 0.70);
+      font-size: 1.04rem;
+      line-height: 1.82;
+    }
+
+    .coluna-experiencia {
+      position: relative;
+      min-height: 1120px;
+    }
+
+    .coluna-fixa {
+      position: sticky;
+      top: 96px;
+      height: calc(100vh - 116px);
+      min-height: 720px;
+      display: grid;
+      grid-template-columns:
+        minmax(240px, 1fr)
+        minmax(280px, 430px)
+        minmax(240px, 1fr);
+      align-items: center;
+      gap: 36px;
+    }
+
+    .coluna-lado {
+      display: flex;
+      min-height: 660px;
+      flex-direction: column;
+      justify-content: space-around;
       gap: 18px;
     }
-    .footer-legal a{
-      font-size: .76rem;
-      color: rgba(191,208,204,.45);
-      text-decoration:none;
-      transition: color var(--ease);
-    }
-    .footer-legal a:hover{ color: rgba(191,208,204,.75); }
 
-    /* Mobile spacing */
-    @media (max-width:520px){
-      .btn-primary, .btn-secondary{ width:100%; }
-      .hero-ctas{ width:100%; }
+    .coluna-lado-esquerdo {
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .coluna-lado-direito {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .coluna-mensagem {
+      width: min(100%, 340px);
+      padding: 20px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.045);
+      opacity: 0.26;
+      transform: translateY(24px) scale(0.97);
+      transition:
+        opacity 550ms ease,
+        transform 550ms cubic-bezier(0.22, 1, 0.36, 1),
+        background 550ms ease,
+        border-color 550ms ease;
+    }
+
+    .coluna-mensagem.ativa {
+      border-color: rgba(146, 179, 182, 0.52);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(146, 179, 182, 0.13),
+          rgba(255, 255, 255, 0.035)
+        );
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .coluna-mensagem-numero {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--azul-saude);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .coluna-mensagem h3 {
+      font-family: var(--fonte-editorial);
+      font-size: 1.46rem;
+      font-weight: 400;
+      line-height: 1.18;
+    }
+
+    .coluna-mensagem p {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 0.84rem;
+      line-height: 1.65;
+    }
+
+    .coluna-grafico {
+      position: relative;
+      width: 100%;
+      max-height: 690px;
+    }
+
+    .coluna-svg {
+      width: 100%;
+      max-height: 690px;
+      overflow: visible;
+    }
+
+    .coluna-base {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.18);
+      stroke-width: 2;
+    }
+
+    .coluna-progresso {
+      fill: none;
+      stroke: url("#gradienteColuna");
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 5000;
+      stroke-dashoffset: 5000;
+      filter: drop-shadow(0 0 8px rgba(146, 179, 182, 0.45));
+    }
+
+    .coluna-no {
+      fill: var(--grafite);
+      stroke: rgba(255, 255, 255, 0.25);
+      stroke-width: 2;
+      transition:
+        fill 400ms ease,
+        stroke 400ms ease,
+        filter 400ms ease,
+        transform 400ms ease;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+
+    .coluna-no.ativo {
+      fill: var(--azul-saude);
+      stroke: rgba(255, 255, 255, 0.85);
+      filter: drop-shadow(0 0 12px rgba(146, 179, 182, 0.85));
+      transform: scale(1.35);
+    }
+
+    .coluna-linha-central {
+      stroke: rgba(255, 255, 255, 0.14);
+      stroke-width: 1;
+      stroke-dasharray: 5 9;
+    }
+
+    .coluna-fechamento {
+      max-width: 900px;
+      margin: 90px auto 0;
+      text-align: center;
+    }
+
+    .coluna-fechamento h3 {
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 1.06;
+    }
+
+    .coluna-fechamento p {
+      max-width: 690px;
+      margin: 26px auto 0;
+      color: rgba(255, 255, 255, 0.70);
+      font-size: 1rem;
+      line-height: 1.82;
+    }
+
+    .coluna-frase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      overflow: hidden;
+      margin-top: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.10);
+    }
+
+    .coluna-frase div {
+      padding: 30px;
+      background: var(--grafite);
+    }
+
+    .coluna-frase strong {
+      display: block;
+      color: var(--branco);
+      font-family: var(--fonte-editorial);
+      font-size: 1.65rem;
+      font-weight: 400;
+      line-height: 1.25;
+    }
+
+    .coluna-frase span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.82rem;
+    }
+
+    /* =========================================================
+       RECURSOS
+    ========================================================= */
+
+    .secao-recursos {
+      background: var(--gelo);
+    }
+
+    .recursos-cabecalho {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 460px);
+      align-items: end;
+      gap: 70px;
+    }
+
+    .recursos-lista {
+      margin-top: 70px;
+      border-top: 1px solid var(--borda-clara);
+    }
+
+    .recurso-item {
+      display: grid;
+      grid-template-columns: 90px minmax(220px, 0.72fr) minmax(0, 1fr);
+      align-items: start;
+      gap: 30px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--borda-clara);
+      transition:
+        padding var(--transicao),
+        background var(--transicao);
+    }
+
+    .recurso-item:hover {
+      padding-right: 24px;
+      padding-left: 24px;
+      background: rgba(146, 179, 182, 0.08);
+    }
+
+    .recurso-numero {
+      color: var(--azul-profundo);
+      font-family: var(--fonte-editorial);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .recurso-item h3 {
+      font-family: var(--fonte-editorial);
+      font-size: clamp(1.55rem, 2.5vw, 2.25rem);
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    .recurso-item p {
+      max-width: 620px;
+      color: var(--texto-medio);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .recurso-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+
+    .recurso-tags span {
+      padding: 6px 10px;
+      border: 1px solid var(--borda-clara);
+      border-radius: 999px;
+      color: var(--texto-medio);
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* =========================================================
+       PARA QUEM É
+    ========================================================= */
+
+    .secao-profissionais {
+      overflow: hidden;
+      background: var(--azul-saude);
+    }
+
+    .profissionais-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+      align-items: center;
+      gap: 86px;
+    }
+
+    .profissionais-conteudo {
+      max-width: 700px;
+    }
+
+    .profissionais-conteudo .rotulo {
+      color: var(--grafite);
+    }
+
+    .profissionais-lista {
+      display: grid;
+      gap: 1px;
+      overflow: hidden;
+      margin-top: 42px;
+      border: 1px solid rgba(58, 56, 47, 0.18);
+      border-radius: 24px;
+      background: rgba(58, 56, 47, 0.16);
+    }
+
+    .profissionais-item {
+      padding: 24px 26px;
+      background: rgba(233, 233, 232, 0.58);
+    }
+
+    .profissionais-item strong {
+      display: block;
+      font-family: var(--fonte-editorial);
+      font-size: 1.35rem;
+      font-weight: 400;
+    }
+
+    .profissionais-item span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(58, 56, 47, 0.72);
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .profissionais-simbolo {
+      position: relative;
+      display: flex;
+      min-height: 620px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profissionais-simbolo::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 50%;
+    }
+
+    .profissionais-simbolo svg {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 400px);
+      filter: drop-shadow(0 22px 42px rgba(58, 56, 47, 0.20));
+    }
+
+    /* =========================================================
+       PARCERIA
+    ========================================================= */
+
+    .secao-parceria {
+      background: var(--grafite-profundo);
+      color: var(--branco);
+    }
+
+    .parceria-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+      gap: 76px;
+      align-items: start;
+    }
+
+    .parceria-beneficios {
+      display: grid;
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .parceria-beneficio {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .parceria-beneficio-numero {
+      display: flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(146, 179, 182, 0.48);
+      border-radius: 50%;
+      color: var(--azul-saude);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .parceria-beneficio strong {
+      display: block;
+      font-family: var(--fonte-editorial);
+      font-size: 1.25rem;
+      font-weight: 400;
+    }
+
+    .parceria-beneficio p {
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.64);
+      font-size: 0.85rem;
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       FORMULÁRIOS
+    ========================================================= */
+
+    .formulario-caixa {
+      padding: 34px;
+      border: 1px solid var(--borda-escura);
+      border-radius: 30px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.09),
+          rgba(255, 255, 255, 0.035)
+        );
+      box-shadow: var(--sombra-escura);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .formulario-caixa-clara {
+      border-color: var(--borda-clara);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--sombra-clara);
+    }
+
+    .formulario-cabecalho {
+      margin-bottom: 28px;
+    }
+
+    .formulario-cabecalho h3 {
+      font-family: var(--fonte-editorial);
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    .formulario-cabecalho p {
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.84rem;
+      line-height: 1.65;
+    }
+
+    .formulario-caixa-clara .formulario-cabecalho p {
+      color: var(--texto-medio);
+    }
+
+    .formulario {
+      display: grid;
+      gap: 16px;
+    }
+
+    .formulario-duas-colunas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .campo {
+      display: grid;
+      gap: 8px;
+    }
+
+    .campo label {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .formulario-caixa-clara .campo label {
+      color: var(--azul-profundo);
+    }
+
+    .campo input,
+    .campo select,
+    .campo textarea {
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.17);
+      border-radius: 13px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--branco);
+      transition:
+        border-color var(--transicao),
+        background var(--transicao),
+        box-shadow var(--transicao);
+    }
+
+    .campo textarea {
+      min-height: 108px;
+      resize: vertical;
+    }
+
+    .campo input::placeholder,
+    .campo textarea::placeholder {
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .campo select option {
+      color: var(--grafite);
+    }
+
+    .formulario-caixa-clara .campo input,
+    .formulario-caixa-clara .campo select,
+    .formulario-caixa-clara .campo textarea {
+      border-color: var(--borda-clara);
+      background: rgba(255, 255, 255, 0.90);
+      color: var(--grafite);
+    }
+
+    .formulario-caixa-clara .campo input::placeholder,
+    .formulario-caixa-clara .campo textarea::placeholder {
+      color: rgba(58, 56, 47, 0.38);
+    }
+
+    .campo input:focus,
+    .campo select:focus,
+    .campo textarea:focus {
+      border-color: var(--azul-saude);
+      background: rgba(255, 255, 255, 0.09);
+      box-shadow: 0 0 0 4px rgba(146, 179, 182, 0.12);
+    }
+
+    .formulario-caixa-clara .campo input:focus,
+    .formulario-caixa-clara .campo select:focus,
+    .formulario-caixa-clara .campo textarea:focus {
+      background: var(--branco);
+    }
+
+    .formulario-botao {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .formulario-observacao {
+      color: rgba(255, 255, 255, 0.48);
+      font-size: 0.72rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .formulario-caixa-clara .formulario-observacao {
+      color: rgba(58, 56, 47, 0.52);
+    }
+
+    .formulario-retorno {
+      display: none;
+      padding: 22px;
+      border: 1px solid rgba(146, 179, 182, 0.36);
+      border-radius: 18px;
+      background: rgba(146, 179, 182, 0.12);
+      color: var(--branco);
+      text-align: center;
+    }
+
+    .formulario-retorno.ativo {
+      display: block;
+    }
+
+    .formulario-caixa-clara .formulario-retorno {
+      color: var(--grafite);
+    }
+
+    .formulario-retorno strong {
+      display: block;
+      font-family: var(--fonte-editorial);
+      font-size: 1.45rem;
+      font-weight: 400;
+    }
+
+    .formulario-retorno span {
+      display: block;
+      margin-top: 7px;
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    /* =========================================================
+       LISTA DE ESPERA
+    ========================================================= */
+
+    .secao-espera {
+      overflow: hidden;
+      background: var(--gelo);
+    }
+
+    .espera-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+      gap: 80px;
+      align-items: start;
+    }
+
+    .espera-beneficios {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 34px;
+    }
+
+    .espera-beneficios span {
+      padding: 9px 13px;
+      border: 1px solid var(--borda-clara);
+      border-radius: 999px;
+      color: var(--texto-medio);
+      background: rgba(255, 255, 255, 0.42);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .espera-nota {
+      max-width: 600px;
+      margin-top: 34px;
+      padding: 24px 26px;
+      border-left: 2px solid var(--azul-profundo);
+      background: rgba(146, 179, 182, 0.10);
+    }
+
+    .espera-nota strong {
+      display: block;
+      font-family: var(--fonte-editorial);
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
+    .espera-nota p {
+      margin-top: 8px;
+      color: var(--texto-medio);
+      font-size: 0.84rem;
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       RODAPÉ
+    ========================================================= */
+
+    .rodape {
+      padding: 70px 0 34px;
+      background: var(--grafite);
+      color: var(--branco);
+    }
+
+    .rodape-superior {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) auto auto;
+      gap: 80px;
+      padding-bottom: 46px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .rodape-logo {
+      width: auto;
+      height: 52px;
+      object-fit: contain;
+    }
+
+    .rodape-marca-reserva {
+      display: none;
+      font-family: var(--fonte-editorial);
+      font-size: 2rem;
+    }
+
+    .rodape-marca-reserva.ativa {
+      display: block;
+    }
+
+    .rodape-texto {
+      max-width: 430px;
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.86rem;
+      line-height: 1.7;
+    }
+
+    .rodape-coluna h4 {
+      margin-bottom: 18px;
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .rodape-coluna {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rodape-coluna a {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.83rem;
+      transition: color var(--transicao);
+    }
+
+    .rodape-coluna a:hover {
+      color: var(--branco);
+    }
+
+    .rodape-inferior {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      padding-top: 28px;
+      color: rgba(255, 255, 255, 0.40);
+      font-size: 0.72rem;
+    }
+
+    .rodape-legais {
+      display: flex;
+      gap: 18px;
+    }
+
+    /* =========================================================
+       RESPONSIVO
+    ========================================================= */
+
+    @media (max-width: 980px) {
+      .menu {
+        display: none;
+      }
+
+      .botao-menu-mobile {
+        display: inline-flex;
+      }
+
+      .hero-moldura {
+        padding: 48px 38px 46px;
+      }
+
+      .aplicativo-grid,
+      .coluna-introducao,
+      .recursos-cabecalho,
+      .profissionais-grid,
+      .parceria-grid,
+      .espera-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .aplicativo-grid,
+      .profissionais-grid,
+      .parceria-grid,
+      .espera-grid {
+        gap: 52px;
+      }
+
+      .aplicativo-imagem,
+      .aplicativo-imagem img {
+        min-height: 560px;
+      }
+
+      .coluna-experiencia {
+        min-height: auto;
+      }
+
+      .coluna-fixa {
+        position: relative;
+        top: auto;
+        height: auto;
+        min-height: 0;
+        grid-template-columns: 1fr;
+      }
+
+      .coluna-grafico {
+        order: -1;
+        width: min(100%, 420px);
+        margin-inline: auto;
+      }
+
+      .coluna-lado {
+        min-height: 0;
+        align-items: stretch;
+        gap: 12px;
+        text-align: left;
+      }
+
+      .coluna-lado-esquerdo,
+      .coluna-lado-direito {
+        align-items: stretch;
+        text-align: left;
+      }
+
+      .coluna-mensagem {
+        width: 100%;
+        opacity: 1;
+        transform: none;
+      }
+
+      .coluna-mensagem.ativa {
+        transform: none;
+      }
+
+      .recurso-item {
+        grid-template-columns: 60px 1fr;
+      }
+
+      .recurso-item > div:last-child {
+        grid-column: 2;
+      }
+
+      .profissionais-simbolo {
+        min-height: 480px;
+      }
+
+      .rodape-superior {
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+      }
+
+      .rodape-marca {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .secao {
+        padding: 88px 0;
+      }
+
+      .cabecalho {
+        height: 68px;
+      }
+
+      .marca-imagem {
+        max-width: 160px;
+        height: 36px;
+      }
+
+      .hero {
+        padding-top: 110px;
+        padding-bottom: 30px;
+      }
+
+      .hero-fundo::after {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(28, 28, 23, 0.35),
+            rgba(28, 28, 23, 0.84)
+          );
+      }
+
+      .hero-moldura {
+        padding: 34px 24px 62px;
+        border-radius: 24px;
+      }
+
+      .hero-titulo {
+        font-size: clamp(3.1rem, 16vw, 5.1rem);
+        line-height: 0.88;
+      }
+
+      .hero-subtitulo {
+        margin-top: 24px;
+        font-size: 0.96rem;
+      }
+
+      .hero-acoes {
+        flex-direction: column;
+      }
+
+      .hero-acoes .botao {
+        width: 100%;
+      }
+
+      .hero-pontos {
+        right: 24px;
+        bottom: 24px;
+      }
+
+      .aplicativo-imagem,
+      .aplicativo-imagem img {
+        min-height: 480px;
+      }
+
+      .aplicativo-numero {
+        top: 28px;
+        left: 28px;
+        font-size: 3.4rem;
+      }
+
+      .aplicativo-destaque {
+        padding-left: 20px;
+      }
+
+      .coluna-frase {
+        grid-template-columns: 1fr;
+      }
+
+      .recursos-lista {
+        margin-top: 48px;
+      }
+
+      .recurso-item {
+        grid-template-columns: 44px 1fr;
+        gap: 18px;
+        padding: 30px 0;
+      }
+
+      .recurso-numero {
+        font-size: 1.35rem;
+      }
+
+      .recurso-item:hover {
+        padding-right: 0;
+        padding-left: 0;
+        background: transparent;
+      }
+
+      .profissionais-simbolo {
+        min-height: 390px;
+      }
+
+      .profissionais-simbolo::before {
+        width: 350px;
+        height: 350px;
+      }
+
+      .formulario-caixa {
+        padding: 24px 18px;
+        border-radius: 24px;
+      }
+
+      .formulario-duas-colunas {
+        grid-template-columns: 1fr;
+      }
+
+      .rodape-superior {
+        grid-template-columns: 1fr;
+        gap: 38px;
+      }
+
+      .rodape-marca {
+        grid-column: auto;
+      }
+
+      .rodape-inferior {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .revelar {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 
 <body>
+  <!-- =======================================================
+       CABEÇALHO
+  ======================================================== -->
 
-  <!-- HEADER -->
-  <header id="header">
-    <a href="#hero" class="logo-wrap" aria-label="Salutivae — Início">
-      <img
-        class="logo-img"
-        src="IMG_9507.png"
-        alt="Logo Salutivae"
-        id="logoImg"
-        onerror="this.classList.add('hidden'); document.getElementById('logoFallback').classList.add('visible');"
-      />
-      <span class="logo-fallback" id="logoFallback" aria-hidden="true">
-        <span class="logo-name">Salutivae</span>
-        <span class="logo-slogan">Saúde em conexão</span>
-      </span>
-    </a>
+  <header class="cabecalho" id="cabecalho">
+    <div class="container cabecalho-interno">
+      <a class="marca" href="#inicio" aria-label="Salutivae — início">
+        <img
+          src="IMG_9507.png"
+          alt="Salutivae"
+          class="marca-imagem"
+          id="logoCabecalho"
+        />
 
-    <nav aria-label="Navegação principal">
-      <a class="nav-link" href="#plataforma">Plataforma</a>
-      <a class="nav-link" href="#recursos">Recursos</a>
-      <a class="nav-link" href="#para-quem">Para quem</a>
-      <a class="btn-header" href="#lista-espera">Lista de espera</a>
-    </nav>
+        <span class="marca-reserva" id="logoCabecalhoReserva">
+          <span class="marca-simbolo-reserva"></span>
+          <span class="marca-nome">Salutivae</span>
+        </span>
+      </a>
+
+      <nav class="menu" aria-label="Navegação principal">
+        <a class="menu-link" href="#aplicativo">O aplicativo</a>
+        <a class="menu-link" href="#como-funciona">Como funciona</a>
+        <a class="menu-link" href="#recursos">Recursos</a>
+        <a class="menu-link" href="#parceria">Parcerias</a>
+
+        <a class="botao botao-principal" href="#lista-espera">
+          Entrar na lista de espera
+        </a>
+      </nav>
+
+      <button
+        class="botao-menu-mobile"
+        id="botaoMenu"
+        type="button"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        >
+          <path d="M4 7h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
   </header>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-inner">
+  <nav class="menu-mobile" id="menuMobile" aria-label="Menu mobile">
+    <a href="#aplicativo">O aplicativo</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#parceria">Parcerias</a>
+    <a href="#lista-espera">Lista de espera</a>
+  </nav>
 
-      <div class="hero-text">
-        <div class="hero-badge reveal">
-          <span class="hero-dot"></span>
-          Pré-lançamento • Vagas limitadas
-        </div>
+  <main>
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-        <h1 class="hero-h1 reveal reveal-delay-1">
-          E se seu atendimento não terminasse<br><em>quando a consulta acaba?</em>
-        </h1>
+    <section class="hero" id="inicio">
+      <div class="hero-fundo">
+        <div class="hero-fundo-reserva"></div>
 
-        <p class="hero-desc reveal reveal-delay-2">
-          A <strong>Salutivae</strong> transforma seu atendimento em uma estrutura digital inteligente.
-          Você organiza, acompanha e fortalece a jornada — e o paciente enxerga o processo com clareza.
-        </p>
-
-        <div class="hero-ctas reveal reveal-delay-3">
-          <a class="btn-primary" href="#lista-espera">Entrar na lista de espera</a>
-          <a class="btn-secondary" href="#plataforma">Conhecer a plataforma</a>
-        </div>
-
-        <p class="hero-disclaimer reveal reveal-delay-4">
-          Sem compromisso — você decide se quer avançar quando chegar a hora.
-        </p>
+        <img
+          src="salutivae-hero.jpg"
+          alt="Profissional utilizando a Salutivae no celular"
+          id="imagemHero"
+        />
       </div>
 
-    </div>
-  </section>
-
-  <!-- PERGUNTAS -->
-  <section id="perguntas" class="section">
-    <div class="section-inner">
-      <div class="perguntas-header reveal">
-        <span class="kicker">Reflexão</span>
-        <h2 class="section-title">Perguntas que mudam<br>o jeito de atender</h2>
-      </div>
-
-      <div class="questions-grid">
-        <div class="q-card reveal reveal-delay-1">
-          <div class="q-num">01</div>
-          <p>E se seu atendimento <strong>não terminasse</strong> quando a consulta acaba?</p>
-        </div>
-        <div class="q-card reveal reveal-delay-1">
-          <div class="q-num">02</div>
-          <p>E se você acompanhasse a evolução com <strong>clareza visual</strong>?</p>
-        </div>
-        <div class="q-card reveal reveal-delay-2">
-          <div class="q-num">03</div>
-          <p>E se você tivesse controle de quem está sem retorno — <strong>sem perder ninguém pelo caminho</strong>?</p>
-        </div>
-        <div class="q-card reveal reveal-delay-2">
-          <div class="q-num">04</div>
-          <p>E se seus pacientes <strong>não “esfriassem”</strong> entre uma consulta e outra?</p>
-        </div>
-        <div class="q-card reveal reveal-delay-3">
-          <div class="q-num">05</div>
-          <p>E se você tivesse um <strong>chat dentro do atendimento</strong>, com contexto?</p>
-        </div>
-        <div class="q-card reveal reveal-delay-3">
-          <div class="q-num">06</div>
-          <p>E se sua agenda virasse uma <strong>experiência organizada</strong>, com solicitações dentro do que você definiu?</p>
-        </div>
-        <div class="q-card reveal reveal-delay-4" style="grid-column: 1 / -1; max-width: 520px; margin: 0 auto;">
-          <div class="q-num">07</div>
-          <p>E se você atendesse por vídeo com acesso ao <strong>histórico durante a consulta</strong>?</p>
-        </div>
-      </div>
-
-      <div class="perguntas-close reveal">
-        <p>
-          A Salutivae nasce para transformar atendimento em estrutura:
-          <strong>clareza, continuidade e percepção premium.</strong>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PLATAFORMA -->
-  <section id="plataforma" class="section">
-    <div class="section-inner">
-      <div class="reveal">
-        <span class="kicker">A Plataforma</span>
-        <h2 class="section-title">O que é a Salutivae?</h2>
-        <p class="plataforma-desc">
-          Um aplicativo digital inteligente que transforma o atendimento em uma estrutura contínua.
-          Ele amplia a autoridade do profissional e oferece ao paciente clareza sobre a própria evolução —
-          em um ambiente organizado, estratégico e visual.
-        </p>
-      </div>
-
-      <div class="plataforma-cards">
-        <div class="plat-card reveal reveal-delay-1">
-          <div class="plat-card-num">A</div>
-          <h3>“Quando o paciente enxerga a evolução, ele permanece.”</h3>
-          <p>Clareza gera confiança. Confiança gera permanência. Permanência sustenta resultados e valorização.</p>
-          <div class="plat-accent"></div>
-        </div>
-        <div class="plat-card reveal reveal-delay-2">
-          <div class="plat-card-num">B</div>
-          <h3>“Quando o profissional tem estrutura, ele cresce.”</h3>
-          <p>A forma como você organiza muda a percepção. Método e seriedade aumentam valorização.</p>
-          <div class="plat-accent"></div>
-        </div>
-        <div class="plat-card reveal reveal-delay-3">
-          <div class="plat-card-num">C</div>
-          <h3>“Plataforma com sua identidade.”</h3>
-          <p>Você conduz. Você organiza. Você acompanha. O paciente acessa apenas o que você disponibiliza, quando você disponibiliza.</p>
-          <div class="plat-accent"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RECURSOS -->
-  <section id="recursos" class="section">
-    <div class="section-inner">
-      <div class="reveal">
-        <span class="kicker">Recursos</span>
-        <h2 class="section-title">Uma estrutura pensada para<br>fortalecer o seu atendimento</h2>
-        <p class="recursos-sub">
-          A Salutivae nasce para facilitar sua rotina, organizar processos e fortalecer a relação com pacientes
-          de forma simples, clara e contínua.
-        </p>
-      </div>
-
-      <div class="recursos-grid">
-
-        <div class="rec-card reveal reveal-delay-1">
-          <div class="rec-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#a6e8e0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-          </div>
-          <h3>Agenda inteligente</h3>
-          <p>Organize disponibilidade e permita solicitações dentro do que você definiu. Visão clara de atendimentos e retornos.</p>
-          <div class="chips">
-            <span class="chip">Previsibilidade</span>
-            <span class="chip">Retornos</span>
-            <span class="chip">Rotina organizada</span>
-          </div>
-        </div>
-
-        <div class="rec-card reveal reveal-delay-1">
-          <div class="rec-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#a6e8e0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-          </div>
-          <h3>Chat interno</h3>
-          <p>Espaço direto com o paciente para conversas no contexto do atendimento.</p>
-          <div class="chips">
-            <span class="chip">Contexto</span>
-            <span class="chip">Acompanhamento</span>
-            <span class="chip">Jornada contínua</span>
-          </div>
-        </div>
-
-        <div class="rec-card reveal reveal-delay-2">
-          <div class="rec-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#a6e8e0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-            </svg>
-          </div>
-          <h3>Protocolos &amp; evolução</h3>
-          <p>Registre orientações, organize exames e permita acompanhamento com clareza — inclusive com gráficos quando disponível.</p>
-          <div class="chips">
-            <span class="chip">Clareza visual</span>
-            <span class="chip">Exames</span>
-            <span class="chip">Evolução acompanhável</span>
-          </div>
-        </div>
-
-        <div class="rec-card reveal reveal-delay-2">
-          <div class="rec-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#a6e8e0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>
-            </svg>
-          </div>
-          <h3>Vídeo integrado</h3>
-          <p>Consultas por vídeo com acesso ao histórico do paciente durante o atendimento.</p>
-          <div class="chips">
-            <span class="chip">Atendimento</span>
-            <span class="chip">Histórico</span>
-            <span class="chip">Mais fluidez</span>
-          </div>
-        </div>
-
-        <div class="rec-card reveal reveal-delay-3">
-          <div class="rec-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#a6e8e0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-          </div>
-          <h3>Biblioteca profissional</h3>
-          <p>Protocolos educacionais, materiais complementares e orientações personalizadas em um só lugar.</p>
-          <div class="chips">
-            <span class="chip">Conteúdo</span>
-            <span class="chip">Continuidade</span>
-            <span class="chip">Orientações organizadas</span>
-          </div>
-        </div>
-
-        <div class="rec-card reveal reveal-delay-3" style="border-color: rgba(224,123,111,0.22); background: rgba(224,123,111,0.06);">
-          <div class="rec-icon" style="background: rgba(224,123,111,0.15); border-color: rgba(224,123,111,0.22);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#E07B6F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-          </div>
-          <h3>Estrutura também comunica valor</h3>
-          <p>Ambiente organizado transmite segurança. Quando o paciente entende o processo, ele entende o valor — e permanece.</p>
-          <div class="chips">
-            <span class="chip" style="background: rgba(224,123,111,.16); border-color: rgba(224,123,111,.24); color:#ffd2cb;">Mais confiança</span>
-            <span class="chip" style="background: rgba(224,123,111,.16); border-color: rgba(224,123,111,.24); color:#ffd2cb;">Mais valorização</span>
-            <span class="chip" style="background: rgba(224,123,111,.16); border-color: rgba(224,123,111,.24); color:#ffd2cb;">Mais permanência</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PARA QUEM -->
-  <section id="para-quem" class="section">
-    <div class="section-inner">
-      <div class="reveal">
-        <span class="kicker">Para quem é</span>
-        <h2 class="section-title">Para profissionais da saúde que<br>desejam mais do que atender</h2>
-        <p class="para-quem-desc">
-          Para quem quer estruturar, acompanhar e valorizar o atendimento — com clareza para o paciente
-          e uma experiência que sustenta continuidade.
-        </p>
-      </div>
-
-      <div class="pq-grid">
-        <div class="pq-card reveal reveal-delay-1">
-          <h3>Para quem quer continuidade</h3>
-          <p>Para quem não quer que o atendimento termine quando a consulta acaba — e deseja acompanhar de perto.</p>
-        </div>
-        <div class="pq-card reveal reveal-delay-2">
-          <h3>Para quem quer mais controle</h3>
-          <p>Agenda, retornos, protocolos e visão do que precisa de atenção — tudo organizado.</p>
-        </div>
-        <div class="pq-card reveal reveal-delay-3">
-          <h3>Para quem busca posicionamento</h3>
-          <p>Estrutura comunica valor. Mais seriedade, mais autoridade, mais percepção premium.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LISTA DE ESPERA (FORM + FORMSPREE) -->
-  <section id="lista-espera" class="section">
-    <div class="section-inner">
-      <div class="reveal">
-        <span class="kicker">Pré-lançamento</span>
-        <h2 class="section-title">Entre na lista de espera</h2>
-        <p class="espera-desc">
-          A Salutivae ainda não foi lançada. Quem entra na lista recebe novidades em primeira mão e participa do início da plataforma.
-        </p>
-      </div>
-
-      <div class="espera-chips reveal">
-        <span class="espera-chip"><span class="espera-dot"></span> Teste gratuito de 15 dias</span>
-        <span class="espera-chip"><span class="espera-dot"></span> 40% de desconto nos 3 primeiros meses</span>
-        <span class="espera-chip"><span class="espera-dot"></span> Conteúdos e presentes exclusivos</span>
-        <span class="espera-chip"><span class="espera-dot"></span> Vagas limitadas</span>
-      </div>
-
-      <div class="espera-form-wrap reveal reveal-delay-1">
-
-        <!-- IMPORTANTÍSSIMO:
-             Esse action é o seu Formspree.
-             Com esse formulário, você VAI receber os envios no e-mail configurado no Formspree.
-        -->
-        <form class="espera-form" id="waitlistForm" action="https://formspree.io/f/xwvnyeal" method="POST">
-          <!-- Anti-spam invisível -->
-          <input type="text" name="_gotcha" style="display:none" />
-
-          <!-- Opcional: assunto bonitinho no e-mail -->
-          <input type="hidden" name="_subject" value="Nova inscrição — Lista de Espera (Salutivae)" />
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="nome">Nome</label>
-              <input class="form-input" type="text" id="nome" name="nome" placeholder="Seu nome completo" required autocomplete="name" />
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="email">E-mail</label>
-              <input class="form-input" type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email" />
-            </div>
+      <div class="container hero-conteudo">
+        <div class="hero-moldura revelar visivel">
+          <div class="hero-indicador">
+            <span></span>
+            Aplicativo para profissionais da saúde
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="profissao">Profissão</label>
-            <input class="form-input" type="text" id="profissao" name="profissao" placeholder="Ex: Nutricionista, Psicólogo, Terapeuta…" required />
-          </div>
+          <h1 class="hero-titulo editorial">
+            Salutivae
+          </h1>
 
-          <button class="form-submit" type="submit">Entrar na lista de espera →</button>
-          <p class="form-note">Sem compromisso — você decide se quer avançar quando chegar a hora.</p>
-        </form>
-
-        <div class="form-success" id="formSuccess" aria-live="polite">
-          <h4>Você está na lista! 🎉</h4>
-          <p>Recebemos seus dados. Você vai receber novidades e conteúdos exclusivos em primeira mão.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="logo-name">Salutivae</div>
-          <div class="logo-slogan">Saúde em conexão</div>
-          <p class="footer-tagline">
-            Estrutura digital inteligente para profissionais da saúde que desejam mais do que atender.
+          <p class="hero-subtitulo">
+            Um aplicativo digital inteligente que organiza o atendimento,
+            conecta cada etapa da jornada e oferece ao profissional uma visão
+            contínua da evolução de seus pacientes.
+            <strong>
+              Antes, durante e depois da consulta.
+            </strong>
           </p>
 
-          <a class="footer-insta" href="https://instagram.com/salutivae" target="_blank" rel="noopener noreferrer" aria-label="Instagram @salutivae">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-            @salutivae
-          </a>
+          <div class="hero-acoes">
+            <a class="botao botao-principal" href="#aplicativo">
+              Conhecer o aplicativo
+            </a>
+
+            <a class="botao botao-contorno" href="#lista-espera">
+              Entrar na lista de espera
+            </a>
+          </div>
+
+          <div class="hero-pontos" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         O APLICATIVO
+    ====================================================== -->
+
+    <section class="secao secao-aplicativo" id="aplicativo">
+      <div class="container aplicativo-grid">
+        <div class="aplicativo-imagem revelar">
+          <span class="aplicativo-numero">01</span>
+
+          <img
+            src="salutivae-aplicativo.jpg"
+            alt="Aplicativo Salutivae apresentado em um celular"
+            id="imagemAplicativo"
+          />
         </div>
 
-        <div class="footer-links" role="navigation" aria-label="Links do rodapé">
-          <a href="#plataforma">Plataforma</a>
+        <div class="aplicativo-conteudo revelar atraso-1">
+          <span class="rotulo">O aplicativo</span>
+
+          <h2 class="titulo-secao editorial">
+            Uma estrutura digital para acompanhar o que acontece entre uma
+            consulta e outra.
+          </h2>
+
+          <p class="texto-secao">
+            A Salutivae foi criada para profissionais da saúde organizarem
+            agenda, pacientes, prontuários, exames, protocolos, consultas,
+            comunicação e evolução clínica em um único ambiente.
+          </p>
+
+          <p class="texto-secao">
+            O paciente acessa somente por convite e visualiza apenas o que o
+            profissional disponibiliza. Assim, cada orientação permanece
+            acessível, cada etapa pode ser acompanhada e todo o processo ganha
+            mais clareza.
+          </p>
+
+          <div class="aplicativo-destaque">
+            <p>
+              Você conduz o atendimento. A Salutivae conecta as informações.
+              O paciente acompanha a própria jornada.
+            </p>
+
+            <small>
+              Um aplicativo para transformar informações isoladas em uma visão
+              organizada, contínua e visual.
+            </small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         COLUNA ANIMADA
+    ====================================================== -->
+
+    <section class="secao secao-coluna" id="como-funciona">
+      <div class="container">
+        <div class="coluna-introducao">
+          <div class="revelar">
+            <span class="rotulo rotulo-claro">
+              Como a Salutivae conecta o atendimento
+            </span>
+
+            <h2 class="titulo-secao editorial">
+              Cada ponto isolado mostra um momento. Conectado, ele revela a
+              jornada.
+            </h2>
+          </div>
+
+          <p class="coluna-introducao-texto revelar atraso-1">
+            Uma consulta, um exame, uma orientação, um protocolo ou um retorno
+            dizem pouco quando permanecem separados. A Salutivae reúne esses
+            pontos em torno de um eixo central: a história de saúde do paciente
+            ao longo do tempo.
+          </p>
+        </div>
+
+        <div class="coluna-experiencia" id="experienciaColuna">
+          <div class="coluna-fixa">
+            <!-- LADO ESQUERDO -->
+
+            <div class="coluna-lado coluna-lado-esquerdo">
+              <article class="coluna-mensagem" data-etapa="0">
+                <span class="coluna-mensagem-numero">01 · Agenda</span>
+
+                <h3>
+                  Organize sua disponibilidade e mantenha o controle dos
+                  retornos.
+                </h3>
+
+                <p>
+                  Você define os horários. O paciente solicita dentro da agenda
+                  disponibilizada.
+                </p>
+              </article>
+
+              <article class="coluna-mensagem" data-etapa="2">
+                <span class="coluna-mensagem-numero">
+                  03 · Protocolos
+                </span>
+
+                <h3>
+                  Registre orientações e acompanhe o que acontece depois da
+                  consulta.
+                </h3>
+
+                <p>
+                  Metas, checklists, condutas e evolução permanecem vinculados
+                  ao paciente.
+                </p>
+              </article>
+
+              <article class="coluna-mensagem" data-etapa="4">
+                <span class="coluna-mensagem-numero">
+                  05 · Comunicação
+                </span>
+
+                <h3>
+                  Mantenha a conversa dentro do contexto do atendimento.
+                </h3>
+
+                <p>
+                  O chat interno reúne mensagens, orientações e arquivos em um
+                  ambiente próprio.
+                </p>
+              </article>
+
+              <article class="coluna-mensagem" data-etapa="6">
+                <span class="coluna-mensagem-numero">
+                  07 · Biblioteca
+                </span>
+
+                <h3>
+                  Disponibilize conhecimento de forma organizada.
+                </h3>
+
+                <p>
+                  Materiais, orientações e conteúdos podem ser compartilhados
+                  com um paciente ou com vários.
+                </p>
+              </article>
+            </div>
+
+            <!-- SVG CENTRAL -->
+
+            <div class="coluna-grafico" aria-hidden="true">
+              <svg
+                class="coluna-svg"
+                viewBox="0 0 420 760"
+                role="presentation"
+              >
+                <defs>
+                  <linearGradient
+                    id="gradienteColuna"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop offset="0%" stop-color="#E9E9E8"></stop>
+                    <stop offset="48%" stop-color="#92B3B6"></stop>
+                    <stop offset="100%" stop-color="#698D91"></stop>
+                  </linearGradient>
+
+                  <radialGradient id="brilhoNo">
+                    <stop offset="0%" stop-color="#FFFFFF"></stop>
+                    <stop offset="100%" stop-color="#92B3B6"></stop>
+                  </radialGradient>
+                </defs>
+
+                <line
+                  x1="210"
+                  y1="40"
+                  x2="210"
+                  y2="720"
+                  class="coluna-linha-central"
+                ></line>
+
+                <!-- Estrutura base completa -->
+
+                <path
+                  class="coluna-base"
+                  d="
+                    M210 38
+                    C210 38 210 65 210 90
+                    C210 112 177 114 150 102
+                    C120 89 100 90 83 103
+                    C105 118 133 120 164 113
+                    C184 109 203 117 210 139
+
+                    C217 117 236 109 256 113
+                    C287 120 315 118 337 103
+                    C320 90 300 89 270 102
+                    C243 114 210 112 210 90
+
+                    C210 139 210 174 210 198
+                    C210 222 164 223 125 207
+                    C90 192 61 194 35 214
+                    C65 237 103 240 145 225
+                    C178 214 202 224 210 251
+
+                    C218 224 242 214 275 225
+                    C317 240 355 237 385 214
+                    C359 194 330 192 295 207
+                    C256 223 210 222 210 198
+
+                    C210 251 210 292 210 318
+                    C210 344 164 347 118 332
+                    C78 319 46 322 25 344
+                    C53 369 94 372 143 355
+                    C179 343 203 355 210 382
+
+                    C217 355 241 343 277 355
+                    C326 372 367 369 395 344
+                    C374 322 342 319 302 332
+                    C256 347 210 344 210 318
+
+                    C210 382 210 421 210 446
+                    C210 470 167 473 124 459
+                    C86 447 55 451 32 472
+                    C61 495 99 497 145 482
+                    C179 471 203 481 210 509
+
+                    C217 481 241 471 275 482
+                    C321 497 359 495 388 472
+                    C365 451 334 447 296 459
+                    C253 473 210 470 210 446
+
+                    C210 509 210 549 210 575
+                    C210 598 176 602 145 591
+                    C116 581 93 583 76 598
+                    C98 616 126 619 158 608
+                    C183 600 203 610 210 635
+
+                    C217 610 237 600 262 608
+                    C294 619 322 616 344 598
+                    C327 583 304 581 275 591
+                    C244 602 210 598 210 575
+
+                    C210 635 210 668 210 690
+                    C210 706 192 712 177 707
+                    C161 702 149 706 141 716
+                    C158 729 178 729 195 720
+                    C203 716 208 720 210 730
+
+                    C212 720 217 716 225 720
+                    C242 729 262 729 279 716
+                    C271 706 259 702 243 707
+                    C228 712 210 706 210 690
+                  "
+                ></path>
+
+                <!-- Linha animada sobre a base -->
+
+                <path
+                  class="coluna-progresso"
+                  id="linhaColuna"
+                  d="
+                    M210 38
+                    C210 38 210 65 210 90
+                    C210 112 177 114 150 102
+                    C120 89 100 90 83 103
+                    C105 118 133 120 164 113
+                    C184 109 203 117 210 139
+
+                    C217 117 236 109 256 113
+                    C287 120 315 118 337 103
+                    C320 90 300 89 270 102
+                    C243 114 210 112 210 90
+
+                    C210 139 210 174 210 198
+                    C210 222 164 223 125 207
+                    C90 192 61 194 35 214
+                    C65 237 103 240 145 225
+                    C178 214 202 224 210 251
+
+                    C218 224 242 214 275 225
+                    C317 240 355 237 385 214
+                    C359 194 330 192 295 207
+                    C256 223 210 222 210 198
+
+                    C210 251 210 292 210 318
+                    C210 344 164 347 118 332
+                    C78 319 46 322 25 344
+                    C53 369 94 372 143 355
+                    C179 343 203 355 210 382
+
+                    C217 355 241 343 277 355
+                    C326 372 367 369 395 344
+                    C374 322 342 319 302 332
+                    C256 347 210 344 210 318
+
+                    C210 382 210 421 210 446
+                    C210 470 167 473 124 459
+                    C86 447 55 451 32 472
+                    C61 495 99 497 145 482
+                    C179 471 203 481 210 509
+
+                    C217 481 241 471 275 482
+                    C321 497 359 495 388 472
+                    C365 451 334 447 296 459
+                    C253 473 210 470 210 446
+
+                    C210 509 210 549 210 575
+                    C210 598 176 602 145 591
+                    C116 581 93 583 76 598
+                    C98 616 126 619 158 608
+                    C183 600 203 610 210 635
+
+                    C217 610 237 600 262 608
+                    C294 619 322 616 344 598
+                    C327 583 304 581 275 591
+                    C244 602 210 598 210 575
+
+                    C210 635 210 668 210 690
+                    C210 706 192 712 177 707
+                    C161 702 149 706 141 716
+                    C158 729 178 729 195 720
+                    C203 716 208 720 210 730
+
+                    C212 720 217 716 225 720
+                    C242 729 262 729 279 716
+                    C271 706 259 702 243 707
+                    C228 712 210 706 210 690
+                  "
+                ></path>
+
+                <!-- Pontos de ativação -->
+
+                <circle
+                  class="coluna-no"
+                  data-no="0"
+                  cx="210"
+                  cy="90"
+                  r="7"
+                ></circle>
+
+                <circle
+                  class="coluna-no"
+                  data-no="1"
+                  cx="210"
+                  cy="198"
+                  r="7"
+                ></circle>
+
+                <circle
+                  class="coluna-no"
+                  data-no="2"
+                  cx="210"
+                  cy="318"
+                  r="7"
+                ></circle>
+
+                <circle
+                  class="coluna-no"
+                  data-no="3"
+                  cx="210"
+                  cy="446"
+                  r="7"
+                ></circle>
+
+                <circle
+                  class="coluna-no"
+                  data-no="4"
+                  cx="210"
+                  cy="575"
+                  r="7"
+                ></circle>
+
+                <circle
+                  class="coluna-no"
+                  data-no="5"
+                  cx="210"
+                  cy="690"
+                  r="7"
+                ></circle>
+              </svg>
+            </div>
+
+            <!-- LADO DIREITO -->
+
+            <div class="coluna-lado coluna-lado-direito">
+              <article class="coluna-mensagem" data-etapa="1">
+                <span class="coluna-mensagem-numero">
+                  02 · Histórico
+                </span>
+
+                <h3>
+                  Reúna tudo o que faz parte do atendimento em um único lugar.
+                </h3>
+
+                <p>
+                  Consultas, prontuário, exames, orientações e registros formam
+                  uma visão contínua.
+                </p>
+              </article>
+
+              <article class="coluna-mensagem" data-etapa="3">
+                <span class="coluna-mensagem-numero">
+                  04 · Exames
+                </span>
+
+                <h3>
+                  Transforme resultados isolados em parte da história clínica.
+                </h3>
+
+                <p>
+                  Valores, referências e evolução podem ser acompanhados ao
+                  longo do tempo.
+                </p>
+              </article>
+
+              <article class="coluna-mensagem" data-etapa="5">
+                <span class="coluna-mensagem-numero">
+                  06 · Consulta por vídeo
+                </span>
+
+                <h3>
+                  Atenda com acesso ao contexto do paciente durante a consulta.
+                </h3>
+
+                <p>
+                  Histórico, exames, protocolos e orientações permanecem
+                  acessíveis no atendimento.
+                </p>
+              </article>
+
+              <article class="coluna-mensagem" data-etapa="7">
+                <span class="coluna-mensagem-numero">
+                  08 · Continuidade
+                </span>
+
+                <h3>
+                  Perceba quem precisa de atenção antes que o acompanhamento se
+                  perca.
+                </h3>
+
+                <p>
+                  Retornos, adesão e evolução ajudam o profissional a manter o
+                  cuidado ativo.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="coluna-fechamento revelar">
+          <span class="rotulo rotulo-claro">
+            Uma visão completa
+          </span>
+
+          <h3 class="editorial">
+            A Salutivae organiza o que acontece antes, durante e depois da
+            consulta.
+          </h3>
+
+          <p>
+            Não para substituir o profissional, mas para ampliar sua visão,
+            sustentar o acompanhamento e oferecer ao paciente uma experiência
+            mais clara sobre o próprio processo.
+          </p>
+
+          <div class="coluna-frase">
+            <div>
+              <strong>
+                Quando o paciente enxerga a evolução, ele permanece.
+              </strong>
+
+              <span>
+                Clareza transforma acompanhamento em confiança.
+              </span>
+            </div>
+
+            <div>
+              <strong>
+                Quando o profissional tem estrutura, ele cresce.
+              </strong>
+
+              <span>
+                Organização também comunica método, cuidado e valor.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         RECURSOS
+    ====================================================== -->
+
+    <section class="secao secao-recursos" id="recursos">
+      <div class="container">
+        <div class="recursos-cabecalho">
+          <div class="revelar">
+            <span class="rotulo">Recursos do aplicativo</span>
+
+            <h2 class="titulo-secao editorial">
+              Uma estrutura pensada para sustentar seu atendimento.
+            </h2>
+          </div>
+
+          <p class="texto-secao revelar atraso-1">
+            Cada recurso foi pensado para organizar processos que já fazem
+            parte da sua rotina e transformar informações dispersas em uma
+            experiência contínua para você e para o paciente.
+          </p>
+        </div>
+
+        <div class="recursos-lista">
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">01</span>
+
+            <h3>Agenda inteligente</h3>
+
+            <div>
+              <p>
+                Organize sua disponibilidade, permita solicitações de horário
+                dentro da agenda definida e tenha uma visão clara de consultas
+                e retornos.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Disponibilidade</span>
+                <span>Retornos</span>
+                <span>Previsibilidade</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">02</span>
+
+            <h3>Pacientes e prontuário</h3>
+
+            <div>
+              <p>
+                Reúna informações, histórico, consultas, exames, protocolos,
+                registros e evolução em um espaço individual para cada
+                paciente.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Histórico</span>
+                <span>Prontuário</span>
+                <span>Organização</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">03</span>
+
+            <h3>Protocolos e evolução</h3>
+
+            <div>
+              <p>
+                Registre orientações, acompanhe metas, checklists e etapas do
+                processo e permita que o paciente visualize sua própria
+                evolução.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Metas</span>
+                <span>Checklists</span>
+                <span>Gráficos</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">04</span>
+
+            <h3>Exames organizados</h3>
+
+            <div>
+              <p>
+                Centralize arquivos e resultados, registre valores e
+                referências e acompanhe mudanças depois da análise
+                profissional.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Resultados</span>
+                <span>Referências</span>
+                <span>Tendências</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">05</span>
+
+            <h3>Chat interno</h3>
+
+            <div>
+              <p>
+                Mantenha a comunicação ligada ao contexto do atendimento, com
+                espaço para mensagens, orientações, informações e anexos.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Comunicação</span>
+                <span>Contexto</span>
+                <span>Continuidade</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">06</span>
+
+            <h3>Consultas por vídeo</h3>
+
+            <div>
+              <p>
+                Realize atendimentos online e consulte histórico, prontuário,
+                exames e orientações durante a consulta.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Vídeo</span>
+                <span>Histórico</span>
+                <span>Atendimento</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">07</span>
+
+            <h3>Biblioteca profissional</h3>
+
+            <div>
+              <p>
+                Organize materiais educativos, orientações personalizadas,
+                documentos e conteúdos para compartilhar individualmente ou
+                com grupos de pacientes.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Conteúdo</span>
+                <span>Orientações</span>
+                <span>Compartilhamento</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="recurso-item revelar">
+            <span class="recurso-numero">08</span>
+
+            <h3>Acompanhamento contínuo</h3>
+
+            <div>
+              <p>
+                Visualize retornos pendentes, protocolos não concluídos, exames
+                novos e pacientes que precisam de atenção.
+              </p>
+
+              <div class="recurso-tags">
+                <span>Adesão</span>
+                <span>Atenção</span>
+                <span>Permanência</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PARA QUEM É
+    ====================================================== -->
+
+    <section class="secao secao-profissionais" id="para-quem">
+      <div class="container profissionais-grid">
+        <div class="profissionais-conteudo revelar">
+          <span class="rotulo">
+            Para quem é a Salutivae
+          </span>
+
+          <h2 class="titulo-secao editorial">
+            Para profissionais da saúde que desejam mais do que atender.
+          </h2>
+
+          <p class="texto-secao">
+            Para quem deseja estruturar a rotina, acompanhar pacientes com mais
+            clareza e oferecer uma experiência profissional que não termina
+            quando a consulta acaba.
+          </p>
+
+          <div class="profissionais-lista">
+            <div class="profissionais-item">
+              <strong>Para quem busca continuidade</strong>
+
+              <span>
+                O cuidado permanece ativo entre consultas, orientações e
+                retornos.
+              </span>
+            </div>
+
+            <div class="profissionais-item">
+              <strong>Para quem deseja mais controle</strong>
+
+              <span>
+                Agenda, pacientes, protocolos, exames e evolução reunidos em
+                uma única estrutura.
+              </span>
+            </div>
+
+            <div class="profissionais-item">
+              <strong>Para quem valoriza clareza</strong>
+
+              <span>
+                O paciente visualiza o processo e entende melhor o que está
+                sendo construído.
+              </span>
+            </div>
+
+            <div class="profissionais-item">
+              <strong>Para quem cuida do posicionamento</strong>
+
+              <span>
+                Um ambiente organizado comunica método, segurança e
+                profissionalismo.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profissionais-simbolo revelar atraso-1">
+          <svg
+            viewBox="0 0 420 760"
+            aria-label="Símbolo de conexão da Salutivae"
+          >
+            <path
+              d="
+                M210 38
+                C210 38 210 65 210 90
+                C210 112 177 114 150 102
+                C120 89 100 90 83 103
+                C105 118 133 120 164 113
+                C184 109 203 117 210 139
+
+                C217 117 236 109 256 113
+                C287 120 315 118 337 103
+                C320 90 300 89 270 102
+                C243 114 210 112 210 90
+
+                C210 139 210 174 210 198
+                C210 222 164 223 125 207
+                C90 192 61 194 35 214
+                C65 237 103 240 145 225
+                C178 214 202 224 210 251
+
+                C218 224 242 214 275 225
+                C317 240 355 237 385 214
+                C359 194 330 192 295 207
+                C256 223 210 222 210 198
+
+                C210 251 210 292 210 318
+                C210 344 164 347 118 332
+                C78 319 46 322 25 344
+                C53 369 94 372 143 355
+                C179 343 203 355 210 382
+
+                C217 355 241 343 277 355
+                C326 372 367 369 395 344
+                C374 322 342 319 302 332
+                C256 347 210 344 210 318
+
+                C210 382 210 421 210 446
+                C210 470 167 473 124 459
+                C86 447 55 451 32 472
+                C61 495 99 497 145 482
+                C179 471 203 481 210 509
+
+                C217 481 241 471 275 482
+                C321 497 359 495 388 472
+                C365 451 334 447 296 459
+                C253 473 210 470 210 446
+
+                C210 509 210 549 210 575
+                C210 598 176 602 145 591
+                C116 581 93 583 76 598
+                C98 616 126 619 158 608
+                C183 600 203 610 210 635
+
+                C217 610 237 600 262 608
+                C294 619 322 616 344 598
+                C327 583 304 581 275 591
+                C244 602 210 598 210 575
+
+                C210 635 210 668 210 690
+                C210 706 192 712 177 707
+                C161 702 149 706 141 716
+                C158 729 178 729 195 720
+                C203 716 208 720 210 730
+
+                C212 720 217 716 225 720
+                C242 729 262 729 279 716
+                C271 706 259 702 243 707
+                C228 712 210 706 210 690
+              "
+              fill="none"
+              stroke="#3A382F"
+              stroke-width="3"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PARCERIAS
+    ====================================================== -->
+
+    <section class="secao secao-parceria" id="parceria">
+      <div class="container parceria-grid">
+        <div class="revelar">
+          <span class="rotulo rotulo-claro">
+            Programa de parceria
+          </span>
+
+          <h2 class="titulo-secao editorial">
+            Leve a Salutivae a outros profissionais e participe do crescimento
+            da plataforma.
+          </h2>
+
+          <p class="texto-secao texto-claro">
+            Estamos formando uma rede de parceiros alinhados à proposta da
+            Salutivae: fortalecer a organização, a continuidade e a evolução
+            dos atendimentos em saúde.
+          </p>
+
+          <p class="texto-secao texto-claro">
+            O programa será voltado a profissionais, criadores de conteúdo,
+            empresas, comunidades e especialistas que desejam apresentar a
+            plataforma ao seu público de maneira responsável e profissional.
+          </p>
+
+          <div class="parceria-beneficios">
+            <div class="parceria-beneficio">
+              <span class="parceria-beneficio-numero">01</span>
+
+              <div>
+                <strong>Divulgação com propósito</strong>
+
+                <p>
+                  Apresente uma ferramenta que organiza e fortalece a jornada
+                  dos profissionais e pacientes.
+                </p>
+              </div>
+            </div>
+
+            <div class="parceria-beneficio">
+              <span class="parceria-beneficio-numero">02</span>
+
+              <div>
+                <strong>Reconhecimento por indicação</strong>
+
+                <p>
+                  Parceiros selecionados poderão participar de campanhas e
+                  condições comerciais por indicações qualificadas.
+                </p>
+              </div>
+            </div>
+
+            <div class="parceria-beneficio">
+              <span class="parceria-beneficio-numero">03</span>
+
+              <div>
+                <strong>Construção conjunta</strong>
+
+                <p>
+                  Parceiros poderão acompanhar novidades, lançamentos e
+                  oportunidades de colaboração com a marca.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="formulario-caixa revelar atraso-1">
+          <div class="formulario-cabecalho">
+            <h3>Quero conhecer o programa de parceria</h3>
+
+            <p>
+              Preencha suas informações. O cadastro demonstra interesse e não
+              cria obrigação contratual.
+            </p>
+          </div>
+
+          <form
+            class="formulario formulario-formspree"
+            action="https://formspree.io/f/xwvnyeal"
+            method="POST"
+            data-formulario="parceria"
+          >
+            <input
+              type="hidden"
+              name="_subject"
+              value="Novo interesse em parceria — Salutivae"
+            />
+
+            <input
+              type="hidden"
+              name="tipo_de_cadastro"
+              value="Interesse em parceria"
+            />
+
+            <input
+              type="text"
+              name="_gotcha"
+              tabindex="-1"
+              autocomplete="off"
+              style="
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                opacity: 0;
+                pointer-events: none;
+              "
+            />
+
+            <div class="formulario-duas-colunas">
+              <div class="campo">
+                <label for="parceriaNome">Nome</label>
+
+                <input
+                  id="parceriaNome"
+                  type="text"
+                  name="nome"
+                  placeholder="Seu nome completo"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+
+              <div class="campo">
+                <label for="parceriaEmail">E-mail</label>
+
+                <input
+                  id="parceriaEmail"
+                  type="email"
+                  name="email"
+                  placeholder="seu@email.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="campo">
+              <label for="parceriaAtuacao">
+                Área de atuação
+              </label>
+
+              <input
+                id="parceriaAtuacao"
+                type="text"
+                name="area_de_atuacao"
+                placeholder="Ex.: profissional da saúde, empresa, criador de conteúdo"
+                required
+              />
+            </div>
+
+            <div class="campo">
+              <label for="parceriaPerfil">
+                Perfil, empresa ou rede social
+              </label>
+
+              <input
+                id="parceriaPerfil"
+                type="text"
+                name="perfil_ou_empresa"
+                placeholder="@seuperfil ou nome da empresa"
+              />
+            </div>
+
+            <div class="campo">
+              <label for="parceriaMensagem">
+                Como você imagina essa parceria?
+              </label>
+
+              <textarea
+                id="parceriaMensagem"
+                name="mensagem"
+                placeholder="Conte brevemente sobre sua proposta, público ou forma de divulgação."
+              ></textarea>
+            </div>
+
+            <button
+              class="botao botao-principal formulario-botao"
+              type="submit"
+            >
+              Enviar interesse em parceria
+            </button>
+
+            <p class="formulario-observacao">
+              Seus dados serão utilizados apenas para contato sobre a
+              oportunidade de parceria.
+            </p>
+          </form>
+
+          <div class="formulario-retorno" aria-live="polite">
+            <strong>Interesse recebido.</strong>
+
+            <span>
+              Suas informações foram enviadas para a equipe da Salutivae.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         LISTA DE ESPERA
+    ====================================================== -->
+
+    <section class="secao secao-espera" id="lista-espera">
+      <div class="container espera-grid">
+        <div class="revelar">
+          <span class="rotulo">Pré-lançamento</span>
+
+          <h2 class="titulo-secao editorial">
+            Entre na lista de espera da Salutivae.
+          </h2>
+
+          <p class="texto-secao">
+            O aplicativo ainda está em desenvolvimento. Profissionais
+            cadastrados receberão as novidades em primeira mão e terão
+            prioridade quando o acesso for disponibilizado.
+          </p>
+
+          <div class="espera-beneficios">
+            <span>15 dias de teste gratuito</span>
+            <span>40% de desconto nos três primeiros meses</span>
+            <span>Acesso antecipado</span>
+            <span>Conteúdos exclusivos</span>
+            <span>Vagas limitadas</span>
+          </div>
+
+          <div class="espera-nota">
+            <strong>
+              Sem compromisso.
+            </strong>
+
+            <p>
+              Você recebe as informações do lançamento e decide se deseja
+              avançar quando o aplicativo estiver disponível.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="formulario-caixa formulario-caixa-clara revelar atraso-1"
+        >
+          <div class="formulario-cabecalho">
+            <h3>Quero receber acesso antecipado</h3>
+
+            <p>
+              Informe seu nome, e-mail e profissão para participar da lista de
+              espera.
+            </p>
+          </div>
+
+          <form
+            class="formulario formulario-formspree"
+            action="https://formspree.io/f/xwvnyeal"
+            method="POST"
+            data-formulario="lista"
+          >
+            <input
+              type="hidden"
+              name="_subject"
+              value="Nova inscrição — Lista de espera Salutivae"
+            />
+
+            <input
+              type="hidden"
+              name="tipo_de_cadastro"
+              value="Lista de espera"
+            />
+
+            <input
+              type="text"
+              name="_gotcha"
+              tabindex="-1"
+              autocomplete="off"
+              style="
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                opacity: 0;
+                pointer-events: none;
+              "
+            />
+
+            <div class="campo">
+              <label for="esperaNome">Nome</label>
+
+              <input
+                id="esperaNome"
+                type="text"
+                name="nome"
+                placeholder="Seu nome completo"
+                autocomplete="name"
+                required
+              />
+            </div>
+
+            <div class="campo">
+              <label for="esperaEmail">E-mail</label>
+
+              <input
+                id="esperaEmail"
+                type="email"
+                name="email"
+                placeholder="Digite seu melhor e-mail"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+            <div class="campo">
+              <label for="esperaProfissao">Profissão</label>
+
+              <input
+                id="esperaProfissao"
+                type="text"
+                name="profissao"
+                placeholder="Ex.: nutricionista, psicólogo, fisioterapeuta"
+                required
+              />
+            </div>
+
+            <button
+              class="botao botao-principal formulario-botao"
+              type="submit"
+            >
+              Entrar na lista de espera
+            </button>
+
+            <p class="formulario-observacao">
+              Ao enviar, seus dados serão direcionados ao formulário oficial da
+              Salutivae.
+            </p>
+          </form>
+
+          <div class="formulario-retorno" aria-live="polite">
+            <strong>Você está na lista.</strong>
+
+            <span>
+              Recebemos seus dados. As novidades serão enviadas para o e-mail
+              informado.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =======================================================
+       RODAPÉ
+  ======================================================== -->
+
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape-superior">
+        <div class="rodape-marca">
+          <img
+            src="IMG_9507.png"
+            alt="Salutivae"
+            class="rodape-logo"
+            id="logoRodape"
+          />
+
+          <div
+            class="rodape-marca-reserva"
+            id="logoRodapeReserva"
+          >
+            Salutivae
+          </div>
+
+          <p class="rodape-texto">
+            Um aplicativo digital inteligente para profissionais da saúde
+            organizarem, acompanharem e fortalecerem a jornada de seus
+            pacientes.
+          </p>
+        </div>
+
+        <div class="rodape-coluna">
+          <h4>Navegação</h4>
+
+          <a href="#aplicativo">O aplicativo</a>
+          <a href="#como-funciona">Como funciona</a>
           <a href="#recursos">Recursos</a>
           <a href="#lista-espera">Lista de espera</a>
-          <a href="#" aria-label="Política de privacidade">Privacidade</a>
-          <a href="#" aria-label="Termos de uso">Termos</a>
+        </div>
+
+        <div class="rodape-coluna">
+          <h4>Salutivae</h4>
+
+          <a
+            href="https://instagram.com/salutivae"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram @salutivae
+          </a>
+
+          <a href="#parceria">
+            Programa de parceria
+          </a>
+
+          <a href="#">
+            Privacidade
+          </a>
+
+          <a href="#">
+            Termos de uso
+          </a>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2026 Salutivae. Todos os direitos reservados.</p>
-        <div class="footer-legal">
+      <div class="rodape-inferior">
+        <span>
+          © 2026 Salutivae. Todos os direitos reservados.
+        </span>
+
+        <div class="rodape-legais">
           <a href="#">Privacidade</a>
           <a href="#">Termos</a>
         </div>
@@ -1235,103 +3018,365 @@
   </footer>
 
   <script>
-    /* Scroll reveal */
-    (function () {
-      const els = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      els.forEach(el => io.observe(el));
+    /* =========================================================
+       CABEÇALHO
+    ========================================================= */
 
-      // Hero visible quickly
-      document.querySelectorAll('#hero .reveal').forEach(el => {
-        setTimeout(() => el.classList.add('visible'), 120);
-      });
-    })();
+    const cabecalho = document.getElementById("cabecalho");
 
-    /* Header scroll effect */
-    (function () {
-      const header = document.getElementById('header');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 40) {
-          header.style.background = 'rgba(18,40,39,0.92)';
-          header.style.boxShadow = '0 10px 40px rgba(0,0,0,0.18)';
-        } else {
-          header.style.background = 'rgba(18,40,39,0.72)';
-          header.style.boxShadow = 'none';
-        }
-      }, { passive: true });
-    })();
+    function atualizarCabecalho() {
+      cabecalho.classList.toggle("rolado", window.scrollY > 30);
+    }
 
-    /* Smooth anchor offset */
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          const offset = 78;
-          const top = target.getBoundingClientRect().top + window.scrollY - offset;
-          window.scrollTo({ top, behavior: 'smooth' });
-        }
-      });
+    atualizarCabecalho();
+
+    window.addEventListener("scroll", atualizarCabecalho, {
+      passive: true
     });
 
-    /* Formspree submit (AJAX) — você recebe no e-mail configurado no Formspree */
-    (function () {
-      const form = document.getElementById('waitlistForm');
-      const success = document.getElementById('formSuccess');
-      if (!form) return;
+    /* =========================================================
+       MENU MOBILE
+    ========================================================= */
 
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
+    const botaoMenu = document.getElementById("botaoMenu");
+    const menuMobile = document.getElementById("menuMobile");
 
-        const btn = form.querySelector('button[type="submit"]');
-        const original = btn.textContent;
-        btn.textContent = 'Enviando...';
-        btn.disabled = true;
+    function fecharMenuMobile() {
+      menuMobile.classList.remove("ativo");
+      document.body.classList.remove("menu-aberto");
+      botaoMenu.setAttribute("aria-expanded", "false");
+    }
 
-        try {
-          const res = await fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-          });
+    botaoMenu.addEventListener("click", function () {
+      const estaAberto = menuMobile.classList.toggle("ativo");
 
-          if (res.ok) {
-            form.style.display = 'none';
-            success.classList.add('visible');
-            form.reset();
-          } else {
-            btn.textContent = 'Tentar novamente';
-            btn.disabled = false;
-            alert('Não foi possível enviar agora. Tente novamente em alguns segundos.');
+      document.body.classList.toggle("menu-aberto", estaAberto);
+
+      botaoMenu.setAttribute(
+        "aria-expanded",
+        estaAberto ? "true" : "false"
+      );
+    });
+
+    menuMobile.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", fecharMenuMobile);
+    });
+
+    /* =========================================================
+       ROLAGEM SUAVE COM DESCONTO DO CABEÇALHO
+    ========================================================= */
+
+    document
+      .querySelectorAll('a[href^="#"]')
+      .forEach(function (link) {
+        link.addEventListener("click", function (evento) {
+          const destinoId = link.getAttribute("href");
+
+          if (!destinoId || destinoId === "#") {
+            return;
           }
-        } catch (err) {
-          btn.textContent = 'Tentar novamente';
-          btn.disabled = false;
-          alert('Falha de conexão. Verifique sua internet e tente novamente.');
-        } finally {
-          if (!btn.disabled) btn.textContent = original;
-        }
+
+          const destino = document.querySelector(destinoId);
+
+          if (!destino) {
+            return;
+          }
+
+          evento.preventDefault();
+
+          const deslocamento = 74;
+
+          const topo =
+            destino.getBoundingClientRect().top +
+            window.scrollY -
+            deslocamento;
+
+          window.scrollTo({
+            top: topo,
+            behavior: "smooth"
+          });
+        });
       });
-    })();
 
-    /* Logo fallback */
-    (function () {
-      const img = document.getElementById('logoImg');
-      const fallback = document.getElementById('logoFallback');
-      if (!img) return;
-      if (!img.complete || img.naturalWidth === 0) {
-        img.classList.add('hidden');
-        fallback.classList.add('visible');
+    /* =========================================================
+       ANIMAÇÕES DE ENTRADA
+    ========================================================= */
+
+    const elementosRevelar = document.querySelectorAll(".revelar");
+
+    if ("IntersectionObserver" in window) {
+      const observadorRevelar = new IntersectionObserver(
+        function (entradas, observador) {
+          entradas.forEach(function (entrada) {
+            if (entrada.isIntersecting) {
+              entrada.target.classList.add("visivel");
+              observador.unobserve(entrada.target);
+            }
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -55px 0px"
+        }
+      );
+
+      elementosRevelar.forEach(function (elemento) {
+        observadorRevelar.observe(elemento);
+      });
+    } else {
+      elementosRevelar.forEach(function (elemento) {
+        elemento.classList.add("visivel");
+      });
+    }
+
+    /* =========================================================
+       COLUNA CONTROLADA PELO SCROLL
+    ========================================================= */
+
+    const experienciaColuna =
+      document.getElementById("experienciaColuna");
+
+    const linhaColuna =
+      document.getElementById("linhaColuna");
+
+    const mensagensColuna =
+      Array.from(
+        document.querySelectorAll(".coluna-mensagem")
+      );
+
+    const nosColuna =
+      Array.from(
+        document.querySelectorAll(".coluna-no")
+      );
+
+    let comprimentoLinha = 5000;
+
+    try {
+      comprimentoLinha = linhaColuna.getTotalLength();
+    } catch (erro) {
+      comprimentoLinha = 5000;
+    }
+
+    linhaColuna.style.strokeDasharray =
+      String(comprimentoLinha);
+
+    linhaColuna.style.strokeDashoffset =
+      String(comprimentoLinha);
+
+    function limitar(valor, minimo, maximo) {
+      return Math.min(Math.max(valor, minimo), maximo);
+    }
+
+    function atualizarColuna() {
+      if (!experienciaColuna || window.innerWidth <= 980) {
+        linhaColuna.style.strokeDashoffset = "0";
+
+        mensagensColuna.forEach(function (mensagem) {
+          mensagem.classList.add("ativa");
+        });
+
+        nosColuna.forEach(function (no) {
+          no.classList.add("ativo");
+        });
+
+        return;
       }
-    })();
-  </script>
 
+      const retangulo =
+        experienciaColuna.getBoundingClientRect();
+
+      const alturaJanela = window.innerHeight;
+
+      const inicio =
+        alturaJanela * 0.62;
+
+      const percurso =
+        retangulo.height + alturaJanela * 0.10;
+
+      const progresso =
+        limitar(
+          (inicio - retangulo.top) / percurso,
+          0,
+          1
+        );
+
+      linhaColuna.style.strokeDashoffset =
+        String(
+          comprimentoLinha -
+          comprimentoLinha * progresso
+        );
+
+      const quantidadeEtapas = 8;
+
+      const etapaAtual =
+        Math.min(
+          quantidadeEtapas - 1,
+          Math.floor(progresso * quantidadeEtapas)
+        );
+
+      mensagensColuna.forEach(function (mensagem) {
+        const etapa =
+          Number(mensagem.dataset.etapa || 0);
+
+        mensagem.classList.toggle(
+          "ativa",
+          etapa <= etapaAtual
+        );
+      });
+
+      nosColuna.forEach(function (no, indice) {
+        const limiteAtivacao =
+          (indice + 1) / (nosColuna.length + 1);
+
+        no.classList.toggle(
+          "ativo",
+          progresso >= limiteAtivacao
+        );
+      });
+    }
+
+    atualizarColuna();
+
+    window.addEventListener("scroll", atualizarColuna, {
+      passive: true
+    });
+
+    window.addEventListener("resize", atualizarColuna);
+
+    /* =========================================================
+       FORMSPREE — LISTA DE ESPERA E PARCERIA
+    ========================================================= */
+
+    const formulariosFormspree =
+      document.querySelectorAll(".formulario-formspree");
+
+    formulariosFormspree.forEach(function (formulario) {
+      formulario.addEventListener(
+        "submit",
+        async function (evento) {
+          evento.preventDefault();
+
+          const botaoEnviar =
+            formulario.querySelector(
+              'button[type="submit"]'
+            );
+
+          const caixaFormulario =
+            formulario.closest(".formulario-caixa");
+
+          const retorno =
+            caixaFormulario.querySelector(
+              ".formulario-retorno"
+            );
+
+          const textoOriginal =
+            botaoEnviar.textContent;
+
+          botaoEnviar.disabled = true;
+          botaoEnviar.textContent = "Enviando...";
+
+          try {
+            const resposta = await fetch(
+              formulario.action,
+              {
+                method: "POST",
+                body: new FormData(formulario),
+                headers: {
+                  Accept: "application/json"
+                }
+              }
+            );
+
+            if (!resposta.ok) {
+              throw new Error(
+                "O Formspree não confirmou o envio."
+              );
+            }
+
+            formulario.reset();
+            formulario.style.display = "none";
+            retorno.classList.add("ativo");
+          } catch (erro) {
+            console.error(erro);
+
+            botaoEnviar.disabled = false;
+            botaoEnviar.textContent = textoOriginal;
+
+            alert(
+              "Não foi possível enviar suas informações agora. Verifique a conexão e tente novamente."
+            );
+          }
+        }
+      );
+    });
+
+    /* =========================================================
+       FALLBACK DAS LOGOS
+    ========================================================= */
+
+    function configurarFallbackImagem(
+      imagemId,
+      fallbackId
+    ) {
+      const imagem =
+        document.getElementById(imagemId);
+
+      const fallback =
+        document.getElementById(fallbackId);
+
+      if (!imagem || !fallback) {
+        return;
+      }
+
+      function mostrarFallback() {
+        imagem.style.display = "none";
+        fallback.classList.add("ativa");
+      }
+
+      imagem.addEventListener("error", mostrarFallback);
+
+      if (
+        imagem.complete &&
+        imagem.naturalWidth === 0
+      ) {
+        mostrarFallback();
+      }
+    }
+
+    configurarFallbackImagem(
+      "logoCabecalho",
+      "logoCabecalhoReserva"
+    );
+
+    configurarFallbackImagem(
+      "logoRodape",
+      "logoRodapeReserva"
+    );
+
+    /* =========================================================
+       FALLBACK DAS FOTOGRAFIAS
+    ========================================================= */
+
+    const imagemHero =
+      document.getElementById("imagemHero");
+
+    const imagemAplicativo =
+      document.getElementById("imagemAplicativo");
+
+    if (imagemHero) {
+      imagemHero.addEventListener("error", function () {
+        imagemHero.style.display = "none";
+      });
+    }
+
+    if (imagemAplicativo) {
+      imagemAplicativo.addEventListener(
+        "error",
+        function () {
+          imagemAplicativo.style.display = "none";
+        }
+      );
+    }
+  </script>
 </body>
 </html>
