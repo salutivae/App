@@ -1,2665 +1,497 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
-  <meta name="theme-color" content="#E9E9E8">
-
-  <title>Salutivae — Conectamos cada ponto da jornada do seu paciente</title>
-
-  <meta
-    name="description"
-    content="A Salutivae conecta cada ponto da jornada do paciente em um único aplicativo para profissionais da saúde."
-  >
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Gilda+Display&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
-    :root {
-      --azul: #92B3B6;
-      --cinza: #D1CDCD;
-      --claro: #E9E9E8;
-      --escuro: #3A382F;
-      --branco: #FFFFFF;
-
-      --coral-suave: #E9DCD7;
-      --azul-nevoa: #DCE9EA;
-      --azul-profundo: #6F979A;
-
-      --texto: #3A382F;
-      --texto-suave: rgba(58, 56, 47, 0.68);
-      --linha: rgba(58, 56, 47, 0.17);
-      --linha-clara: rgba(255, 255, 255, 0.17);
-
-      --serif: "Gilda Display", Georgia, serif;
-      --sans: "DM Sans", Arial, sans-serif;
-
-      --ease: cubic-bezier(.22, 1, .36, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-      background: var(--claro);
-      color: var(--texto);
-      font-family: var(--sans);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    body.menu-open {
-      overflow: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    svg {
-      display: block;
-      max-width: 100%;
-    }
-
-    ::selection {
-      background: var(--azul);
-      color: var(--branco);
-    }
-
-    .container {
-      width: min(1080px, calc(100% - 40px));
-      margin-inline: auto;
-    }
-
-    .section {
-      position: relative;
-      padding: 112px 0;
-      overflow: hidden;
-    }
-
-    .section-white {
-      background: var(--branco);
-    }
-
-    .section-soft {
-      background:
-        radial-gradient(
-          circle at 78% 18%,
-          rgba(146, 179, 182, 0.20),
-          transparent 31%
-        ),
-        var(--claro);
-    }
-
-    .section-blue {
-      background:
-        radial-gradient(
-          circle at 17% 14%,
-          rgba(255, 255, 255, 0.73),
-          transparent 28%
-        ),
-        linear-gradient(
-          145deg,
-          #E7EFEF,
-          #D9E6E7
-        );
-    }
-
-    .section-dark {
-      background: var(--escuro);
-      color: var(--branco);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      color: var(--azul-profundo);
-      font-size: 0.66rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 44px;
-      height: 1px;
-      background: currentColor;
-    }
-
-    .eyebrow.light {
-      color: rgba(255, 255, 255, 0.62);
-    }
-
-    .title {
-      max-width: 900px;
-      font-family: var(--serif);
-      font-size: clamp(2.6rem, 5vw, 5.1rem);
-      font-weight: 400;
-      letter-spacing: -0.035em;
-      line-height: 1.04;
-    }
-
-    .copy {
-      max-width: 720px;
-      margin-top: 22px;
-      color: var(--texto-suave);
-      font-size: clamp(1rem, 1.35vw, 1.08rem);
-      line-height: 1.82;
-    }
-
-    .copy.light {
-      color: rgba(255, 255, 255, 0.63);
-    }
-
-    .button {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 22px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      transition:
-        transform 0.28s var(--ease),
-        background 0.28s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .button-primary {
-      background: var(--azul);
-      color: var(--branco);
-    }
-
-    .button-primary:hover {
-      background: #7FA5A8;
-    }
-
-    .button-dark {
-      background: var(--escuro);
-      color: var(--branco);
-    }
-
-    .button-light {
-      background: var(--branco);
-      color: var(--escuro);
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition:
-        opacity 0.8s ease,
-        transform 0.8s var(--ease);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    .delay-1 {
-      transition-delay: 0.1s;
-    }
-
-    .delay-2 {
-      transition-delay: 0.2s;
-    }
-
-    /* =========================================================
-       SÍMBOLO SALUTIVAE
-    ========================================================= */
-
-    .salutivae-symbol {
-      overflow: visible;
-    }
-
-    .salutivae-symbol path {
-      fill: currentColor;
-    }
-
-    /* =========================================================
-       CABEÇALHO — APENAS UM
-    ========================================================= */
-
-    .site-header {
-      position: relative;
-      z-index: 20;
-      background: transparent;
-    }
-
-    .header-inner {
-      min-height: 84px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      border-bottom: 1px solid rgba(58, 56, 47, 0.22);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-    }
-
-    .brand-symbol {
-      width: 22px;
-      height: 34px;
-      color: var(--escuro);
-    }
-
-    .brand-name {
-      font-family: var(--serif);
-      font-size: 1.55rem;
-      line-height: 1;
-    }
-
-    .desktop-nav {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .desktop-nav > a:not(.button) {
-      padding: 8px 10px;
-      border-radius: 999px;
-      color: rgba(58, 56, 47, 0.68);
-      font-size: 0.72rem;
-      transition: 0.25s ease;
-    }
-
-    .desktop-nav > a:not(.button):hover {
-      background: rgba(146, 179, 182, 0.14);
-      color: var(--escuro);
-    }
-
-    .menu-button {
-      width: 46px;
-      height: 46px;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      background: transparent;
-      color: var(--escuro);
-    }
-
-    .mobile-menu {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      padding: 100px 28px 45px;
-      background:
-        radial-gradient(
-          circle at 80% 18%,
-          rgba(146, 179, 182, 0.31),
-          transparent 34%
-        ),
-        var(--claro);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-14px);
-      transition: 0.32s ease;
-    }
-
-    .mobile-menu.open {
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-    }
-
-    .mobile-menu a {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--linha);
-      font-family: var(--serif);
-      font-size: 1.9rem;
-    }
-
-    .mobile-menu-close {
-      position: absolute;
-      top: 25px;
-      right: 24px;
-      width: 46px;
-      height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--linha);
-      border-radius: 50%;
-      background: transparent;
-      color: var(--escuro);
-    }
-
-    /* =========================================================
-       ABERTURA — MESMA COMPOSIÇÃO DA ARTE
-    ========================================================= */
-
-    .hero {
-      position: relative;
-      min-height: 100svh;
-      padding: 0 0 90px;
-      background:
-        radial-gradient(
-          circle at 50% 47%,
-          rgba(146, 179, 182, 0.32),
-          rgba(220, 233, 234, 0.37) 27%,
-          rgba(255, 255, 255, 0.87) 59%,
-          var(--claro) 84%
-        );
-      overflow: hidden;
-    }
-
-    .hero-inner {
-      max-width: 790px;
-      margin-inline: auto;
-    }
-
-    .connection-stage {
-      position: relative;
-      min-height: 570px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-column {
-      position: absolute;
-      width: min(350px, 72vw);
-      height: auto;
-      color: rgba(233, 220, 215, 0.62);
-      z-index: 1;
-    }
-
-    .connection-word {
-      position: absolute;
-      z-index: 3;
-      font-family: var(--serif);
-      font-size: clamp(1.15rem, 2.6vw, 1.65rem);
-      color: var(--escuro);
-      opacity: 0;
-      transform: translateY(12px);
-      animation: connectionWord 8s var(--ease) infinite;
-    }
-
-    .word-1 {
-      top: 20%;
-      left: 36%;
-      animation-delay: 0s;
-    }
-
-    .word-2 {
-      top: 37%;
-      right: 7%;
-      animation-delay: 0.8s;
-    }
-
-    .word-3 {
-      top: 54%;
-      left: 7%;
-      animation-delay: 1.6s;
-    }
-
-    .word-4 {
-      top: 70%;
-      left: 33%;
-      animation-delay: 2.4s;
-    }
-
-    @keyframes connectionWord {
-      0%,
-      9% {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-
-      19%,
-      72% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      84%,
-      100% {
-        opacity: 0;
-        transform: translateY(-7px);
-      }
-    }
+<!-- =========================================================
+     AJUSTES FINAIS APROVADOS — SALUTIVAE
+     Cole este bloco imediatamente antes de </body>
+========================================================== -->
+
+<style>
+  /* ========================================================
+     1. LINHA DA ABERTURA
+     Mantém o traço fino e sutil.
+     O caminho exato será atualizado pelo JavaScript abaixo.
+  ======================================================== */
+
+  .hero-thread .thread {
+    fill: none !important;
+    stroke: #565a58 !important;
+    stroke-width: 1.08 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    stroke-dasharray: 620 !important;
+    stroke-dashoffset: 620 !important;
+    animation:
+      salutivaeDrawFinal 5.8s
+      cubic-bezier(.22, 1, .36, 1)
+      .35s forwards !important;
+  }
+
+  @keyframes salutivaeDrawFinal {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+
+  /* ========================================================
+     2. REMOÇÃO DO TÍTULO REDUNDANTE
+
+     O título "Para profissionais da saúde" e o traço serão
+     removidos pelo JavaScript.
+
+     Os quatro cards sobem de forma natural, sem alterar
+     nenhum outro conteúdo da primeira página.
+  ======================================================== */
+
+  .hero .chips {
+    margin-top: 20px !important;
+  }
+
+
+  /* ========================================================
+     3. FUNCIONALIDADES DO APLICATIVO
+
+     Todos os cards:
+     - compactos;
+     - proporcionais;
+     - sem blocos brancos unidos;
+     - distribuídos ao redor da coluna oficial;
+     - com movimento muito sutil.
+  ======================================================== */
+
+  #aplicativo .word-orbit {
+    position: relative !important;
+    min-height: 630px !important;
+    margin-top: 36px !important;
+    margin-bottom: 16px !important;
+    overflow: visible !important;
+    isolation: isolate !important;
+  }
+
+  #aplicativo .orbit-halo {
+    position: absolute !important;
+    z-index: 0 !important;
+    top: 50% !important;
+    left: 50% !important;
+
+    width: 400px !important;
+    height: 400px !important;
+
+    border-radius: 50% !important;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(60, 153, 152, .15) 0%,
+        rgba(105, 180, 178, .08) 37%,
+        transparent 72%
+      ) !important;
+
+    filter: blur(9px) !important;
+    transform: translate(-50%, -50%) !important;
+    pointer-events: none !important;
+  }
+
+  #aplicativo .word-orbit .orbit-column {
+    position: absolute !important;
+    z-index: 1 !important;
+
+    top: 50% !important;
+    left: 50% !important;
+
+    width: 285px !important;
+    height: auto !important;
 
-    .hero-main-content {
-      position: relative;
-      z-index: 5;
-      margin-top: -38px;
-      text-align: center;
-    }
-
-    .hero-audience {
-      margin-top: 26px;
-      font-family: var(--serif);
-      font-size: 1.18rem;
-    }
-
-    .hero-audience::after {
-      content: "";
-      display: block;
-      width: 66px;
-      height: 1px;
-      margin: 11px auto 0;
-      background: rgba(58, 56, 47, 0.33);
-    }
-
-    .hero-tags {
-      max-width: 630px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin: 23px auto 0;
-    }
-
-    .hero-tag {
-      padding: 7px 13px;
-      border: 1px solid rgba(58, 56, 47, 0.08);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.84);
-      color: rgba(58, 56, 47, 0.70);
-      font-size: 0.63rem;
-      box-shadow: 0 6px 18px rgba(58, 56, 47, 0.025);
-    }
-
-    .hero-how {
-      margin-top: 54px;
-      padding-top: 26px;
-      border-top: 1px solid rgba(58, 56, 47, 0.11);
-      text-align: center;
-    }
-
-    .hero-how-label {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .hero-how-label::after {
-      content: "";
-      width: 70px;
-      height: 1px;
-      margin-top: 10px;
-      background: rgba(58, 56, 47, 0.42);
-    }
-
-    .hero-how h1 {
-      max-width: 620px;
-      margin: 18px auto 0;
-      font-family: var(--serif);
-      font-size: clamp(2.55rem, 6vw, 4.65rem);
-      font-weight: 400;
-      letter-spacing: -0.035em;
-      line-height: 1.02;
-    }
-
-    .hero-how p {
-      max-width: 680px;
-      margin: 17px auto 0;
-      color: var(--texto-suave);
-      font-size: 0.91rem;
-      line-height: 1.72;
-    }
-
-    /* =========================================================
-       CONTINUAÇÃO EDITORIAL
-    ========================================================= */
-
-    .large-statement {
-      max-width: 880px;
-      font-family: var(--serif);
-      font-size: clamp(2.45rem, 5vw, 4.9rem);
-      line-height: 1.05;
-      letter-spacing: -0.035em;
-    }
-
-    .continuity-line {
-      display: grid;
-      grid-template-columns: 1fr 70px 1fr;
-      gap: 28px;
-      align-items: stretch;
-      margin-top: 70px;
-    }
-
-    .continuity-side {
-      padding: 13px 0 30px;
-      border-top: 1px solid var(--linha);
-    }
-
-    .continuity-number {
-      color: var(--azul-profundo);
-      font-family: var(--serif);
-      font-size: 1.25rem;
-    }
-
-    .continuity-side h3 {
-      max-width: 430px;
-      margin-top: 32px;
-      font-family: var(--serif);
-      font-size: clamp(1.85rem, 3vw, 3rem);
-      font-weight: 400;
-      line-height: 1.1;
-    }
-
-    .continuity-side p {
-      margin-top: 16px;
-      color: var(--texto-suave);
-      font-size: 0.84rem;
-      line-height: 1.75;
-    }
-
-    .continuity-items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 23px;
-    }
-
-    .continuity-items span {
-      padding: 7px 11px;
-      border: 1px solid var(--linha);
-      border-radius: 999px;
-      color: var(--texto-suave);
-      font-size: 0.59rem;
-    }
-
-    .continuity-axis {
-      position: relative;
-      display: flex;
-      justify-content: center;
-    }
-
-    .continuity-axis::before {
-      content: "";
-      width: 1px;
-      height: 100%;
-      background:
-        linear-gradient(
-          transparent,
-          var(--azul),
-          transparent
-        );
-    }
-
-    .continuity-axis::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 12px;
-      height: 12px;
-      border: 4px solid var(--branco);
-      border-radius: 50%;
-      background: var(--azul);
-      transform: translateY(-50%);
-    }
-
-    /* =========================================================
-       O APLICATIVO
-    ========================================================= */
-
-    .application-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 0.94fr) minmax(350px, 1.06fr);
-      gap: 76px;
-      align-items: center;
-    }
-
-    .application-visual {
-      position: relative;
-      min-height: 570px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .application-glow {
-      position: absolute;
-      width: 430px;
-      height: 430px;
-      border-radius: 50%;
-      background:
-        radial-gradient(
-          circle,
-          rgba(146, 179, 182, 0.34),
-          rgba(146, 179, 182, 0.07) 54%,
-          transparent 72%
-        );
-    }
-
-    .application-column {
-      position: relative;
-      z-index: 2;
-      width: 205px;
-      color: var(--azul);
-    }
-
-    .application-word {
-      position: absolute;
-      z-index: 3;
-      padding: 8px 13px;
-      border: 1px solid var(--linha);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.86);
-      color: var(--texto-suave);
-      font-size: 0.62rem;
-    }
-
-    .app-word-1 {
-      top: 16%;
-      left: 8%;
-    }
-
-    .app-word-2 {
-      top: 22%;
-      right: 4%;
-    }
-
-    .app-word-3 {
-      top: 44%;
-      left: 0;
-    }
+    object-fit: contain !important;
+    opacity: .13 !important;
+    filter: none !important;
 
-    .app-word-4 {
-      top: 49%;
-      right: 0;
-    }
-
-    .app-word-5 {
-      bottom: 20%;
-      left: 8%;
-    }
-
-    .app-word-6 {
-      bottom: 14%;
-      right: 8%;
-    }
-
-    .editorial-list {
-      margin-top: 34px;
-      border-top: 1px solid var(--linha);
-    }
+    transform: translate(-50%, -50%) !important;
+    pointer-events: none !important;
+  }
 
-    .editorial-row {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 18px;
-      padding: 19px 0;
-      border-bottom: 1px solid var(--linha);
-    }
-
-    .editorial-row > span {
-      color: var(--azul-profundo);
-      font-family: var(--serif);
-    }
+  #aplicativo .orbit-word {
+    position: absolute !important;
+    z-index: 2 !important;
 
-    .editorial-row strong {
-      display: block;
-      font-family: var(--serif);
-      font-size: 1.24rem;
-      font-weight: 400;
-    }
-
-    .editorial-row p {
-      margin-top: 4px;
-      color: var(--texto-suave);
-      font-size: 0.74rem;
-    }
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-    /* =========================================================
-       INTELIGÊNCIA E RETENÇÃO — SEM CARDS DE IA
-    ========================================================= */
-
-    .intelligence-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(350px, 1.1fr);
-      gap: 80px;
-      align-items: start;
-    }
+    width: auto !important;
+    min-width: 0 !important;
 
-    .signal-list {
-      border-top: 1px solid var(--linha);
-    }
+    height: 36px !important;
+    min-height: 36px !important;
+    max-height: 36px !important;
 
-    .signal-row {
-      display: grid;
-      grid-template-columns: 36px 1fr auto;
-      gap: 18px;
-      align-items: center;
-      padding: 21px 0;
-      border-bottom: 1px solid var(--linha);
-    }
+    padding: 0 15px !important;
 
-    .signal-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--azul);
-      box-shadow: 0 0 0 7px rgba(146, 179, 182, 0.14);
-    }
+    border:
+      1px solid
+      rgba(60, 153, 152, .17) !important;
 
-    .signal-row h3 {
-      font-family: var(--serif);
-      font-size: 1.32rem;
-      font-weight: 400;
-    }
+    border-radius: 13px !important;
 
-    .signal-row p {
-      margin-top: 4px;
-      color: var(--texto-suave);
-      font-size: 0.71rem;
-    }
+    background:
+      rgba(255, 255, 255, .91) !important;
 
-    .signal-status {
-      padding: 6px 9px;
-      border: 1px solid var(--linha);
-      border-radius: 999px;
-      color: var(--texto-suave);
-      font-size: 0.54rem;
-    }
+    box-shadow:
+      0 7px 22px
+      rgba(60, 153, 152, .075) !important;
 
-    /* =========================================================
-       PARA QUEM É
-    ========================================================= */
-
-    .profession-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
-      gap: 75px;
-      align-items: start;
-    }
+    color: #333 !important;
 
-    .profession-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid var(--linha-clara);
-    }
+    font-family:
+      Georgia,
+      "Times New Roman",
+      serif !important;
 
-    .profession-item {
-      padding: 24px 19px 24px 0;
-      border-bottom: 1px solid var(--linha-clara);
-    }
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+
+    white-space: nowrap !important;
+    writing-mode: horizontal-tb !important;
+
+    transform: none;
+    translate: 0 0;
 
-    .profession-item:nth-child(even) {
-      padding-left: 19px;
-      border-left: 1px solid var(--linha-clara);
-    }
+    animation:
+      salutivaeCardFloat
+      7s ease-in-out
+      infinite !important;
+
+    will-change: translate !important;
+  }
+
+  #aplicativo .orbit-word:nth-of-type(2n) {
+    animation-duration: 8.2s !important;
+    animation-delay: -2.1s !important;
+  }
+
+  #aplicativo .orbit-word:nth-of-type(3n) {
+    animation-duration: 9s !important;
+    animation-delay: -3.4s !important;
+  }
+
+  @keyframes salutivaeCardFloat {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+
+    50% {
+      translate: 0 -5px;
+    }
+  }
+
+
+  /* ========================================================
+     POSIÇÃO DOS CARDS — DESKTOP
+     Nenhum card se sobrepõe ou forma bloco vertical.
+  ======================================================== */
 
-    .profession-item strong {
-      font-family: var(--serif);
-      font-size: 1.18rem;
-      font-weight: 400;
-    }
+  #aplicativo .ow1 {
+    top: 7% !important;
+    left: 4% !important;
+  }
 
-    .profession-item p {
-      margin-top: 5px;
-      color: rgba(255, 255, 255, 0.52);
-      font-size: 0.68rem;
-    }
+  #aplicativo .ow2 {
+    top: 8% !important;
+    right: 5% !important;
+  }
 
-    /* =========================================================
-       FORMULÁRIOS
-    ========================================================= */
-
-    .form-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(370px, 1.1fr);
-      gap: 76px;
-      align-items: start;
-    }
+  #aplicativo .ow12 {
+    top: 18% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
 
-    .form-intro-line {
-      margin-top: 30px;
-      padding: 20px 0 20px 20px;
-      border-left: 1px solid var(--azul);
-      color: var(--texto-suave);
-      font-size: 0.78rem;
-      line-height: 1.72;
-    }
+  #aplicativo .ow3 {
+    top: 27% !important;
+    left: 1% !important;
+  }
 
-    .form-panel {
-      padding: 31px;
-      border: 1px solid var(--linha);
-      background: rgba(255, 255, 255, 0.52);
-    }
+  #aplicativo .ow4 {
+    top: 28% !important;
+    right: 1% !important;
+  }
 
-    .form-panel.dark {
-      border-color: rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.035);
-    }
+  #aplicativo .ow13 {
+    top: 39% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
 
-    .form-panel h3 {
-      font-family: var(--serif);
-      font-size: 1.95rem;
-      font-weight: 400;
-    }
+  #aplicativo .ow5 {
+    top: 47% !important;
+    bottom: auto !important;
+    left: 5% !important;
+  }
 
-    .form-panel-description {
-      margin-top: 8px;
-      color: var(--texto-suave);
-      font-size: 0.72rem;
-    }
+  #aplicativo .ow6 {
+    top: 47% !important;
+    right: 4% !important;
+    bottom: auto !important;
+  }
 
-    .form-panel.dark .form-panel-description {
-      color: rgba(255, 255, 255, 0.51);
-    }
+  #aplicativo .ow8 {
+    top: 60% !important;
+    left: 3% !important;
+  }
 
-    form {
-      display: grid;
-      gap: 13px;
-      margin-top: 24px;
-    }
+  #aplicativo .ow9 {
+    top: 60% !important;
+    right: 2% !important;
+  }
 
-    .two-fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+  #aplicativo .ow7 {
+    top: 69% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
 
-    .field {
-      display: grid;
-      gap: 7px;
-    }
+    animation-name:
+      salutivaeCardFloat !important;
+  }
 
-    .field label {
-      color: var(--azul-profundo);
-      font-size: 0.58rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+  #aplicativo .ow14 {
+    top: 79% !important;
+    left: 22% !important;
+    bottom: auto !important;
+  }
 
-    .form-panel.dark .field label {
-      color: rgba(255, 255, 255, 0.59);
-    }
+  #aplicativo .ow15 {
+    top: 79% !important;
+    right: 21% !important;
+    bottom: auto !important;
+  }
 
-    .field input,
-    .field textarea {
-      width: 100%;
-      min-height: 49px;
-      padding: 13px 14px;
-      border: 1px solid var(--linha);
-      border-radius: 0;
-      background: rgba(255, 255, 255, 0.83);
-      color: var(--escuro);
-      outline: none;
-      transition:
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
-    }
+  #aplicativo .ow10 {
+    top: auto !important;
+    bottom: 3% !important;
+    left: 4% !important;
+  }
 
-    .form-panel.dark .field input,
-    .form-panel.dark .field textarea {
-      border-color: rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.045);
-      color: var(--branco);
-    }
+  #aplicativo .ow11 {
+    top: auto !important;
+    right: 3% !important;
+    bottom: 3% !important;
+  }
 
-    .form-panel.dark .field input::placeholder,
-    .form-panel.dark .field textarea::placeholder {
-      color: rgba(255, 255, 255, 0.34);
-    }
 
-    .field textarea {
-      min-height: 105px;
-      resize: vertical;
-    }
+  /* ========================================================
+     4. RODAPÉ
 
-    .field input:focus,
-    .field textarea:focus {
-      border-color: var(--azul);
-      box-shadow: 0 0 0 4px rgba(146, 179, 182, 0.11);
-    }
+     Apenas a frase muda.
+     Todo o design, logo, luz, linhas, links e cores permanecem.
+  ======================================================== */
 
-    .submit-button {
-      width: 100%;
-      margin-top: 3px;
-    }
+  /* Nenhum outro estilo do rodapé é alterado. */
 
-    .form-note {
-      color: rgba(58, 56, 47, 0.46);
-      font-size: 0.59rem;
-      text-align: center;
-    }
 
-    .form-panel.dark .form-note {
-      color: rgba(255, 255, 255, 0.34);
-    }
+  /* ========================================================
+     RESPONSIVO — SOMENTE A SEÇÃO DE FUNCIONALIDADES
+  ======================================================== */
 
-    .form-success {
-      display: none;
-      padding: 26px 0;
-      border-top: 1px solid var(--linha);
-      text-align: center;
+  @media (max-width: 620px) {
+    .hero .chips {
+      margin-top: 17px !important;
     }
 
-    .form-success.show {
-      display: block;
+    #aplicativo .word-orbit {
+      min-height: 610px !important;
     }
 
-    .form-success strong {
-      font-family: var(--serif);
-      font-size: 1.42rem;
-      font-weight: 400;
+    #aplicativo .word-orbit .orbit-column {
+      width: 245px !important;
+      opacity: .12 !important;
     }
 
-    .form-success span {
-      display: block;
-      margin-top: 6px;
-      color: var(--texto-suave);
-      font-size: 0.69rem;
+    #aplicativo .orbit-halo {
+      width: 340px !important;
+      height: 340px !important;
     }
 
-    .form-panel.dark .form-success span {
-      color: rgba(255, 255, 255, 0.51);
-    }
+    #aplicativo .orbit-word {
+      height: 33px !important;
+      min-height: 33px !important;
+      max-height: 33px !important;
 
-    /* =========================================================
-       LISTA DE ESPERA
-    ========================================================= */
-
-    .waitlist-number {
-      margin-top: 35px;
-      padding: 25px 0;
-      border-top: 1px solid var(--linha-clara);
-      border-bottom: 1px solid var(--linha-clara);
-    }
+      padding: 0 11px !important;
 
-    .waitlist-number strong {
-      font-family: var(--serif);
-      font-size: 3.7rem;
-      font-weight: 400;
-      line-height: 1;
-    }
+      border-radius: 12px !important;
 
-    .waitlist-number span {
-      display: block;
-      margin-top: 7px;
-      color: rgba(255, 255, 255, 0.45);
-      font-size: 0.65rem;
+      font-size: 12.5px !important;
     }
 
-    .waitlist-benefits {
-      margin-top: 27px;
-      border-top: 1px solid var(--linha-clara);
+    #aplicativo .ow1 {
+      top: 6% !important;
+      left: 0 !important;
     }
 
-    .waitlist-benefit {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 13px;
-      padding: 13px 0;
-      border-bottom: 1px solid var(--linha-clara);
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 0.72rem;
+    #aplicativo .ow2 {
+      top: 7% !important;
+      right: 0 !important;
     }
 
-    .waitlist-benefit span:first-child {
-      color: var(--azul);
+    #aplicativo .ow12 {
+      top: 17% !important;
+      left: 50% !important;
     }
 
-    .payment-message {
-      margin-top: 27px;
-      padding-left: 19px;
-      border-left: 1px solid var(--azul);
+    #aplicativo .ow3 {
+      top: 26% !important;
+      left: 0 !important;
     }
 
-    .payment-message strong {
-      font-family: var(--serif);
-      font-size: 1.22rem;
-      font-weight: 400;
+    #aplicativo .ow4 {
+      top: 27% !important;
+      right: 0 !important;
     }
 
-    .payment-message p {
-      margin-top: 5px;
-      color: rgba(255, 255, 255, 0.51);
-      font-size: 0.71rem;
-      line-height: 1.68;
+    #aplicativo .ow13 {
+      top: 38% !important;
+      left: 50% !important;
     }
 
-    /* =========================================================
-       RODAPÉ
-    ========================================================= */
-
-    .footer {
-      position: relative;
-      overflow: hidden;
-      padding: 92px 0 28px;
-      background: var(--claro);
+    #aplicativo .ow5 {
+      top: 46% !important;
+      left: 1% !important;
     }
 
-    .footer-symbol {
-      position: absolute;
-      top: 48%;
-      left: 50%;
-      width: min(500px, 68vw);
-      color: rgba(146, 179, 182, 0.08);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+    #aplicativo .ow6 {
+      top: 46% !important;
+      right: 1% !important;
     }
 
-    .footer-content {
-      position: relative;
-      z-index: 2;
+    #aplicativo .ow8 {
+      top: 59% !important;
+      left: 0 !important;
     }
 
-    .footer-statement {
-      max-width: 850px;
-      margin-inline: auto;
-      text-align: center;
+    #aplicativo .ow9 {
+      top: 59% !important;
+      right: 0 !important;
     }
 
-    .footer-statement h2 {
-      font-family: var(--serif);
-      font-size: clamp(2.65rem, 5.5vw, 5.35rem);
-      font-weight: 400;
-      letter-spacing: -0.035em;
-      line-height: 1.02;
+    #aplicativo .ow7 {
+      top: 69% !important;
+      left: 50% !important;
     }
 
-    .footer-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) auto auto;
-      gap: 70px;
-      margin-top: 90px;
-      padding: 38px 0;
-      border-top: 1px solid var(--linha);
-      border-bottom: 1px solid var(--linha);
+    #aplicativo .ow14 {
+      top: 79% !important;
+      left: 18% !important;
     }
 
-    .footer-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
+    #aplicativo .ow15 {
+      top: 79% !important;
+      right: 17% !important;
     }
 
-    .footer-brand-symbol {
-      width: 23px;
-      height: 35px;
-      color: var(--escuro);
+    #aplicativo .ow10 {
+      bottom: 2% !important;
+      left: 0 !important;
     }
 
-    .footer-brand-name {
-      font-family: var(--serif);
-      font-size: 1.55rem;
+    #aplicativo .ow11 {
+      right: 0 !important;
+      bottom: 2% !important;
     }
+  }
+</style>
 
-    .footer-description {
-      max-width: 420px;
-      margin-top: 13px;
-      color: var(--texto-suave);
-      font-size: 0.72rem;
-      line-height: 1.68;
-    }
+<script>
+  (function () {
+    /*
+      ========================================================
+      1. AJUSTAR SOMENTE A LINHA DE CONEXÃO
+      ========================================================
+    */
 
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    const connectionPath =
+      document.querySelector(
+        ".hero-thread .thread path"
+      );
 
-    .footer-links h4 {
-      margin-bottom: 6px;
-      color: rgba(58, 56, 47, 0.41);
-      font-size: 0.56rem;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-    }
+    if (connectionPath) {
+      connectionPath.setAttribute(
+        "d",
+        [
+          "M230 108",
 
-    .footer-links a {
-      color: rgba(58, 56, 47, 0.66);
-      font-size: 0.71rem;
-    }
+          /*
+            Sai de Conectamos e segue em direção
+            a cada ponto.
+          */
+          "C218 140 248 157 245 190",
 
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding-top: 20px;
-      color: rgba(58, 56, 47, 0.41);
-      font-size: 0.6rem;
-    }
+          /*
+            Faz a transição entre cada ponto
+            e da jornada.
+          */
+          "C242 221 215 233 207 261",
 
-    /* =========================================================
-       RESPONSIVO
-    ========================================================= */
-
-    @media (max-width: 960px) {
-      .desktop-nav {
-        display: none;
-      }
-
-      .menu-button {
-        display: flex;
-      }
-
-      .continuity-line {
-        grid-template-columns: 1fr;
-      }
-
-      .continuity-axis {
-        height: 70px;
-      }
-
-      .continuity-axis::before {
-        width: 70%;
-        height: 1px;
-        background:
-          linear-gradient(
-            90deg,
-            transparent,
-            var(--azul),
-            transparent
-          );
-      }
-
-      .application-layout,
-      .intelligence-layout,
-      .profession-layout,
-      .form-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-top {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .footer-main {
-        grid-column: 1 / -1;
-      }
-    }
+          /*
+            Continua suavemente em direção
+            ao próximo ponto.
+          */
+          "C200 289 222 304 236 326",
 
-    @media (max-width: 680px) {
-      .container {
-        width: min(100% - 28px, 1080px);
-      }
-
-      .section {
-        padding: 84px 0;
-      }
-
-      .header-inner {
-        min-height: 76px;
-      }
-
-      .brand-symbol {
-        width: 19px;
-        height: 30px;
-      }
-
-      .brand-name {
-        font-size: 1.4rem;
-      }
-
-      .connection-stage {
-        min-height: 485px;
-      }
-
-      .hero-column {
-        width: min(295px, 79vw);
-      }
-
-      .connection-word {
-        font-size: 1.06rem;
-      }
-
-      .word-1 {
-        top: 21%;
-        left: 31%;
-      }
-
-      .word-2 {
-        top: 38%;
-        right: 1%;
-      }
-
-      .word-3 {
-        top: 55%;
-        left: 1%;
-      }
-
-      .word-4 {
-        top: 71%;
-        left: 27%;
-      }
-
-      .hero-main-content {
-        margin-top: -17px;
-      }
-
-      .hero-tags {
-        max-width: 370px;
-      }
-
-      .application-visual {
-        min-height: 455px;
-      }
-
-      .application-glow {
-        width: 320px;
-        height: 320px;
-      }
-
-      .application-column {
-        width: 155px;
-      }
-
-      .application-word {
-        font-size: 0.56rem;
-      }
-
-      .app-word-1,
-      .app-word-3,
-      .app-word-5 {
-        left: 0;
-      }
-
-      .app-word-2,
-      .app-word-4,
-      .app-word-6 {
-        right: 0;
-      }
-
-      .signal-row {
-        grid-template-columns: 30px 1fr;
-      }
-
-      .signal-status {
-        grid-column: 2;
-        justify-self: start;
-      }
-
-      .profession-list,
-      .two-fields {
-        grid-template-columns: 1fr;
-      }
-
-      .profession-item:nth-child(even) {
-        padding-left: 0;
-        border-left: 0;
-      }
-
-      .form-panel {
-        padding: 24px 18px;
-      }
-
-      .footer-top {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .footer-main {
-        grid-column: auto;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-      }
-    }
+          /*
+            Segue para a parte inferior,
+            sem atravessar nenhuma palavra.
+          */
+          "C251 350 245 374 229 397",
 
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      .reveal,
-      .connection-word {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!--
-    Símbolo reconstruído a partir do formato real enviado.
-    Ele fica incorporado no HTML e não depende de arquivo externo.
-  -->
-
-  <svg
-    width="0"
-    height="0"
-    aria-hidden="true"
-    style="position:absolute"
-  >
-    <symbol
-      id="salutivae-symbol"
-      viewBox="0 0 1320 1618"
-    >
-      <path d="M649 0 L626 12 L616 28 L615 48 L622 73 L566 65 L506 43 L489 41 L461 54 L448 82 L450 98 L458 113 L470 124 L488 130 L506 128 L576 104 L622 97 L635 99 L645 149 L646 202 L636 260 L617 311 L478 301 L313 269 L283 282 L269 298 L261 321 L264 346 L278 369 L296 381 L319 386 L469 355 L619 345 L622 368 L643 415 L648 456 L643 502 L624 547 L471 543 L341 534 L198 516 L87 494 L65 494 L28 511 L12 529 L0 552 L0 586 L13 612 L34 633 L66 645 L87 645 L197 623 L324 607 L473 596 L619 592 L622 609 L642 652 L648 697 L641 750 L623 789 L469 785 L330 775 L204 759 L87 736 L66 736 L35 748 L12 771 L0 794 L0 828 L25 868 L47 882 L65 887 L88 887 L191 866 L335 848 L475 838 L619 834 L622 850 L642 893 L648 937 L642 987 L624 1030 L469 1027 L330 1017 L204 1001 L87 978 L66 978 L38 988 L15 1009 L0 1036 L0 1070 L25 1110 L47 1124 L65 1129 L88 1129 L191 1108 L335 1090 L474 1080 L619 1076 L641 1130 L648 1178 L642 1228 L622 1278 L545 1275 L459 1265 L395 1253 L330 1234 L308 1233 L284 1242 L268 1256 L256 1278 L254 1305 L269 1337 L285 1350 L307 1358 L331 1357 L396 1338 L467 1325 L615 1313 L635 1363 L645 1413 L646 1466 L636 1524 L570 1518 L491 1493 L474 1497 L459 1508 L449 1527 L449 1546 L455 1561 L467 1574 L487 1582 L506 1580 L572 1557 L624 1550 L618 1575 L624 1600 L638 1613 L663 1617 L682 1607 L692 1591 L693 1573 L687 1549 L739 1556 L808 1578 L822 1578 L846 1565 L857 1542 L848 1512 L822 1497 L805 1498 L731 1521 L675 1524 L666 1472 L667 1413 L676 1363 L697 1313 L833 1322 L999 1354 L1031 1339 L1043 1324 L1050 1305 L1049 1282 L1040 1262 L1026 1248 L1002 1238 L982 1238 L923 1254 L843 1268 L689 1278 L667 1218 L664 1167 L671 1128 L692 1076 L844 1081 L979 1092 L1088 1106 L1223 1134 L1247 1135 L1269 1129 L1291 1116 L1305 1101 L1319 1075 L1319 1035 L1303 1004 L1275 980 L1245 972 L1075 1003 L974 1016 L848 1026 L689 1031 L668 982 L664 926 L671 887 L690 848 L692 834 L844 839 L979 850 L1088 864 L1223 892 L1247 893 L1269 887 L1291 874 L1305 859 L1319 833 L1319 793 L1303 762 L1282 742 L1244 730 L1075 761 L974 774 L829 785 L688 789 L668 741 L664 686 L670 650 L690 607 L691 593 L827 596 L980 608 L1107 625 L1223 650 L1246 651 L1281 639 L1305 617 L1319 591 L1319 551 L1307 526 L1289 505 L1268 493 L1246 488 L983 531 L847 542 L688 547 L667 496 L664 445 L670 409 L689 369 L692 345 L766 348 L852 358 L916 370 L981 389 L1003 390 L1024 383 L1045 365 L1056 343 L1058 323 L1044 288 L1023 271 L1004 265 L981 266 L916 285 L845 298 L694 310 L675 260 L666 207 L667 148 L676 99 L724 101 L805 125 L821 126 L836 121 L850 108 L857 90 L856 77 L841 53 L823 45 L805 46 L741 67 L689 73 L697 43 L691 19 L671 2 Z"></path>
-    </symbol>
-  </svg>
-
-  <nav class="mobile-menu" id="mobileMenu">
-
-    <button
-      class="mobile-menu-close"
-      id="menuClose"
-      type="button"
-      aria-label="Fechar menu"
-    >
-      ×
-    </button>
-
-    <a href="#como-funciona">Como funciona</a>
-    <a href="#aplicativo">O aplicativo</a>
-    <a href="#para-quem">Para quem é</a>
-    <a href="#parcerias">Parcerias</a>
-    <a href="#lista-espera">Lista de espera</a>
-  </nav>
-
-  <main>
-
-    <!-- ABERTURA -->
-
-    <section class="hero" id="inicio">
-
-      <header class="site-header">
-        <div class="container header-inner">
-
-          <a class="brand" href="#inicio" aria-label="Salutivae — início">
-
-            <svg
-              class="salutivae-symbol brand-symbol"
-              viewBox="0 0 1320 1618"
-              aria-hidden="true"
-            >
-              <use href="#salutivae-symbol"></use>
-            </svg>
-
-            <span class="brand-name">
-              Salutivae
-            </span>
-          </a>
-
-          <nav class="desktop-nav" aria-label="Navegação principal">
-            <a href="#como-funciona">Como funciona</a>
-            <a href="#aplicativo">O aplicativo</a>
-            <a href="#para-quem">Para quem é</a>
-            <a href="#parcerias">Parcerias</a>
-
-            <a class="button button-dark" href="#lista-espera">
-              Lista de espera
-            </a>
-          </nav>
-
-          <button
-            class="menu-button"
-            id="menuButton"
-            type="button"
-            aria-label="Abrir menu"
-            aria-expanded="false"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.35"
-              stroke-linecap="round"
-            >
-              <path d="M4 7h16"></path>
-              <path d="M4 12h16"></path>
-              <path d="M4 17h16"></path>
-            </svg>
-          </button>
-
-        </div>
-      </header>
-
-      <div class="container hero-inner">
-
-        <div
-          class="connection-stage"
-          aria-label="Conectamos cada ponto da jornada do seu paciente"
-        >
-
-          <svg
-            class="salutivae-symbol hero-column"
-            viewBox="0 0 1320 1618"
-            aria-hidden="true"
-          >
-            <use href="#salutivae-symbol"></use>
-          </svg>
-
-          <span class="connection-word word-1">
-            Conectamos
-          </span>
-
-          <span class="connection-word word-2">
-            cada ponto
-          </span>
-
-          <span class="connection-word word-3">
-            da jornada
-          </span>
-
-          <span class="connection-word word-4">
+          /*
+            Termina antes da frase
             do seu paciente.
-          </span>
-
-        </div>
-
-        <div class="hero-main-content">
-
-          <a class="button button-primary" href="#aplicativo">
-            <span aria-hidden="true">›</span>
-            Conheça o aplicativo
-          </a>
-
-          <p class="hero-audience">
-            Para profissionais da saúde
-          </p>
-
-          <div class="hero-tags">
-            <span class="hero-tag">Histórico centralizado</span>
-            <span class="hero-tag">Evolução clara do paciente</span>
-            <span class="hero-tag">Decisões mais inteligentes</span>
-            <span class="hero-tag">Consultas online</span>
-          </div>
-
-          <div class="hero-how" id="como-funciona">
-
-            <span class="hero-how-label">
-              Como funciona
-            </span>
-
-            <h1>
-              Tudo começa no primeiro atendimento.
-            </h1>
-
-            <p>
-              Você registra, a plataforma organiza. A cada consulta,
-              a jornada do paciente fica mais clara tanto para você
-              quanto para ele.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- PROFISSIONAL E PACIENTE -->
-
-    <section class="section section-white">
-      <div class="container">
-
-        <span class="eyebrow reveal">
-          A consulta termina. O acompanhamento continua.
-        </span>
-
-        <h2 class="large-statement reveal">
-          O profissional conduz o cuidado.
-          O paciente acompanha a própria evolução.
-        </h2>
-
-        <div class="continuity-line">
-
-          <article class="continuity-side reveal">
-
-            <span class="continuity-number">
-              01
-            </span>
-
-            <h3>
-              Perfil do profissional
-            </h3>
-
-            <p>
-              O profissional organiza a rotina, acompanha cada paciente
-              e visualiza tudo o que faz parte do atendimento em um único
-              ambiente.
-            </p>
-
-            <div class="continuity-items">
-              <span>Agenda</span>
-              <span>Pacientes</span>
-              <span>Prontuário</span>
-              <span>Exames</span>
-              <span>Protocolos</span>
-              <span>Chat</span>
-              <span>Videochamada</span>
-              <span>Inteligência</span>
-              <span>Retenção</span>
-            </div>
-
-          </article>
-
-          <div
-            class="continuity-axis reveal delay-1"
-            aria-hidden="true"
-          ></div>
-
-          <article class="continuity-side reveal delay-2">
-
-            <span class="continuity-number">
-              02
-            </span>
-
-            <h3>
-              Perfil do paciente
-            </h3>
-
-            <p>
-              O paciente entra somente por convite e acompanha sua
-              jornada a partir das informações e recursos disponibilizados
-              pelo profissional.
-            </p>
-
-            <div class="continuity-items">
-              <span>Evolução</span>
-              <span>Orientações</span>
-              <span>Protocolos</span>
-              <span>Metas</span>
-              <span>Exames</span>
-              <span>Consultas</span>
-              <span>Chat</span>
-              <span>Materiais</span>
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- O APLICATIVO -->
-
-    <section class="section section-soft" id="aplicativo">
-      <div class="container application-layout">
-
-        <div class="reveal">
-
-          <span class="eyebrow">
-            O que é a Salutivae
-          </span>
-
-          <h2 class="title">
-            Um aplicativo completo para organizar
-            e acompanhar seus pacientes.
-          </h2>
-
-          <p class="copy">
-            A Salutivae reúne em um único ambiente tudo o que hoje
-            costuma ficar espalhado entre agenda, WhatsApp, planilhas,
-            prontuários, exames, protocolos, videochamadas e ferramentas
-            diferentes.
-          </p>
-
-          <p class="copy">
-            O profissional trabalha com mais organização. O paciente
-            participa de forma mais ativa. A plataforma conecta toda
-            a jornada do cuidado.
-          </p>
-
-          <div class="editorial-list">
-
-            <div class="editorial-row">
-              <span>01</span>
-
-              <div>
-                <strong>Menos ferramentas separadas</strong>
-
-                <p>
-                  Agenda, pacientes, prontuários, exames, protocolos,
-                  chat e consultas online em um único aplicativo.
-                </p>
-              </div>
-            </div>
-
-            <div class="editorial-row">
-              <span>02</span>
-
-              <div>
-                <strong>Tudo sobre cada paciente</strong>
-
-                <p>
-                  Uma visão contínua do histórico, evolução e próximos
-                  passos do acompanhamento.
-                </p>
-              </div>
-            </div>
-
-            <div class="editorial-row">
-              <span>03</span>
-
-              <div>
-                <strong>Continuidade entre consultas</strong>
-
-                <p>
-                  O atendimento deixa de depender de mensagens,
-                  planilhas e ferramentas desconectadas.
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="application-visual reveal delay-1">
-
-          <div class="application-glow"></div>
-
-          <svg
-            class="salutivae-symbol application-column"
-            viewBox="0 0 1320 1618"
-            aria-hidden="true"
-          >
-            <use href="#salutivae-symbol"></use>
-          </svg>
-
-          <span class="application-word app-word-1">
-            Agenda
-          </span>
-
-          <span class="application-word app-word-2">
-            Exames
-          </span>
-
-          <span class="application-word app-word-3">
-            Prontuário
-          </span>
-
-          <span class="application-word app-word-4">
-            Protocolos
-          </span>
-
-          <span class="application-word app-word-5">
-            Evolução
-          </span>
-
-          <span class="application-word app-word-6">
-            Retenção
-          </span>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- VISÃO DO PACIENTE -->
-
-    <section class="section section-white">
-      <div class="container">
-
-        <span class="eyebrow reveal">
-          Tudo sobre o paciente
-        </span>
-
-        <h2 class="title reveal">
-          Uma visão completa de cada jornada.
-        </h2>
-
-        <p class="copy reveal">
-          Cada consulta, exame, protocolo, meta, anotação, retorno
-          e orientação passa a fazer parte do mesmo histórico.
-        </p>
-
-        <div class="editorial-list">
-
-          <div class="editorial-row reveal">
-            <span>01</span>
-
-            <div>
-              <strong>Histórico centralizado</strong>
-
-              <p>
-                Consultas, registros e informações importantes
-                organizados ao longo do tempo.
-              </p>
-            </div>
-          </div>
-
-          <div class="editorial-row reveal">
-            <span>02</span>
-
-            <div>
-              <strong>Exames e evolução</strong>
-
-              <p>
-                Arquivos, resultados e acompanhamento da evolução
-                reunidos na mesma jornada.
-              </p>
-            </div>
-          </div>
-
-          <div class="editorial-row reveal">
-            <span>03</span>
-
-            <div>
-              <strong>Protocolos, metas e orientações</strong>
-
-              <p>
-                O paciente entende o que precisa fazer e acompanha
-                cada etapa disponibilizada pelo profissional.
-              </p>
-            </div>
-          </div>
-
-          <div class="editorial-row reveal">
-            <span>04</span>
-
-            <div>
-              <strong>Chat e videochamada</strong>
-
-              <p>
-                Comunicação e consultas online dentro do contexto
-                do próprio atendimento.
-              </p>
-            </div>
-          </div>
-
-          <div class="editorial-row reveal">
-            <span>05</span>
-
-            <div>
-              <strong>Biblioteca e materiais</strong>
-
-              <p>
-                Conteúdos, arquivos e orientações compartilhados
-                diretamente com o paciente.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- INTELIGÊNCIA E RETENÇÃO -->
-
-    <section class="section section-blue">
-      <div class="container intelligence-layout">
-
-        <div class="reveal">
-
-          <span class="eyebrow">
-            Inteligência e retenção
-          </span>
-
-          <h2 class="title">
-            Perceba quem precisa de atenção antes
-            que o acompanhamento se perca.
-          </h2>
-
-          <p class="copy">
-            A Salutivae ajuda o profissional a identificar pacientes
-            sem acesso recente, retornos pendentes, protocolos
-            interrompidos e sinais que podem indicar abandono.
-          </p>
-
-          <p class="copy">
-            A tecnologia organiza informações importantes para que
-            você acompanhe melhor, priorize contatos e tome decisões
-            com mais clareza.
-          </p>
-
-        </div>
-
-        <div class="signal-list reveal delay-1">
-
-          <article class="signal-row">
-
-            <span class="signal-dot"></span>
-
-            <div>
-              <h3>Paciente sem acesso recente</h3>
-
-              <p>
-                Identificação de quem deixou de interagir
-                com a plataforma.
-              </p>
-            </div>
-
-            <span class="signal-status">
-              Atenção
-            </span>
-
-          </article>
-
-          <article class="signal-row">
-
-            <span class="signal-dot"></span>
-
-            <div>
-              <h3>Retorno pendente</h3>
-
-              <p>
-                Visão de pacientes fora do período esperado
-                para acompanhamento.
-              </p>
-            </div>
-
-            <span class="signal-status">
-              Retenção
-            </span>
-
-          </article>
-
-          <article class="signal-row">
-
-            <span class="signal-dot"></span>
-
-            <div>
-              <h3>Protocolo interrompido</h3>
-
-              <p>
-                Identificação de etapas ou checklists
-                sem atualização recente.
-              </p>
-            </div>
-
-            <span class="signal-status">
-              Acompanhar
-            </span>
-
-          </article>
-
-          <article class="signal-row">
-
-            <span class="signal-dot"></span>
-
-            <div>
-              <h3>Informações que precisam de avaliação</h3>
-
-              <p>
-                Exames, arquivos e situações importantes organizadas
-                para facilitar a rotina.
-              </p>
-            </div>
-
-            <span class="signal-status">
-              Novo
-            </span>
-
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- PARA QUEM É -->
-
-    <section class="section section-dark" id="para-quem">
-      <div class="container profession-layout">
-
-        <div class="reveal">
-
-          <span class="eyebrow light">
-            Para quem é
-          </span>
-
-          <h2 class="title">
-            Para profissionais que acompanham pessoas
-            e constroem processos de cuidado.
-          </h2>
-
-          <p class="copy light">
-            A Salutivae foi pensada para atendimentos presenciais,
-            online e híbridos nas áreas da saúde, bem-estar
-            e acompanhamento terapêutico.
-          </p>
-
-          <p class="copy light">
-            Profissionais certificados poderão apresentar suas
-            informações de formação e atuar conforme os critérios
-            de segurança e cadastro da plataforma.
-          </p>
-
-        </div>
-
-        <div class="profession-list reveal delay-1">
-
-          <article class="profession-item">
-            <strong>Nutricionistas</strong>
-            <p>Exames, protocolos, metas e evolução.</p>
-          </article>
-
-          <article class="profession-item">
-            <strong>Psicólogos</strong>
-            <p>Prontuário, agenda e continuidade.</p>
-          </article>
-
-          <article class="profession-item">
-            <strong>Fisioterapeutas</strong>
-            <p>Registros, metas e acompanhamento.</p>
-          </article>
-
-          <article class="profession-item">
-            <strong>Enfermeiros</strong>
-            <p>Organização e acompanhamento individual.</p>
-          </article>
-
-          <article class="profession-item">
-            <strong>Personal trainers</strong>
-            <p>Metas, checklists e evolução.</p>
-          </article>
-
-          <article class="profession-item">
-            <strong>Terapeutas</strong>
-            <p>Atendimentos e materiais personalizados.</p>
-          </article>
-
-          <article class="profession-item">
-            <strong>Práticas integrativas</strong>
-            <p>Orientações e continuidade entre consultas.</p>
-          </article>
-
-          <article class="profession-item">
-            <strong>Profissionais certificados</strong>
-            <p>Cadastro conforme formação e critérios.</p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- PARCERIAS -->
-
-    <section class="section section-soft" id="parcerias">
-      <div class="container form-layout">
-
-        <div class="reveal">
-
-          <span class="eyebrow">
-            Parcerias
-          </span>
-
-          <h2 class="title">
-            Seja um parceiro da Salutivae.
-          </h2>
-
-          <p class="copy">
-            Estamos formando uma rede de profissionais, empresas,
-            criadores e comunidades que desejam participar
-            do crescimento da plataforma.
-          </p>
-
-          <div class="form-intro-line">
-            Preencha seus dados para conhecer as possibilidades
-            de parceria. Nossa equipe entrará em contato para
-            apresentar as opções adequadas ao seu perfil.
-          </div>
-
-        </div>
-
-        <div class="form-panel reveal delay-1">
-
-          <h3>
-            Quero ser parceiro
-          </h3>
-
-          <p class="form-panel-description">
-            Envie suas informações para a equipe Salutivae.
-          </p>
-
-          <form
-            class="formspree-form"
-            action="https://formspree.io/f/xwvnyeal"
-            method="POST"
-          >
-
-            <input
-              type="hidden"
-              name="_subject"
-              value="Novo interesse em parceria — Salutivae"
-            >
-
-            <input
-              type="hidden"
-              name="tipo_de_cadastro"
-              value="Interesse em parceria"
-            >
-
-            <input
-              type="text"
-              name="_gotcha"
-              tabindex="-1"
-              autocomplete="off"
-              style="
-                position:absolute;
-                width:1px;
-                height:1px;
-                opacity:0;
-                pointer-events:none;
-              "
-            >
-
-            <div class="two-fields">
-
-              <div class="field">
-                <label for="partnerName">Nome</label>
-
-                <input
-                  id="partnerName"
-                  name="nome"
-                  type="text"
-                  placeholder="Seu nome completo"
-                  required
-                >
-              </div>
-
-              <div class="field">
-                <label for="partnerEmail">E-mail</label>
-
-                <input
-                  id="partnerEmail"
-                  name="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  required
-                >
-              </div>
-
-            </div>
-
-            <div class="field">
-              <label for="partnerInstagram">
-                Instagram, perfil ou empresa
-              </label>
-
-              <input
-                id="partnerInstagram"
-                name="instagram_ou_empresa"
-                type="text"
-                placeholder="@seuperfil ou nome da empresa"
-              >
-            </div>
-
-            <div class="field">
-              <label for="partnerArea">
-                Área de atuação
-              </label>
-
-              <input
-                id="partnerArea"
-                name="area_de_atuacao"
-                type="text"
-                placeholder="Sua área de atuação"
-                required
-              >
-            </div>
-
-            <div class="field">
-              <label for="partnerMessage">
-                Conte sobre você
-              </label>
-
-              <textarea
-                id="partnerMessage"
-                name="mensagem"
-                placeholder="Fale brevemente sobre seu trabalho, empresa, comunidade ou público."
-              ></textarea>
-            </div>
-
-            <button
-              class="button button-dark submit-button"
-              type="submit"
-            >
-              Quero ser parceiro
-            </button>
-
-            <p class="form-note">
-              Os dados serão utilizados somente para contato
-              relacionado às parcerias da Salutivae.
-            </p>
-
-          </form>
-
-          <div class="form-success">
-            <strong>
-              Interesse recebido.
-            </strong>
-
-            <span>
-              Suas informações foram enviadas para a equipe Salutivae.
-            </span>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- LISTA DE ESPERA -->
-
-    <section class="section section-dark" id="lista-espera">
-      <div class="container form-layout">
-
-        <div class="reveal">
-
-          <span class="eyebrow light">
-            Lista de espera
-          </span>
-
-          <h2 class="title">
-            Faça parte dos primeiros profissionais
-            da Salutivae.
-          </h2>
-
-          <p class="copy light">
-            A primeira fase será limitada a apenas 300 profissionais.
-            Quem estiver na lista poderá acompanhar o desenvolvimento,
-            receber novidades e conhecer a plataforma antes
-            do lançamento oficial.
-          </p>
-
-          <div class="waitlist-number">
-            <strong>300</strong>
-
-            <span>
-              profissionais na primeira fase
-            </span>
-          </div>
-
-          <div class="waitlist-benefits">
-
-            <div class="waitlist-benefit">
-              <span>✓</span>
-              <span>Receber atualizações do desenvolvimento</span>
-            </div>
-
-            <div class="waitlist-benefit">
-              <span>✓</span>
-              <span>Acompanhar as novidades da plataforma</span>
-            </div>
-
-            <div class="waitlist-benefit">
-              <span>✓</span>
-              <span>Ter acesso antes do lançamento</span>
-            </div>
-
-            <div class="waitlist-benefit">
-              <span>✓</span>
-              <span>Testar gratuitamente o aplicativo</span>
-            </div>
-
-            <div class="waitlist-benefit">
-              <span>✓</span>
-              <span>Receber condições exclusivas de lançamento</span>
-            </div>
-
-            <div class="waitlist-benefit">
-              <span>✓</span>
-              <span>Decidir somente depois de conhecer a plataforma</span>
-            </div>
-
-          </div>
-
-          <div class="payment-message">
-
-            <strong>
-              Nenhum pagamento será realizado agora.
-            </strong>
-
-            <p>
-              Você somente decidirá se deseja continuar depois
-              que o aplicativo estiver disponível para teste.
-            </p>
-
-          </div>
-
-        </div>
-
-        <div class="form-panel dark reveal delay-1">
-
-          <h3>
-            Reserve seu lugar
-          </h3>
-
-          <p class="form-panel-description">
-            Preencha seus dados para receber as próximas atualizações.
-          </p>
-
-          <form
-            class="formspree-form"
-            action="https://formspree.io/f/xwvnyeal"
-            method="POST"
-          >
-
-            <input
-              type="hidden"
-              name="_subject"
-              value="Nova inscrição — Lista de espera Salutivae"
-            >
-
-            <input
-              type="hidden"
-              name="tipo_de_cadastro"
-              value="Lista de espera"
-            >
-
-            <input
-              type="text"
-              name="_gotcha"
-              tabindex="-1"
-              autocomplete="off"
-              style="
-                position:absolute;
-                width:1px;
-                height:1px;
-                opacity:0;
-                pointer-events:none;
-              "
-            >
-
-            <div class="field">
-              <label for="waitName">Nome</label>
-
-              <input
-                id="waitName"
-                name="nome"
-                type="text"
-                placeholder="Seu nome completo"
-                required
-              >
-            </div>
-
-            <div class="field">
-              <label for="waitEmail">E-mail</label>
-
-              <input
-                id="waitEmail"
-                name="email"
-                type="email"
-                placeholder="Digite seu melhor e-mail"
-                required
-              >
-            </div>
-
-            <div class="field">
-              <label for="waitProfession">Profissão</label>
-
-              <input
-                id="waitProfession"
-                name="profissao"
-                type="text"
-                placeholder="Sua profissão ou área de atuação"
-                required
-              >
-            </div>
-
-            <button
-              class="button button-light submit-button"
-              type="submit"
-            >
-              Entrar na lista de espera
-            </button>
-
-            <p class="form-note">
-              Sem compromisso. Nenhuma cobrança será feita
-              pelo cadastro.
-            </p>
-
-          </form>
-
-          <div class="form-success">
-            <strong>
-              Sua inscrição foi recebida.
-            </strong>
-
-            <span>
-              As novidades da Salutivae serão enviadas
-              ao e-mail informado.
-            </span>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-
-    <svg
-      class="salutivae-symbol footer-symbol"
-      viewBox="0 0 1320 1618"
-      aria-hidden="true"
-    >
-      <use href="#salutivae-symbol"></use>
-    </svg>
-
-    <div class="container footer-content">
-
-      <div class="footer-statement reveal">
-
-        <h2>
-          Cada consulta é um ponto.
-          A Salutivae conecta toda a jornada.
-        </h2>
-
-      </div>
-
-      <div class="footer-top">
-
-        <div class="footer-main">
-
-          <a class="footer-brand" href="#inicio">
-
-            <svg
-              class="salutivae-symbol footer-brand-symbol"
-              viewBox="0 0 1320 1618"
-              aria-hidden="true"
-            >
-              <use href="#salutivae-symbol"></use>
-            </svg>
-
-            <span class="footer-brand-name">
-              Salutivae
-            </span>
-
-          </a>
-
-          <p class="footer-description">
-            Um aplicativo completo para profissionais da saúde
-            organizarem, acompanharem e fortalecerem
-            a jornada de seus pacientes.
-          </p>
-
-        </div>
-
-        <div class="footer-links">
-
-          <h4>Navegação</h4>
-
-          <a href="#como-funciona">Como funciona</a>
-          <a href="#aplicativo">O aplicativo</a>
-          <a href="#para-quem">Para quem é</a>
-          <a href="#parcerias">Parcerias</a>
-          <a href="#lista-espera">Lista de espera</a>
-
-        </div>
-
-        <div class="footer-links">
-
-          <h4>Salutivae</h4>
-
-          <a
-            href="https://instagram.com/salutivae"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Instagram @salutivae
-          </a>
-
-          <a href="#">Privacidade</a>
-          <a href="#">Termos de uso</a>
-
-        </div>
-
-      </div>
-
-      <div class="footer-bottom">
-
-        <span>
-          © 2026 Salutivae. Todos os direitos reservados.
-        </span>
-
-        <span>
-          salutivae.com
-        </span>
-
-      </div>
-
-    </div>
-  </footer>
-
-  <script>
-    const menuButton =
-      document.getElementById("menuButton");
-
-    const menuClose =
-      document.getElementById("menuClose");
-
-    const mobileMenu =
-      document.getElementById("mobileMenu");
-
-    function setMenu(open) {
-      mobileMenu.classList.toggle("open", open);
-
-      document.body.classList.toggle(
-        "menu-open",
-        open
-      );
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        String(open)
+          */
+          "C220 410 219 422 223 434"
+        ].join(" ")
       );
     }
 
-    menuButton.addEventListener(
-      "click",
-      function () {
-        setMenu(true);
-      }
-    );
 
-    menuClose.addEventListener(
-      "click",
-      function () {
-        setMenu(false);
-      }
-    );
+    /*
+      ========================================================
+      2. REMOVER SOMENTE:
+         "Para profissionais da saúde"
+         e o pequeno traço abaixo.
+      ========================================================
+    */
 
-    mobileMenu
-      .querySelectorAll("a")
-      .forEach(function (link) {
-        link.addEventListener(
-          "click",
-          function () {
-            setMenu(false);
-          }
-        );
-      });
+    const professionalTitle =
+      document.querySelector(".hero .prof");
 
-    document
-      .querySelectorAll('a[href^="#"]')
-      .forEach(function (link) {
-        link.addEventListener(
-          "click",
-          function (event) {
-            const selector =
-              link.getAttribute("href");
+    const professionalRule =
+      document.querySelector(".hero .rule");
 
-            if (!selector || selector === "#") {
-              return;
-            }
+    if (professionalTitle) {
+      professionalTitle.remove();
+    }
 
-            const target =
-              document.querySelector(selector);
+    if (professionalRule) {
+      professionalRule.remove();
+    }
 
-            if (!target) {
-              return;
-            }
 
-            event.preventDefault();
+    /*
+      ========================================================
+      3. TROCAR SOMENTE A FRASE FINAL
+      ========================================================
+    */
 
-            const top =
-              target.getBoundingClientRect().top +
-              window.scrollY -
-              18;
-
-            window.scrollTo({
-              top: top,
-              behavior: "smooth"
-            });
-          }
-        );
-      });
-
-    const revealObserver =
-      new IntersectionObserver(
-        function (entries) {
-          entries.forEach(
-            function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add(
-                  "visible"
-                );
-
-                revealObserver.unobserve(
-                  entry.target
-                );
-              }
-            }
-          );
-        },
-        {
-          threshold: 0.12,
-          rootMargin: "0px 0px -40px 0px"
-        }
+    const footerTitle =
+      document.querySelector(
+        ".site-footer .footer-title"
       );
 
-    document
-      .querySelectorAll(".reveal")
-      .forEach(function (element) {
-        revealObserver.observe(element);
-      });
-
-    document
-      .querySelectorAll(".formspree-form")
-      .forEach(function (form) {
-        form.addEventListener(
-          "submit",
-          async function (event) {
-            event.preventDefault();
-
-            const button =
-              form.querySelector(
-                'button[type="submit"]'
-              );
-
-            const panel =
-              form.closest(".form-panel");
-
-            const success =
-              panel.querySelector(
-                ".form-success"
-              );
-
-            const originalText =
-              button.textContent;
-
-            button.disabled = true;
-            button.textContent = "Enviando...";
-
-            try {
-              const response =
-                await fetch(
-                  form.action,
-                  {
-                    method: "POST",
-
-                    body:
-                      new FormData(form),
-
-                    headers: {
-                      Accept:
-                        "application/json"
-                    }
-                  }
-                );
-
-              if (!response.ok) {
-                throw new Error(
-                  "Não foi possível enviar."
-                );
-              }
-
-              form.reset();
-
-              form.style.display =
-                "none";
-
-              success.classList.add(
-                "show"
-              );
-
-            } catch (error) {
-              button.disabled = false;
-
-              button.textContent =
-                originalText;
-
-              alert(
-                "Não foi possível enviar agora. Verifique sua conexão e tente novamente."
-              );
-            }
-          }
-        );
-      });
-  </script>
-
-</body>
-</html>
+    if (footerTitle) {
+      footerTitle.innerHTML =
+        "O cuidado não termina na consulta." +
+        "<br>" +
+        "Ele continua em cada passo.";
+    }
+  })();
+</script>
